@@ -1,0 +1,9 @@
+.venv/
+data/
+runs/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pdf
+WhatsApp Image*.jpeg
+my-chat-history.md
