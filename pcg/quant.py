@@ -274,9 +274,15 @@ def export_onnx(backbone: nn.Module, example: torch.Tensor, path: Path) -> Path:
     return path
 
 
-def ort_quantize_static(fp32_onnx: Path, calib: list[torch.Tensor], out: Path, per_channel: bool = True) -> Path:
-    from onnxruntime.quantization import CalibrationDataReader, QuantFormat, QuantType, quantize_static
+def ort_quantize_static(fp32_onnx: Path, calib: list[torch.Tensor], out: Path, per_channel: bool = True,
+                        calibrate_method: str = "minmax", symmetric_activations: bool = False) -> Path:
+    """ONNX Runtime static QDQ S8S8 quantization.
+    calibrate_method: 'minmax' (ORT default; the condition that collapsed on CirCor fold 2),
+                      'entropy' or 'percentile' (P5 mitigation arms)."""
+    from onnxruntime.quantization import CalibrationDataReader, CalibrationMethod, QuantFormat, QuantType, quantize_static
     from onnxruntime.quantization.shape_inference import quant_pre_process
+    cm = {"minmax": CalibrationMethod.MinMax, "entropy": CalibrationMethod.Entropy,
+          "percentile": CalibrationMethod.Percentile}[calibrate_method]
 
     pre = out.with_suffix(".pre.onnx")
     quant_pre_process(str(fp32_onnx), str(pre))
@@ -289,8 +295,12 @@ def ort_quantize_static(fp32_onnx: Path, calib: list[torch.Tensor], out: Path, p
             b = next(self.it, None)
             return None if b is None else {"x": b.numpy().astype(np.float32)}
 
+    extra = {"ActivationSymmetric": symmetric_activations, "WeightSymmetric": True}
+    if calibrate_method == "percentile":
+        extra["CalibPercentile"] = 99.99
     quantize_static(str(pre), str(out), Reader(), quant_format=QuantFormat.QDQ,
-                    activation_type=QuantType.QInt8, weight_type=QuantType.QInt8, per_channel=per_channel)
+                    activation_type=QuantType.QInt8, weight_type=QuantType.QInt8, per_channel=per_channel,
+                    calibrate_method=cm, extra_options=extra)
     pre.unlink(missing_ok=True)
     return out
 
