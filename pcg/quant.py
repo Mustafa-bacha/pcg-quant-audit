@@ -9,10 +9,17 @@ Conditions implemented
                 `convert()` finishes it
   int4_wo_sim   weight-only INT4, symmetric per-channel, *simulated* (fake-quant) -- no CPU INT4 conv kernels exist
   ort_int8      ONNX Runtime static QDQ S8S8 quantization of the FP32 ONNX export: the deployment path
-                (x86 and Raspberry Pi ARM)
+                (x86 and Raspberry Pi ARM); the only condition that runs real integer kernels here
 
-Explanations are computed on the *prepared* (fake-quant) graph, which keeps autograd, and the
-agreement between fake-quant and converted-INT8 logits is reported (`agreement()`).
+Important facts (verified 2026-10-20 on torch 2.14 / torchao 0.18):
+  * A `convert_pt2e` graph is a QDQ *simulation* (quantize->dequantize in float, INT8 weights as
+    constants). It is numerically what integer kernels compute, but it is not faster on CPU; real INT8
+    speed needs inductor lowering (no MSVC here) or ONNX Runtime. Latency claims use `ort_int8`.
+  * The *prepared* PTQ graph only has pass-through observers: it is FP32. Gradient-based explanations
+    of a PTQ model must use `ste_graph(converted)`, which replaces q/dq pairs by
+    torch.fake_quantize_per_tensor_affine (same values, straight-through gradient).
+  * The prepared QAT graph does use FakeQuantize (STE) modules, but `ste_graph(converted)` is used
+    for both conditions so that explanations always come from the exact deployed numerics.
 
 Quantization unit: for raw-waveform models the whole network; for logmel_cnn only `.backbone`
 (the log-mel front-end stays float, as it would on a device). `split()` handles both.
@@ -175,6 +182,43 @@ def convert_qat(prepared: torch.fx.GraphModule) -> tuple[torch.fx.GraphModule, t
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)
     return reference, convert_pt2e(prepared)
+
+
+def ste_graph(converted: torch.fx.GraphModule) -> torch.fx.GraphModule:
+    """Turn a converted PT2E (QDQ) graph into a *differentiable* fake-quant graph.
+
+    `convert_pt2e` emits quantize_per_tensor -> dequantize_per_tensor pairs around every quantized
+    activation. Numerically that is exactly INT8 arithmetic simulated in float, but the rounding has a
+    zero gradient, and the *prepared* PTQ graph only contains pass-through observers (no rounding at
+    all). This pass replaces each activation q/dq pair with torch.fake_quantize_per_tensor_affine,
+    which computes the same values and carries a straight-through-estimator gradient, so
+    Integrated Gradients / Gradient x Input can be computed on the quantized model.
+    Weight dequantize nodes (int8 constants) are left untouched. Verified bit-identical outputs.
+    """
+    from torch.fx import Node
+    g = copy.deepcopy(converted)
+    qd = torch.ops.quantized_decomposed
+    q_ops = {qd.quantize_per_tensor.default, qd.quantize_per_tensor.tensor}
+    dq_ops = {qd.dequantize_per_tensor.default, qd.dequantize_per_tensor.tensor}
+    n_rewritten = 0
+    for node in list(g.graph.nodes):
+        if node.op != "call_function" or node.target not in dq_ops:
+            continue
+        q = node.args[0]
+        if not (isinstance(q, Node) and q.op == "call_function" and q.target in q_ops):
+            continue
+        x, scale, zp, qmin, qmax = q.args[:5]
+        with g.graph.inserting_before(node):
+            new = g.graph.call_function(torch.fake_quantize_per_tensor_affine, (x, scale, zp, int(qmin), int(qmax)))
+        node.replace_all_uses_with(new)
+        g.graph.erase_node(node)
+        if not q.users:
+            g.graph.erase_node(q)
+        n_rewritten += 1
+    g.graph.lint()
+    g.recompile()
+    g.meta["n_ste_rewrites"] = n_rewritten
+    return g
 
 
 def rebuild_from_state(backbone: nn.Module, example: torch.Tensor, state_path: Path, is_qat: bool,

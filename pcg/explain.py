@@ -115,17 +115,29 @@ def attr_occlusion(assembled: nn.Module, wav: torch.Tensor, block: int = 1000, s
     return attr / np.maximum(count, 1)
 
 
+def disable_inplace(m: nn.Module) -> nn.Module:
+    """In-place activations break hook-based Grad-CAM; switch them off (no numerical change)."""
+    for mod in m.modules():
+        if hasattr(mod, "inplace"):
+            mod.inplace = False
+    return m
+
+
 def attr_gradcam(backbone: nn.Module, feats: torch.Tensor, layer: nn.Module) -> np.ndarray:
-    """Grad-CAM on `layer` (last conv). Returns (N_FRAMES,) profile. FP32 eager modules only."""
-    acts, grads = {}, {}
-    h1 = layer.register_forward_hook(lambda m, i, o: acts.setdefault("a", o))
-    h2 = layer.register_full_backward_hook(lambda m, gi, go: grads.setdefault("g", go[0]))
+    """Grad-CAM on `layer` (last conv). Returns (N_FRAMES,) profile. FP32 eager modules only
+    (call disable_inplace on the backbone first)."""
+    acts = {}
+
+    def fwd_hook(m, i, o):
+        o.retain_grad()
+        acts["a"] = o
+
+    h1 = layer.register_forward_hook(fwd_hook)
     try:
         _present_logit(backbone, feats).sum().backward()
     finally:
         h1.remove()
-        h2.remove()
-    a, g = acts["a"].detach(), grads["g"].detach()
+    a, g = acts["a"].detach(), acts["a"].grad.detach()
     w = g.mean(dim=tuple(range(2, g.ndim)), keepdim=True)
     cam = F.relu((w * a).sum(dim=1))  # (1, T') or (1, F', T')
     cam = cam[0].cpu().numpy()
