@@ -145,7 +145,8 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
             feats = [fe(w[i : i + 64]) for i in range(0, len(w), 64)]
             rates = C.clip_rates(refs["int8_ptq_pc"], feats)
             clip[tag] = C.summarize(rates) | {"per_node": rates}
-            print(f"  clip {tag:16s} mean={clip[tag]['mean_clip_rate']:.4f} max={clip[tag]['max_clip_rate']:.4f} nodes>1%={clip[tag]['nodes_over_1pct']}", flush=True)
+            print(f"  clip {tag:16s} clip={clip[tag]['mean_clip_rate']:.4f} max={clip[tag]['max_clip_rate']:.4f} "
+                  f"span99={clip[tag]['mean_range_span_99']:.3f} at_zero={clip[tag]['mean_frac_at_zero_level']:.3f}", flush=True)
         pd.DataFrame({t: {k: v for k, v in d.items() if k != "per_node"} for t, d in clip.items()}).T.to_csv(sdir / "clipping.csv")
 
     summ = {"model": cfg["model"], "fold": cfg["fold"], "seed": cfg["seed"],

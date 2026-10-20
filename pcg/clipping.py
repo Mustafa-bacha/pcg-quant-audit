@@ -44,8 +44,15 @@ def clip_rates(prepared: torch.fx.GraphModule, inputs: list[torch.Tensor], activ
         def hook(m, inp, out, name=name, scale=scale, zp=zp, qmin=qmin, qmax=qmax):
             x = inp[0].detach().float()
             q = x / scale + zp
-            rate = ((q < qmin) | (q > qmax)).float().mean().item()
-            stats.setdefault(name, []).append(rate)
+            clip = ((q < qmin) | (q > qmax)).float().mean().item()
+            qr = torch.clamp(torch.round(q), qmin, qmax)
+            # resolution actually used: fraction of the integer range spanned by 99% of values, and
+            # fraction of values that collapse onto the single level nearest zero (lost small signals)
+            lo, hi = torch.quantile(qr.flatten()[: 2_000_000], torch.tensor([0.005, 0.995]))
+            span = float((hi - lo) / (qmax - qmin))
+            zero_level = torch.round(torch.as_tensor(zp, dtype=torch.float32))
+            at_zero = float((qr == zero_level).float().mean())
+            stats.setdefault(name, []).append((clip, span, at_zero))
 
         hooks.append(mod.register_forward_hook(hook))
     try:
@@ -54,10 +61,16 @@ def clip_rates(prepared: torch.fx.GraphModule, inputs: list[torch.Tensor], activ
     finally:
         for h in hooks:
             h.remove()
-    return {k: float(np.mean(v)) for k, v in stats.items()}
+    return {k: {"clip_rate": float(np.mean([s[0] for s in v])), "range_span_99": float(np.mean([s[1] for s in v])),
+                "frac_at_zero_level": float(np.mean([s[2] for s in v]))} for k, v in stats.items()}
 
 
-def summarize(rates: dict[str, float]) -> dict[str, float]:
-    v = np.array(list(rates.values())) if rates else np.array([0.0])
-    return {"n_nodes": len(rates), "mean_clip_rate": float(v.mean()), "max_clip_rate": float(v.max()),
-            "nodes_over_1pct": int((v > 0.01).sum())}
+def summarize(rates: dict[str, dict]) -> dict[str, float]:
+    if not rates:
+        return {"n_nodes": 0, "mean_clip_rate": 0.0, "max_clip_rate": 0.0, "nodes_over_1pct": 0,
+                "mean_range_span_99": float("nan"), "mean_frac_at_zero_level": float("nan")}
+    c = np.array([r["clip_rate"] for r in rates.values()])
+    return {"n_nodes": len(rates), "mean_clip_rate": float(c.mean()), "max_clip_rate": float(c.max()),
+            "nodes_over_1pct": int((c > 0.01).sum()),
+            "mean_range_span_99": float(np.mean([r["range_span_99"] for r in rates.values()])),
+            "mean_frac_at_zero_level": float(np.mean([r["frac_at_zero_level"] for r in rates.values()]))}
