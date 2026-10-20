@@ -41,9 +41,12 @@ treat every statement below as a hypothesis to confirm with the other three mode
 | ort_int8 | 0.831 | 0.986 | 0.155 (but specificity 0.69) |
 
 - **Direction consistent with H1**: PTQ and INT4 lose 3–5 points of grade-I sensitivity while grade II–III is
-  unchanged or better, so the grade gap widens. The ORT "improvement" on grade I is an artefact of its shift
-  toward Present. Needs the paired bootstrap CIs (`audit/subgroup_deltas.csv`, n ≈ 104 grade-I patients
-  pooled) and the log-mel models before it is a claim.
+  unchanged or better, so the grade gap widens. The ORT-MinMax "improvement" on grade I is an artefact of its
+  shift toward Present; with percentile calibration the grade-I loss is −0.011.
+- **Not yet significant**: per-fold paired bootstrap deltas for grade I (n ≈ 21 patients per fold) are
+  −0.029 [−0.087, 0.000] for PTQ and −0.048 [−0.125, 0.000] for INT4; every per-fold CI touches zero.
+  A pooled analysis over the 104 grade-I patients (and the 3-seed, 4-model grid) is required before this is
+  a claim. The effect is one-sided in every fold, which is encouraging but not evidence.
 
 ## Explanations (T5)
 - **Faithfulness**: deleting the top IG frames drives P(Present) down far more than random deletion
@@ -78,6 +81,19 @@ treat every statement below as a hypothesis to confirm with the other three mode
   quantization step" hypothesis (H1). To be tested next: per-channel activation ranges / percentile
   calibration as a mitigation, and whether the log-mel models (whose inputs are already compressed) show
   smaller zero-level collapse.
+
+## Mitigations (P5 arms, 5 folds)
+| arm | effect |
+|---|---|
+| **ORT percentile calibration** (99.99th percentile instead of MinMax) | WA **0.781** (vs 0.720 default, FP32 0.783); recording-level agreement 0.99; specificity back to 0.914; ECE 0.130 = FP32. The deployment collapse was entirely a range-calibration artefact. Symmetric activations change nothing further (0.780). |
+| ORT entropy calibration | identical to MinMax on every fold (to verify that the option took effect in ORT 1.31) |
+| **Temperature scaling** fitted on the validation fold | ECE roughly halves for every condition: FP32 0.131 → 0.066, PTQ 0.130 → 0.073, QAT 0.170 → 0.097, ORT-MinMax 0.223 → 0.178. Decisions unchanged (WA identical). AURC slightly worse (0.068 → 0.080) because the max-probability confidence ordering changes. |
+| QAT (5 epochs) | recovers WA (0.779) and grade-I sensitivity (0.777) and is the most noise-robust condition, but doubles AURC and raises ECE unless followed by temperature scaling |
+
+Takeaway for the paper: on this model the *deployment* INT8 path, not quantization per se, caused the
+accuracy and calibration damage, and two cheap fixes (percentile range calibration + post-hoc temperature)
+remove nearly all of it. The residual effects that survive the fixes are the ones worth reporting:
+grade-I sensitivity loss under PTQ/INT4 and the quantization × dataset-shift interaction.
 
 ## Open items before any of this is a result
 1. Repeat for m5, logmel_cnn and effnet_b0 × 3 seeds on Kaggle (`notebooks/kaggle_p1_train.ipynb`).
