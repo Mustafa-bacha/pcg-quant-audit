@@ -1,8 +1,9 @@
 """PhysioNet/CinC 2016 heart-sound challenge: the multi-device external test set (Phase 4).
 
-Layout (S3 mirror `challenge-2016/1.0.0/`):
-    training/training-a/a0001.wav ... + REFERENCE.csv  (name,label)  label: -1 normal, 1 abnormal
-    training/training-b ... training-f
+Layout (S3 mirror `challenge-2016/1.0.0/`, downloaded with
+`scripts/download_circor_s3.py --prefix challenge-2016/1.0.0/ --dest physionet-2016 --only training-,validation/,annotations/`):
+    training-a/a0001.wav ... + REFERENCE.csv  (name,label)  label: -1 normal, 1 abnormal
+    training-b ... training-f
     validation/*.wav + REFERENCE.csv  (300 recordings, drawn from the training sets)
 Recordings are 2,000 Hz; resampled here to 4,000 Hz so the CirCor pipeline applies unchanged.
 Label semantics differ from CirCor (abnormal != murmur): we score P(Present) against "abnormal"
@@ -27,7 +28,7 @@ P16_DIR = RAW_DIR / "physionet-2016"
 def load_metadata(root: Path = P16_DIR, subsets: tuple[str, ...] = ("a", "b", "c", "d", "e", "f")) -> pd.DataFrame:
     rows = []
     for s in subsets:
-        d = root / "training" / f"training-{s}"
+        d = root / f"training-{s}"
         ref = pd.read_csv(d / "REFERENCE.csv", header=None, names=["name", "label"])
         for r in ref.itertuples():
             rows.append({"recording_id": r.name, "subset": s, "wav": d / f"{r.name}.wav",
