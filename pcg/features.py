@@ -16,9 +16,13 @@ from scipy.signal import butter, sosfiltfilt
 
 FS = 4000  # CirCor sample rate, verified in p0_verify_data.py
 
+# Band limits shared with Kutlu & Coban (JCM 2026) and Ludera & Kersten-Oertel (MICCAI 2026 MIRASOL),
+# whose ablation found 25-400 Hz > no filter ~ 25-1000 Hz. See docs/lit_update_2026-10-20.md.
+BAND_LO, BAND_HI = 25.0, 400.0
 
-def bandpass(x: np.ndarray, fs: int = FS, lo: float = 20.0, hi: float = 800.0, order: int = 4) -> np.ndarray:
-    """Zero-phase Butterworth band-pass. Heart sounds and murmurs live roughly in 20-800 Hz."""
+
+def bandpass(x: np.ndarray, fs: int = FS, lo: float = BAND_LO, hi: float = BAND_HI, order: int = 4) -> np.ndarray:
+    """Zero-phase 4th-order Butterworth band-pass (25-400 Hz by default)."""
     sos = butter(order, [lo, hi], btype="band", fs=fs, output="sos")
     return sosfiltfilt(sos, x).astype(np.float32)
 
@@ -43,7 +47,7 @@ def _mel_to_hz(m: float) -> float:
     return 700.0 * (10.0 ** (m / 2595.0) - 1.0)
 
 
-def mel_filterbank(n_mels: int, n_fft: int, fs: int, f_min: float = 20.0, f_max: float = 800.0) -> np.ndarray:
+def mel_filterbank(n_mels: int, n_fft: int, fs: int, f_min: float = BAND_LO, f_max: float = BAND_HI) -> np.ndarray:
     """Slaney-style triangular filterbank, shape (n_mels, n_fft//2 + 1)."""
     n_bins = n_fft // 2 + 1
     fft_freqs = np.linspace(0, fs / 2, n_bins)
@@ -65,14 +69,18 @@ class LogMel(nn.Module):
     """Waveform (B, T) -> log-mel (B, 1, n_mels, frames). Pure torch so it exports to ONNX
     and can sit in front of a quantized backbone (the front-end itself stays float).
 
-    Defaults at 4 kHz: n_fft 256 (64 ms), hop 64 (16 ms), 64 mels over 20-800 Hz.
+    Defaults at 4 kHz: 50 ms window (n_fft 200 -> 256 padded), 25 ms hop (100 samples), 64 mels over
+    25-400 Hz. These match the JCM 2026 benchmark (50 ms / 25 ms / 64 mels / 25-400 Hz at 2 kHz)
+    so that a 5 s window gives 64 x 201 frames in both pipelines.
     """
 
-    def __init__(self, fs: int = FS, n_fft: int = 256, hop: int = 64, n_mels: int = 64,
-                 f_min: float = 20.0, f_max: float = 800.0):
+    def __init__(self, fs: int = FS, n_fft: int = 256, win: int = 200, hop: int = 100, n_mels: int = 64,
+                 f_min: float = BAND_LO, f_max: float = BAND_HI):
         super().__init__()
         self.n_fft, self.hop = n_fft, hop
-        self.register_buffer("window", torch.hann_window(n_fft), persistent=False)
+        w = torch.zeros(n_fft)
+        w[(n_fft - win) // 2 : (n_fft - win) // 2 + win] = torch.hann_window(win)  # centred, zero-padded window
+        self.register_buffer("window", w, persistent=False)
         self.register_buffer("fb", torch.from_numpy(mel_filterbank(n_mels, n_fft, fs, f_min, f_max)), persistent=False)
 
     def forward(self, wav: torch.Tensor) -> torch.Tensor:

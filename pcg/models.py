@@ -71,16 +71,19 @@ class BasicBlock2d(nn.Module):
         self.b1 = nn.BatchNorm2d(cout)
         self.c2 = nn.Conv2d(cout, cout, 3, 1, 1, bias=False)
         self.b2 = nn.BatchNorm2d(cout)
-        self.relu = nn.ReLU(inplace=True)
+        # one ReLU module per use: the PT2E x86 quantizer partitions by module instance and
+        # rejects a module that produces two outputs
+        self.relu1 = nn.ReLU(inplace=True)
+        self.relu2 = nn.ReLU(inplace=True)
         self.short = None
         if stride != 1 or cin != cout:
             self.short = nn.Sequential(nn.Conv2d(cin, cout, 1, stride, bias=False), nn.BatchNorm2d(cout))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         idn = x if self.short is None else self.short(x)
-        out = self.relu(self.b1(self.c1(x)))
+        out = self.relu1(self.b1(self.c1(x)))
         out = self.b2(self.c2(out))
-        return self.relu(out + idn)
+        return self.relu2(out + idn)
 
 
 class LogMelCNN(nn.Module):
@@ -104,7 +107,30 @@ class LogMelCNN(nn.Module):
         return self.backbone(self.features(wav))
 
 
-MODELS = {"tiny_cnn": TinyCNN, "m5": M5, "logmel_cnn": LogMelCNN}
+class EffNetB0LogMel(LogMelCNN):
+    """Log-mel front-end + torchvision EfficientNet-B0 (ImageNet-pretrained, 1-channel stem, 3-way head).
+
+    Included because it appears in both 2026 PCG papers and is the architecture reported as most
+    quantization-fragile (Rabbi 2026, images) and as collapsing under INT8 PTQ on CirCor
+    (Ludera & Kersten-Oertel, MICCAI 2026). ~4.0M params.
+    """
+
+    def __init__(self, n_classes: int = N_CLASSES, pretrained: bool = True, specaugment: bool = True):
+        nn.Module.__init__(self)
+        from torchvision.models import efficientnet_b0
+        self.frontend = LogMel()
+        self.specaug = SpecAugment() if specaugment else nn.Identity()
+        net = efficientnet_b0(weights="DEFAULT" if pretrained else None)
+        stem = net.features[0][0]  # Conv2d(3, 32, 3, stride 2)
+        new_stem = nn.Conv2d(1, stem.out_channels, stem.kernel_size, stem.stride, stem.padding, bias=False)
+        with torch.no_grad():
+            new_stem.weight.copy_(stem.weight.sum(dim=1, keepdim=True))
+        net.features[0][0] = new_stem
+        net.classifier[1] = nn.Linear(net.classifier[1].in_features, n_classes)
+        self.backbone = net
+
+
+MODELS = {"tiny_cnn": TinyCNN, "m5": M5, "logmel_cnn": LogMelCNN, "effnet_b0": EffNetB0LogMel}
 
 
 def build_model(name: str) -> nn.Module:

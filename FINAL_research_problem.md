@@ -98,6 +98,13 @@ It also warns that explanation visualizations "could also significantly mislead 
 | Sun et al., Front AI 2026 | KL attribution regularizer toward frequency-band priors on CirCor | No quantization; explicitly does **not** use S1/S2/systole phases |
 | JCM benchmark, 17 Oct 2026 | Cross-dataset PCG benchmark with 11 methods | FP32 only, as far as could be seen [S]; **read the full text before submitting** |
 
+### 3.1b Addendum 2026-10-20 (full reads; details in `docs/lit_update_2026-10-20.md`)
+- **Ludera & Kersten-Oertel, MICCAI 2026 MIRASOL workshop** is the closest overlap: INT8 static PTQ of six log-mel models on CirCor (3,163 rec / 942 pt) deployed on an Orange Pi Zero 2 W. EfficientNet-B0 and TinyViT *collapse to a near-constant prediction* under INT8 PTQ (Challenge score 0.889→0.784), FastViT falls to 0.311, and a short QAT (10 epochs, lr 1e-5) made it worse. They report accuracy only: no explanations, no calibration, no quantized-subgroup analysis, no shift. Their FP32 supplement gives grade-I sensitivity 0.39–0.58 (n=104), which is the documented baseline for H1.
+  - **Consequence:** the INT8 collapse must be reproduced or refuted with properly calibrated PTQ (per-channel, ≥500 calibration windows). Either outcome is publishable; the experiment is mandatory. EfficientNet-B0 on log-mel is therefore added as a fourth model.
+  - **Wording:** never claim "first INT8 on CirCor". Claim: *first trustworthiness audit of quantized models on 1D physiological signals; prior quantization-XAI work (Rabbi 2026; Angelakis 2026) and quantization-calibration work (Ozdemir 2026) are confined to 2D images, and prior PCG edge work (Ludera 2026) reports accuracy only.*
+- **Kutlu & Çoban, JCM 2026** (the 17 Oct benchmark) tests no compression at all. Use it for CirCor→PhysioNet-2016 FP32 baselines (best external AUROC 0.738, EfficientNet-B0) and for the finding that soft murmurs (MS, MVP) do not transfer. Its preprocessing (25–400 Hz, per-recording z-score, 5 s / 2.5 s windows, 64 mels) is now the project default for comparability.
+- **qZACH-ViT** is imaging-only, intrinsic-explanation QAT; it does not threaten the 1D claim. Its deployment-retention metrics (cosine, Spearman, top-10% overlap of FP32 vs INT8 attributions) are adopted for Phase 3.
+
 ### 3.2 Novelty claims: final verdicts
 | Claim | Verdict | How to phrase it |
 |---|---|---|

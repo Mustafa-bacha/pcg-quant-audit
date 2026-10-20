@@ -7,9 +7,10 @@ Design choices (documented here because reviewers will ask):
   training ("location-aware labels"). Unknown patients give Unknown for every site.
   The patient-level decision is recovered later by max-aggregation (pcg.scoring).
 
-* Windows. Models see fixed 4 s windows (16,000 samples at 4 kHz). Training draws
+* Windows. Models see fixed 5 s windows (20,000 samples at 4 kHz), matching the JCM 2026
+  cross-dataset benchmark (5 s / 2.5 s hop) so shift results stay comparable. Training draws
   `crops_per_recording` random crops per recording per epoch; evaluation slides a
-  window with 2 s hop over the whole recording and averages probabilities.
+  window with 2.5 s hop over the whole recording and averages probabilities.
 
 * Preprocessing (pcg.features.preprocess) is applied once at load time and cached in
   RAM as float32 (~1.2 GB for the full training set).
@@ -25,9 +26,9 @@ from torch.utils.data import Dataset
 from .circor import MURMUR_CLASSES, load_wav
 from .features import FS, preprocess
 
-WINDOW_S = 4.0
+WINDOW_S = 5.0
 WINDOW = int(WINDOW_S * FS)
-EVAL_HOP = int(2.0 * FS)
+EVAL_HOP = int(2.5 * FS)
 
 
 def recording_label(row: pd.Series) -> str:

@@ -33,6 +33,7 @@ DEFAULTS = {  # per-model overrides
     "tiny_cnn": {"lr": 2e-3, "mixup_alpha": 0.0},
     "m5": {"lr": 1e-3, "mixup_alpha": 0.0},
     "logmel_cnn": {"lr": 1e-3, "mixup_alpha": 0.2},
+    "effnet_b0": {"lr": 3e-4, "mixup_alpha": 0.2},  # ImageNet-pretrained -> lower LR
 }
 
 

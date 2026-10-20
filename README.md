@@ -42,9 +42,20 @@ Protocol per run: test = fold k, validation = fold (k+1) mod 5 for checkpoint se
 Outputs land in `runs/<model>/fold<k>/seed<s>/` (config, best checkpoint, history, per-recording test
 probabilities, official patient-level metrics). Finished runs are skipped on re-run, so grids are resumable.
 
-Modules: `pcg/features.py` (20-800 Hz band-pass, per-recording standardisation, torch log-mel front-end),
-`pcg/dataset.py` (location-aware recording labels, 4 s crops, sliding-window eval), `pcg/models.py`
-(tiny_cnn 27k, m5 357k, logmel_cnn 308k params), `pcg/train.py`.
+Modules: `pcg/features.py` (25-400 Hz band-pass, per-recording standardisation, torch log-mel front-end),
+`pcg/dataset.py` (location-aware recording labels, 5 s crops, sliding-window eval with 2.5 s hop),
+`pcg/models.py` (tiny_cnn 27k, m5 357k, logmel_cnn 308k, effnet_b0 4.0M params), `pcg/train.py`.
+Preprocessing choices follow the two 2026 PCG papers summarised in `docs/lit_update_2026-10-20.md`.
+
+## Phase 2: compression
+
+```powershell
+.venv\Scripts\python.exe scripts\p2_quantize.py --model tiny_cnn --folds 0 1 2 3 4 --seeds 0 --qat-epochs 5
+```
+
+Writes `runs/<model>/fold<k>/seed<s>/quant/<condition>/` plus `quant/summary.json` (official metrics per
+condition, agreement with FP32, fake-quant vs INT8 agreement, model size, batch-1 latency). Calibration windows
+come from the training folds (`--calib in_domain`) or the same windows with additive noise (`--calib noise`, H2 probe).
 
 ## Phases (see FINAL_research_problem.md section 10)
 
@@ -52,7 +63,7 @@ Modules: `pcg/features.py` (20-800 Hz band-pass, per-recording standardisation, 
 |---|---|
 | P0 Setup: data, folds, scorer | done locally 2026-10-20 (`scripts/p0_verify_data.py` passes). Still open: ZCHSound access request, reading the JCM 2026 benchmark and qZACH-ViT in full |
 | P1 FP32 baselines | code done 2026-10-20; smoke test passes for all 3 models; full 45-run grid runs on Kaggle (`notebooks/kaggle_p1_train.ipynb`) |
-| P2 Compression sweep | |
+| P2 Compression sweep | code done 2026-10-20 (`pcg/quant.py`, `scripts/p2_quantize.py`): INT8 PTQ per-channel/per-tensor (torchao PT2E), INT8 QAT, INT4 weight-only sim, dynamic INT8, ONNX Runtime INT8; verified on random weights and a smoke checkpoint |
 | P3 Trust audit | |
 | P4 Shift | |
 | P5 Mitigation | |
