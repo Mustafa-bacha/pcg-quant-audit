@@ -135,6 +135,12 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
         conditions["int8_qat"], refs["int8_qat"] = conv, ref
         print(f"  qat {args.qat_epochs} epochs in {time.time() - t0:.0f}s", flush=True)
 
+    # persist fake-quant states so Phase 3 can rebuild the exact graphs (PT2E graphs are not picklable)
+    for cond, ref in refs.items():
+        (qdir / cond).mkdir(exist_ok=True)
+        torch.save(ref.state_dict(), qdir / cond / "prepared_sd.pt")
+    torch.save(calib, qdir / "calib_windows.pt")
+
     summary = {"model": name, "fold": fold, "seed": seed, "calib": args.calib, "n_calib": len(calib),
                "calib_snr": args.calib_snr if args.calib == "noise" else None, "conditions": {}}
     fp32_rec = None

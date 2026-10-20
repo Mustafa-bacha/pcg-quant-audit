@@ -177,6 +177,23 @@ def convert_qat(prepared: torch.fx.GraphModule) -> tuple[torch.fx.GraphModule, t
     return reference, convert_pt2e(prepared)
 
 
+def rebuild_from_state(backbone: nn.Module, example: torch.Tensor, state_path: Path, is_qat: bool,
+                       per_channel: bool = True) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
+    """Recreate (reference_fake_quant, converted_int8) from a saved prepared-graph state_dict.
+    PT2E graphs cannot be pickled, but prepare + load_state_dict reproduces them exactly (verified)."""
+    from torchao.quantization.pt2e import move_exported_model_to_eval
+    from torchao.quantization.pt2e.quantize_pt2e import convert_pt2e, prepare_pt2e
+    if is_qat:
+        prepared = prepare_qat(backbone, example, per_channel)
+    else:
+        prepared = prepare_pt2e(export_backbone(backbone, example), _quantizer(per_channel))
+    res = prepared.load_state_dict(torch.load(state_path, map_location="cpu"), strict=False)
+    assert not res.missing_keys and not res.unexpected_keys, (res.missing_keys, res.unexpected_keys)
+    move_exported_model_to_eval(prepared)
+    reference = copy.deepcopy(prepared)
+    return reference, convert_pt2e(prepared)
+
+
 # --------------------------------------------------------------------------- dynamic INT8 and INT4 simulation
 
 def dynamic_int8(backbone: nn.Module) -> nn.Module:

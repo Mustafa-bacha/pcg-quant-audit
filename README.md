@@ -57,6 +57,20 @@ Writes `runs/<model>/fold<k>/seed<s>/quant/<condition>/` plus `quant/summary.jso
 condition, agreement with FP32, fake-quant vs INT8 agreement, model size, batch-1 latency). Calibration windows
 come from the training folds (`--calib in_domain`) or the same windows with additive noise (`--calib noise`, H2 probe).
 
+## Phase 3: trust audit
+
+```powershell
+.venv\Scripts\python.exe scripts\p3_audit.py --model tiny_cnn --folds 0 1 2 3 4 --seeds 0
+```
+
+Part A (needs only Phase 2's per-recording probabilities): every metric with patient-level stratified bootstrap
+CIs and paired deltas vs FP32 (`audit/conditions_ci.csv`), subgroup sensitivity/specificity with Wilson CIs per
+murmur grade, age group, sex, campaign and site (`audit/subgroups_<cond>.csv`, `audit/subgroup_deltas.csv`),
+reliability bins. Part B (rebuilds the fake-quant graphs from `quant/<cond>/prepared_sd.pt`): Integrated Gradients,
+Gradient x Input, occlusion and FP32 Grad-CAM on test windows with phase annotations; drift vs FP32 (cosine,
+Spearman, top-10% overlap, top-20% IoU), phase relevance (share of attribution in systole, with a
+systole/diastole-swapped control), deletion faithfulness vs random deletion (`audit/explanations.csv`).
+
 ## Phases (see FINAL_research_problem.md section 10)
 
 | Phase | Status |
@@ -64,7 +78,7 @@ come from the training folds (`--calib in_domain`) or the same windows with addi
 | P0 Setup: data, folds, scorer | done locally 2026-10-20 (`scripts/p0_verify_data.py` passes). Still open: ZCHSound access request, reading the JCM 2026 benchmark and qZACH-ViT in full |
 | P1 FP32 baselines | code done 2026-10-20; smoke test passes for all 3 models; full 45-run grid runs on Kaggle (`notebooks/kaggle_p1_train.ipynb`) |
 | P2 Compression sweep | code done 2026-10-20 (`pcg/quant.py`, `scripts/p2_quantize.py`): INT8 PTQ per-channel/per-tensor (torchao PT2E), INT8 QAT, INT4 weight-only sim, dynamic INT8, ONNX Runtime INT8; verified on random weights and a smoke checkpoint |
-| P3 Trust audit | |
+| P3 Trust audit | code done 2026-10-20 (`pcg/metrics.py`, `pcg/explain.py`, `scripts/p3_audit.py`); no real results yet |
 | P4 Shift | |
 | P5 Mitigation | |
 | P6 Writing | |
