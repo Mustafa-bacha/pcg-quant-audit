@@ -175,7 +175,8 @@ def main() -> None:
     if args.p16_subsets and P16.P16_DIR.exists():
         p16_df = P16.load_metadata(subsets=tuple(args.p16_subsets.split(",")))
         if args.p16_max:
-            p16_df = p16_df.groupby("subset", group_keys=False).apply(lambda g: g.sample(min(len(g), args.p16_max // 6), random_state=0)).reset_index(drop=True)
+            p16_df = pd.concat([g.sample(min(len(g), args.p16_max // 6), random_state=0)
+                                for _, g in p16_df.groupby("subset")]).reset_index(drop=True)
         p16_waves = P16.load_waveforms(p16_df)
         print(f"PhysioNet 2016: {len(p16_df)} recordings, abnormal={p16_df['abnormal'].mean():.2f}")
     for m in args.model:

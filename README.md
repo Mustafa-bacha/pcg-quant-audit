@@ -78,7 +78,7 @@ systole/diastole-swapped control), deletion faithfulness vs random deletion (`au
 | P0 Setup: data, folds, scorer | done locally 2026-10-20 (`scripts/p0_verify_data.py` passes). Still open: ZCHSound access request, reading the JCM 2026 benchmark and qZACH-ViT in full |
 | P1 FP32 baselines | code done 2026-10-20. tiny_cnn 5-fold seed 0 on the laptop: WA 0.783 ± 0.020, AUROC 0.862. The other models and seeds run on Kaggle (`notebooks/kaggle_p1_train.ipynb`) |
 | P2 Compression sweep | code done 2026-10-20 (`pcg/quant.py`, `scripts/p2_quantize.py`): INT8 PTQ per-channel/per-tensor (torchao PT2E), INT8 QAT, INT4 weight-only sim, dynamic INT8, ONNX Runtime INT8; verified on random weights and a smoke checkpoint |
-| P3 Trust audit | code done 2026-10-20 (`pcg/metrics.py`, `pcg/explain.py`, `scripts/p3_audit.py`); no real results yet |
-| P4 Shift | |
+| P3 Trust audit | done for tiny_cnn seed 0 (5 folds). Key numbers in `results/INTERIM_FINDINGS.md` |
+| P4 Shift | done for tiny_cnn fold 0 (full PhysioNet 2016), folds 1-4 with a 900-recording subsample. H2 clipping not supported; quantization x dataset-shift interaction is large |
 | P5 Mitigation | |
 | P6 Writing | |

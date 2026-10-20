@@ -126,6 +126,12 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
     onnx_fp = Q.export_onnx(bb, calib_in[0][:8], qdir / "backbone_fp32.onnx")
     onnx_q = Q.ort_quantize_static(onnx_fp, calib_in, qdir / "backbone_int8.onnx")
     conditions["ort_int8"] = Q.OrtBackbone(onnx_q, threads=args.threads)
+    if args.ort_mitigations:  # P5 arms: better range calibration for the deployment path
+        for tag, cm, sym in (("ort_int8_pct", "percentile", False), ("ort_int8_ent", "entropy", False),
+                             ("ort_int8_pct_sym", "percentile", True)):
+            p = Q.ort_quantize_static(onnx_fp, calib_in, qdir / f"backbone_{tag}.onnx", calibrate_method=cm,
+                                      symmetric_activations=sym)
+            conditions[tag] = Q.OrtBackbone(p, threads=args.threads)
     print(f"  ptq/int4/dynamic/ort built in {time.time() - t0:.0f}s", flush=True)
     if args.qat_epochs > 0:
         t0 = time.time()
@@ -150,6 +156,9 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
         asm = AssembledEval(fe, backbone)
         rec = predict_recordings(asm, te, waves, device, batch_windows=128)
         rec.to_csv(cdir / "rec_probs_test.csv", index=False)
+        if args.predict_val:  # validation-fold predictions: needed to fit post-hoc temperature scaling (P5)
+            va = rdf[rdf["f"] == cfg["val_fold"]]
+            predict_recordings(asm, va, waves, device, batch_windows=128).to_csv(cdir / "rec_probs_val.csv", index=False)
         pm = patient_metrics(rec, pdf)
         (cdir / "patient_test.json").write_text(json.dumps(pm, indent=1))
         entry = {"metrics": pm}
@@ -167,8 +176,8 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
         if cond in refs:
             # sanity: the differentiable STE rewrite must reproduce the converted QDQ graph exactly
             entry["ste_vs_qdq"] = Q.agreement(Q.ste_graph(backbone), backbone, calib_in[:4])
-        if cond == "ort_int8":
-            entry["size_bytes"] = onnx_q.stat().st_size
+        if cond.startswith("ort_int8"):
+            entry["size_bytes"] = (qdir / f"backbone_{cond if cond != 'ort_int8' else 'int8'}.onnx").stat().st_size
             entry["size_bytes_onnx_fp32"] = onnx_fp.stat().st_size
         if cond != "int8_dynamic":
             entry["latency_b1"] = Q.latency_ms(backbone, x1, n_iter=args.lat_iter, threads=args.threads)
@@ -193,6 +202,8 @@ def main() -> None:
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--lat-iter", type=int, default=30)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--predict-val", action="store_true", help="also save validation-fold probabilities per condition (for temperature scaling)")
+    ap.add_argument("--ort-mitigations", action="store_true", help="add ORT percentile/entropy/symmetric calibration conditions (P5)")
     args = ap.parse_args()
 
     pdf, rdf = load_metadata()
