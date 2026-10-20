@@ -15,6 +15,7 @@ Outputs in <runs>/<model>/fold<k>/seed<s>/:
 
 from __future__ import annotations
 
+import functools
 import json
 import math
 import time
@@ -34,6 +35,8 @@ from .dataset import TrainCrops, eval_windows, load_waveforms
 from .models import build_model, n_params
 from .scoring import aggregate_recordings_to_patient, score_arrays
 from .splits import DEFAULT_SPLIT_FILE, load_folds
+
+print = functools.partial(print, flush=True)  # logs must appear live when stdout is a file (Kaggle, background runs)
 
 
 @dataclass
