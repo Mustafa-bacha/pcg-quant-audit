@@ -20,10 +20,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from pcg import RAW_DIR  # noqa: E402
 
 BUCKET = "https://physionet-open.s3.amazonaws.com"
+# Any PhysioNet open dataset works: pass the bucket prefix and a destination folder name, e.g.
+#   python scripts/download_circor_s3.py --prefix challenge-2016/1.0.0/ --dest physionet-2016
 PREFIX = "circor-heart-sound/1.0.3/"
 DEST = RAW_DIR / "circor-heart-sound-1.0.3"
 NS = {"s3": "http://s3.amazonaws.com/doc/2006-03-01/"}
 WORKERS = 24
+if "--prefix" in sys.argv:
+    PREFIX = sys.argv[sys.argv.index("--prefix") + 1]
+if "--dest" in sys.argv:
+    DEST = RAW_DIR / sys.argv[sys.argv.index("--dest") + 1]
+# --only a,b : keep only keys whose path (after the prefix) starts with one of these
+ONLY = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else None
 
 
 def list_keys() -> list[tuple[str, int]]:
@@ -65,6 +73,8 @@ def fetch(session: requests.Session, key: str, size: int) -> int:
 
 def main() -> None:
     keys = list_keys()
+    if ONLY:
+        keys = [(k, s) for k, s in keys if any(k[len(PREFIX):].startswith(o) for o in ONLY)]
     total = sum(s for _, s in keys)
     print(f"{len(keys)} objects, {total / 1e6:.0f} MB under s3://physionet-open/{PREFIX}", flush=True)
     done_bytes, n_done, t0 = 0, 0, time.time()
