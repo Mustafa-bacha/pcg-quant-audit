@@ -165,7 +165,8 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
                 "rec_max_abs_dp": float(np.abs(d).max()),
             }
         if cond in refs:
-            entry["fakequant_vs_int8"] = Q.agreement(refs[cond], backbone, calib_in[:4])
+            # sanity: the differentiable STE rewrite must reproduce the converted QDQ graph exactly
+            entry["ste_vs_qdq"] = Q.agreement(Q.ste_graph(backbone), backbone, calib_in[:4])
         if cond == "ort_int8":
             entry["size_bytes"] = onnx_q.stat().st_size
             entry["size_bytes_onnx_fp32"] = onnx_fp.stat().st_size

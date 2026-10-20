@@ -22,9 +22,15 @@ fake-quant graphs) and ort_int8 (occlusion only):
 from __future__ import annotations
 
 import argparse
+import functools
 import json
 import sys
 from pathlib import Path
+
+print = functools.partial(print, flush=True)
+import warnings  # noqa: E402
+
+warnings.filterwarnings("ignore", message="All-NaN slice")
 
 import numpy as np
 import pandas as pd
@@ -115,13 +121,14 @@ def build_backbones(run_dir: Path, name: str, calib: torch.Tensor):
     fe.eval()
     ex = Q.backbone_inputs(fe, [calib[:8]])[0]
     qdir = run_dir / "quant"
-    grad_bb, int8_bb = {"fp32": Q.fold_bn(bb)}, {}
+    grad_bb, int8_bb = {"fp32": X.disable_inplace(Q.fold_bn(bb))}, {}
     for cond, is_qat in (("int8_ptq_pc", False), ("int8_qat", True)):
         sd = qdir / cond / "prepared_sd.pt"
         if sd.exists():
-            ref, conv = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=True)
-            grad_bb[cond], int8_bb[cond] = ref, conv
-    grad_bb["int4_wo_sim"] = Q.int4_weight_only_sim(Q.fold_bn(bb))
+            _, conv = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=True)
+            # gradient methods need the STE rewrite of the converted (QDQ) graph: same numbers, STE gradient
+            grad_bb[cond], int8_bb[cond] = Q.ste_graph(conv), conv
+    grad_bb["int4_wo_sim"] = X.disable_inplace(Q.int4_weight_only_sim(Q.fold_bn(bb)))
     if (qdir / "backbone_int8.onnx").exists():
         int8_bb["ort_int8"] = Q.OrtBackbone(qdir / "backbone_int8.onnx", threads=4)
     return fe, grad_bb, int8_bb
