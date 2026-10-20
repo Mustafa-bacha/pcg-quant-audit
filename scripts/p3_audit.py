@@ -74,6 +74,20 @@ def part_a(run_dir: Path, pdf, args) -> None:
         print("  [part A] no quant/fp32 -> run p2_quantize.py first")
         return
     tables = {"fp32": tables.pop("fp32")} | tables
+    # P5 mitigation arm: post-hoc temperature scaling of P(Present), fitted on the validation fold
+    # (needs p2_quantize.py --predict-val). Applied to the quantized conditions and to FP32 for reference.
+    for cond in list(tables):
+        fv = qdir / cond / "rec_probs_val.csv"
+        if not fv.exists():
+            continue
+        tv = M.patient_table(pd.read_csv(fv, dtype={"patient_id": str, "recording_id": str}), pdf)
+        logit = lambda p: np.log(np.clip(p, 1e-6, 1 - 1e-6) / (1 - np.clip(p, 1e-6, 1 - 1e-6)))
+        T = M.temperature_scale(logit(tv["p_present"].values), tv["y_present"].values)
+        t = tables[cond].copy()
+        t["p_present"] = 1 / (1 + np.exp(-logit(t["p_present"].values) / T))
+        # keep the 3-class decision unchanged; TS only recalibrates the Present probability
+        t.attrs["temperature"] = T
+        tables[f"{cond}_ts"] = t
     ci = M.compare_conditions(tables, "fp32", args.n_boot, args.seed)
     ci.to_csv(adir / "conditions_ci.csv", index=False)
     for cond, t in tables.items():

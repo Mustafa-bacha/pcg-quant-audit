@@ -57,20 +57,27 @@ treat every statement below as a hypothesis to confirm with the other three mode
   (ΔPRR_sys within ±0.01 for PTQ/INT4, +0.025 for QAT occlusion). This is a faithfulness finding about the
   model itself and needs the phase-restricted deletion test before interpretation.
 
-## Shift (T6, fold 0 only so far)
-- **Zero-shot PhysioNet 2016** (adult, multi-device; P(Present) vs "abnormal"): FP32 AUROC **0.557**, i.e.
+## Shift (T6, 5 folds; fold 0 on all 3,240 PhysioNet-2016 recordings, folds 1–4 on a 900-recording subsample)
+- **Zero-shot PhysioNet 2016** (adult, multi-device; P(Present) vs "abnormal"): FP32 AUROC **0.545 ± 0.044**,
   near chance for this 27k-param model (the JCM 2026 benchmark reaches 0.70–0.74 with 1–4M-param models).
-  Quantization makes the transfer *worse*: INT8 PTQ 0.488 (Δ −0.07), QAT 0.490, **ORT INT8 0.343 (Δ −0.21,
-  below chance = systematically inverted)**, while INT4 weight-only is unchanged (0.550). The
-  quantization × shift interaction is therefore large relative to the in-domain cost (−0.015 WA).
-- **SNR sweep** (additive white noise on the test fold): FP32 WA 0.773 → 0.720 (20 dB) → 0.645 (10 dB) →
-  0.576 (5 dB) → 0.385 (0 dB = the all-Absent score). The INT8 conditions track FP32 within ±0.01 at every
-  SNR, i.e. **no extra fragility to white noise from quantization**; QAT is slightly *more* robust (0.482 at
-  0 dB, 0.679 at 10 dB).
-- **H2 (range saturation) is not supported** for this model: the in-domain-calibrated INT8 graph clips
-  < 0.02% of activations on clean CirCor and 0% on noisy and PhysioNet inputs. The transfer loss under
-  quantization must come from lost resolution, not clipping; `pcg/clipping.py` now also reports the 99%
-  range span and the fraction of activations collapsing onto the zero level, to test that next.
+  Quantization makes the transfer *worse* in every fold: INT8 PTQ **−0.030 ± 0.022**, QAT −0.040 ± 0.018,
+  **ORT INT8 −0.099 ± 0.069** (fold 0: 0.343, below chance), while INT4 weight-only is unchanged (+0.002).
+  ECE under shift rises from 0.26 to 0.29 (PTQ) and 0.36 (ORT). The quantization × dataset-shift
+  interaction is therefore 2–6× the in-domain cost (−0.015 WA).
+- **SNR sweep** (additive white noise on the test fold, 5-fold means): FP32 WA 0.783 → 0.754 (20 dB) →
+  0.675 (10 dB) → 0.574 (5 dB) → 0.387 (0 dB = the all-Absent score). The INT8 PTQ conditions track FP32
+  within ±0.003 at every SNR: **no extra fragility to white noise from post-training quantization**. QAT
+  is *more* robust at low SNR (+0.022 at 5 dB, +0.042 at 0 dB), presumably because its 5 fine-tuning epochs
+  with gain/polarity augmentation act as extra regularisation.
+- **H2 as "range saturation" is refuted** for this model: the in-domain-calibrated INT8 graph clips ≤ 0.1%
+  of activations on every input set (max 0.6% on one node at 0 dB). The mechanism is **lost resolution,
+  not clipping**: 99% of activation values span only **25–30% of the INT8 range** (the histogram observer
+  widens the range to fit rare S1/S2 peaks) and **27–35% of all activations collapse onto the single
+  zero level**, rising with noise (0.29 clean → 0.35 at 0 dB). Quiet signal content therefore lives in a
+  handful of integer levels, which is the quantitative form of the "quiet murmurs fall below the
+  quantization step" hypothesis (H1). To be tested next: per-channel activation ranges / percentile
+  calibration as a mitigation, and whether the log-mel models (whose inputs are already compressed) show
+  smaller zero-level collapse.
 
 ## Open items before any of this is a result
 1. Repeat for m5, logmel_cnn and effnet_b0 × 3 seeds on Kaggle (`notebooks/kaggle_p1_train.ipynb`).
