@@ -239,13 +239,13 @@ Static PTQ fixes activation ranges using CirCor calibration data. Noisy recordin
 
 ## 10. Implementation roadmap
 
-| Phase | Weeks | Deliverable |
-|---|---|---|
-| **P0 Setup** | 1 | Download CirCor; recompute the counts above; patient-level folds; official scorer wired in; request ZCHSound access; read the JCM 2026 benchmark and qZACH-ViT in full |
-| **P1 FP32 baselines** | 2–3 | Raw-waveform 1D CNN, log-mel 2D CNN and tiny CNN × 5 folds × 3 seeds. Target CV WA ~0.70–0.78 |
-| **P2 Compression sweep** | 4 | All PTQ/QAT/INT4-sim conditions; fake-quant vs. INT8 agreement; ONNX export; Pi latency |
-| **P3 Trust audit** | 5–6 | RQ1–RQ3: subgroup, calibration and explanation tables; H1 analysis (grade × representation × precision) |
-| **P4 Shift** | 7–8 | RQ4: campaign shift, ZCHSound, PhysioNet 2016, SNR sweep; per-layer clipping analysis (H2) |
+| Phase | Weeks | Deliverable | Status 2026-10-20 |
+|---|---|---|---|
+| **P0 Setup** | 1 | Download CirCor; recompute the counts above; patient-level folds; official scorer wired in; request ZCHSound access; read the JCM 2026 benchmark and qZACH-ViT in full | Done except ZCHSound request (user). Papers read: `docs/lit_update_2026-10-20.md` |
+| **P1 FP32 baselines** | 2–3 | Raw-waveform 1D CNN, log-mel 2D CNN, tiny CNN **and EfficientNet-B0** × 5 folds × 3 seeds. Target CV WA ~0.70–0.78 | Code done (`scripts/p1_train.py`, Kaggle notebook). tiny_cnn fold 0 (old preprocessing): WA 0.753 |
+| **P2 Compression sweep** | 4 | All PTQ/QAT/INT4-sim conditions; fake-quant vs. INT8 agreement; ONNX export; Pi latency | Code done and mechanically verified (`scripts/p2_quantize.py`). Pi latency needs hardware |
+| **P3 Trust audit** | 5–6 | RQ1–RQ3: subgroup, calibration and explanation tables; H1 analysis (grade × representation × precision) | Code written (`scripts/p3_audit.py`), end-to-end check pending |
+| **P4 Shift** | 7–8 | RQ4: campaign shift, ZCHSound, PhysioNet 2016, SNR sweep; per-layer clipping analysis (H2) | Code written (`scripts/p4_shift.py`); PhysioNet 2016 downloading; clipping analysis not yet implemented |
 | **P5 Mitigation** | 9–10 | RQ5 fixes plus the baseline from claim D; optional phase-masked alignment; ESP32-S3 demo |
 | **P6 Writing** | 11–12 | Paper, figures, code release (GitHub + model card) |
 
