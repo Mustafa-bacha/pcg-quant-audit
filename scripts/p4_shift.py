@@ -60,7 +60,7 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
         print(f"[skip] {sdir}")
         return json.loads((sdir / "summary.json").read_text())
     sdir.mkdir(exist_ok=True)
-    fe, conds, _, cfg = load_conditions(run_dir, want=CONDS)
+    fe, conds, refs, cfg = load_conditions(run_dir, want=CONDS)
     conds = {k: conds[k] for k in CONDS if k in conds}
     folds = load_folds(Path(cfg["split_file"]))
     te = rdf[rdf["patient_id"].map(folds) == cfg["test_fold"]]
@@ -121,9 +121,36 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
             p16[f"delta_{m}"] = p16[m] - base[m]
         p16.to_csv(sdir / "physionet2016.csv", index=False)
 
+    # H2: clipping rates of the in-domain-calibrated PTQ graph on clean / noisy / foreign-device windows
+    clip = {}
+    if "int8_ptq_pc" in refs:
+        from pcg import clipping as C
+        from pcg.dataset import WINDOW, _pad_to
+        rng = np.random.default_rng(cfg["seed"])
+
+        def windows_from(wdict: dict, ids, n=256):
+            out = []
+            for rid in rng.choice(list(ids), size=min(n, len(ids)), replace=False):
+                x = _pad_to(wdict[rid], WINDOW)
+                s = int(rng.integers(0, len(x) - WINDOW + 1))
+                out.append(x[s : s + WINDOW])
+            return torch.from_numpy(np.stack(out))
+
+        sets = {"circor_clean": windows_from(waves, te["recording_id"])}
+        for snr in args.snr:
+            sets[f"circor_snr{int(snr)}"] = windows_from(add_noise({k: waves[k] for k in te["recording_id"]}, snr, cfg["seed"]), te["recording_id"])
+        if p16_waves is not None:
+            sets["physionet2016"] = windows_from(p16_waves, p16_df["recording_id"])
+        for tag, w in sets.items():
+            feats = [fe(w[i : i + 64]) for i in range(0, len(w), 64)]
+            rates = C.clip_rates(refs["int8_ptq_pc"], feats)
+            clip[tag] = C.summarize(rates) | {"per_node": rates}
+            print(f"  clip {tag:16s} mean={clip[tag]['mean_clip_rate']:.4f} max={clip[tag]['max_clip_rate']:.4f} nodes>1%={clip[tag]['nodes_over_1pct']}", flush=True)
+        pd.DataFrame({t: {k: v for k, v in d.items() if k != "per_node"} for t, d in clip.items()}).T.to_csv(sdir / "clipping.csv")
+
     summ = {"model": cfg["model"], "fold": cfg["fold"], "seed": cfg["seed"],
             "noise": noise.to_dict(orient="records"), "campaign": camp.to_dict(orient="records"),
-            "physionet2016": rows_p}
+            "physionet2016": rows_p, "clipping": clip}
     (sdir / "summary.json").write_text(json.dumps(summ, indent=1, default=float))
     return summ
 
