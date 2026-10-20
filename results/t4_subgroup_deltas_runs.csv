@@ -1,0 +1,1213 @@
+cond,subgroup,level,n,metric,delta,ci_lo,ci_hi,p_two_sided,model,fold,seed
+int4_wo_sim,grade_group,grade I (soft),22,sensitivity,-0.0909090909090909,-0.2272727272727273,0.0,0.208,tiny_cnn,0,0
+int4_wo_sim,grade_group,grade I (soft),22,ece,0.0275999293315427,0.0142238931281944,0.040790278565772,0.0,tiny_cnn,0,0
+int4_wo_sim,grade_group,no murmur,153,specificity,0.0326797385620915,0.0065359477124183,0.065359477124183,0.008,tiny_cnn,0,0
+int4_wo_sim,grade_group,no murmur,153,ece,-0.0387207348058151,-0.0429228384021884,-0.0342946724126186,0.0,tiny_cnn,0,0
+int4_wo_sim,grade_group,grade II-III,14,sensitivity,-0.0714285714285715,-0.2142857142857143,0.0,0.708,tiny_cnn,0,0
+int4_wo_sim,grade_group,grade II-III,14,ece,0.0201126932466366,0.0027135962791033,0.0457811918775545,0.0,tiny_cnn,0,0
+int4_wo_sim,age_group,Child,133,sensitivity,-0.0689655172413792,-0.17402950310559,0.0,0.268,tiny_cnn,0,0
+int4_wo_sim,age_group,Child,133,specificity,0.0384615384615384,0.009090909090909,0.080027027027027,0.042,tiny_cnn,0,0
+int4_wo_sim,age_group,Child,133,ece,-0.0333604025716395,-0.0441058964150424,0.0112756016846075,0.198,tiny_cnn,0,0
+int4_wo_sim,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+int4_wo_sim,age_group,Adolescent,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int4_wo_sim,age_group,Adolescent,17,ece,-0.01496355808778,-0.0320714899996332,-0.0017458353253237,0.028,tiny_cnn,0,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,sensitivity,-1.0,-1.0,-1.0,0.0,tiny_cnn,0,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,ece,-0.0291458361086782,-0.0416013170888778,-0.0126139333410747,0.004,tiny_cnn,0,0
+int4_wo_sim,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+int4_wo_sim,age_group,Neonate+Infant,22,specificity,0.0555555555555555,0.0,0.1764705882352941,0.686,tiny_cnn,0,0
+int4_wo_sim,age_group,Neonate+Infant,22,ece,-0.072809597342574,-0.108408715123789,-0.0215572787385666,0.002,tiny_cnn,0,0
+int4_wo_sim,sex,Male,85,sensitivity,-0.0526315789473684,-0.176470588235294,0.0,0.752,tiny_cnn,0,0
+int4_wo_sim,sex,Male,85,specificity,0.0303030303030302,0.0,0.0793650793650794,0.24,tiny_cnn,0,0
+int4_wo_sim,sex,Male,85,ece,-0.001970213761212,-0.0403258099170146,0.0255942055613663,0.534,tiny_cnn,0,0
+int4_wo_sim,sex,Female,104,sensitivity,-0.1176470588235294,-0.2857142857142857,0.0,0.242,tiny_cnn,0,0
+int4_wo_sim,sex,Female,104,specificity,0.0344827586206896,0.0,0.07612922705314,0.088,tiny_cnn,0,0
+int4_wo_sim,sex,Female,104,ece,-0.0345199272012925,-0.0520270711619584,0.0084935235867798,0.1,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2015,112,sensitivity,-0.1304347826086956,-0.2858630952380952,0.0,0.124,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2015,112,specificity,0.0224719101123596,0.0,0.0581395348837209,0.25,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2015,112,ece,-0.0314330438883904,-0.0555161546609245,0.0267944701902296,0.3,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2014,77,specificity,0.046875,0.0,0.1017260717846459,0.078,tiny_cnn,0,0
+int4_wo_sim,campaign,CC2014,77,ece,-0.0123760147304127,-0.042464753348779,0.0146515251937874,0.226,tiny_cnn,0,0
+int4_wo_sim,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int4_wo_sim,most_audible,TV,12,ece,0.0239143059588284,0.0096186773320953,0.0404319882835585,0.0,tiny_cnn,0,0
+int4_wo_sim,most_audible,PV,13,sensitivity,-0.2307692307692307,-0.4615384615384615,0.0,0.054,tiny_cnn,0,0
+int4_wo_sim,most_audible,PV,13,ece,0.0319655726518496,0.0110458640754758,0.0611313312300035,0.0,tiny_cnn,0,0
+int4_wo_sim,murmur,Present,36,sensitivity,-0.0833333333333333,-0.1944444444444444,0.0,0.068,tiny_cnn,0,0
+int4_wo_sim,murmur,Present,36,ece,0.0246882264096347,0.0138418070193399,0.0372568088472123,0.0,tiny_cnn,0,0
+int4_wo_sim,murmur,Absent,139,specificity,0.0359712230215827,0.0071942446043165,0.0719424460431654,0.016,tiny_cnn,0,0
+int4_wo_sim,murmur,Absent,139,ece,-0.0383350556971531,-0.043004834824727,-0.0339966269309891,0.0,tiny_cnn,0,0
+int4_wo_sim,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int4_wo_sim,murmur,Unknown,14,ece,-0.042549977384674,-0.0595625336143972,-0.0281108316067311,0.0,tiny_cnn,0,0
+int8_dynamic,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,grade_group,grade I (soft),22,ece,0.0003761050554508,0.0001918890611719,0.0006085544923066,0.0,tiny_cnn,0,0
+int8_dynamic,grade_group,no murmur,153,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,grade_group,no murmur,153,ece,-0.0005277550318457,-0.0005990474607835,-0.0004558752632325,0.0,tiny_cnn,0,0
+int8_dynamic,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,grade_group,grade II-III,14,ece,0.0001065070967302,-4.288009974559407e-06,0.0002336993419823,0.064,tiny_cnn,0,0
+int8_dynamic,age_group,Child,133,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,age_group,Child,133,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,age_group,Child,133,ece,-0.000437499818393,-0.0061974732532305,-0.0001405831435386,0.004,tiny_cnn,0,0
+int8_dynamic,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+int8_dynamic,age_group,Adolescent,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,age_group,Adolescent,17,ece,-0.0001907662062463,-0.0005528073550457,6.749592713076595e-05,0.112,tiny_cnn,0,0
+int8_dynamic,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.254,tiny_cnn,0,0
+int8_dynamic,age_group,Unknown/Pregnant,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,age_group,Unknown/Pregnant,17,ece,-0.000462054067706,-0.0006555572579261,-0.0002477249592349,0.0,tiny_cnn,0,0
+int8_dynamic,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+int8_dynamic,age_group,Neonate+Infant,22,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,age_group,Neonate+Infant,22,ece,-0.00034306030231,-0.0007834046944935,-7.556320724489598e-05,0.022,tiny_cnn,0,0
+int8_dynamic,sex,Male,85,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,sex,Male,85,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,sex,Male,85,ece,-0.0003059053661513,-0.0097209531607878,3.961418460270636e-06,0.054,tiny_cnn,0,0
+int8_dynamic,sex,Female,104,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,sex,Female,104,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,sex,Female,104,ece,-0.0004779471592479,-0.000541992784125,-0.0002198339207048,0.0,tiny_cnn,0,0
+int8_dynamic,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,campaign,CC2015,112,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,campaign,CC2015,112,ece,-0.0004809819693599,-0.0005320880029736,-6.344697717029228e-05,0.024,tiny_cnn,0,0
+int8_dynamic,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,campaign,CC2014,77,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,campaign,CC2014,77,ece,-0.0003753726490557,-0.0054881761994214,-0.0002126862147743,0.0,tiny_cnn,0,0
+int8_dynamic,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,most_audible,TV,12,ece,0.0002078570205196,4.450973206282412e-05,0.0004065615639498,0.014,tiny_cnn,0,0
+int8_dynamic,most_audible,PV,13,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,most_audible,PV,13,ece,0.0003630672701515,0.0001073400525783,0.0007128314412483,0.002,tiny_cnn,0,0
+int8_dynamic,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,murmur,Present,36,ece,0.0002712614048371,0.0001499987987249,0.0004148465769123,0.0,tiny_cnn,0,0
+int8_dynamic,murmur,Absent,139,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,murmur,Absent,139,ece,-0.0005313090071588,-0.000598778548051,-0.0004540841936826,0.0,tiny_cnn,0,0
+int8_dynamic,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_dynamic,murmur,Unknown,14,ece,-0.0004924691340947,-0.0008159704542839,-0.000193784426547,0.004,tiny_cnn,0,0
+int8_ptq_pc,grade_group,grade I (soft),22,sensitivity,-0.0454545454545454,-0.1363636363636364,0.0,0.768,tiny_cnn,0,0
+int8_ptq_pc,grade_group,grade I (soft),22,ece,0.0098367008675487,-0.0091063193872583,0.0275889114557173,0.334,tiny_cnn,0,0
+int8_ptq_pc,grade_group,no murmur,153,specificity,-0.0196078431372548,-0.0588235294117647,0.0196078431372548,0.412,tiny_cnn,0,0
+int8_ptq_pc,grade_group,no murmur,153,ece,0.0204069491270943,0.0115724313852059,0.0299628964331604,0.0,tiny_cnn,0,0
+int8_ptq_pc,grade_group,grade II-III,14,sensitivity,0.0714285714285714,0.0,0.2142857142857143,0.71,tiny_cnn,0,0
+int8_ptq_pc,grade_group,grade II-III,14,ece,-0.008685023303904,-0.0395989817723321,0.0101937467739876,0.712,tiny_cnn,0,0
+int8_ptq_pc,age_group,Child,133,sensitivity,0.0,-0.1034936479128856,0.1071428571428571,1.268,tiny_cnn,0,0
+int8_ptq_pc,age_group,Child,133,specificity,-0.0096153846153846,-0.0550458715596329,0.0294117647058823,0.866,tiny_cnn,0,0
+int8_ptq_pc,age_group,Child,133,ece,0.0058699461086879,-0.0265699418555672,0.033798049465407,0.564,tiny_cnn,0,0
+int8_ptq_pc,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+int8_ptq_pc,age_group,Adolescent,17,specificity,-0.0666666666666666,-0.2142857142857143,0.0,0.67,tiny_cnn,0,0
+int8_ptq_pc,age_group,Adolescent,17,ece,0.0261339829989981,-0.011388566838472,0.0575970479725398,0.124,tiny_cnn,0,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.254,tiny_cnn,0,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,specificity,-0.0625,-0.1875,0.0,0.674,tiny_cnn,0,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,ece,0.0306583291977049,-0.0039732569628376,0.0653946870635468,0.086,tiny_cnn,0,0
+int8_ptq_pc,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+int8_ptq_pc,age_group,Neonate+Infant,22,specificity,0.0,-0.1428571428571429,0.1578947368421053,1.284,tiny_cnn,0,0
+int8_ptq_pc,age_group,Neonate+Infant,22,ece,0.0490185998368963,0.0026019704649662,0.0874557081000726,0.026,tiny_cnn,0,0
+int8_ptq_pc,sex,Male,85,sensitivity,0.0,-0.15,0.1500961538461537,1.302,tiny_cnn,0,0
+int8_ptq_pc,sex,Male,85,specificity,0.0151515151515151,-0.03125,0.072463768115942,0.758,tiny_cnn,0,0
+int8_ptq_pc,sex,Male,85,ece,0.0312886381520828,-0.0408595719115643,0.0514111493350348,0.534,tiny_cnn,0,0
+int8_ptq_pc,sex,Female,104,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pc,sex,Female,104,specificity,-0.0459770114942529,-0.1000316455696203,0.0,0.09,tiny_cnn,0,0
+int8_ptq_pc,sex,Female,104,ece,0.0111698635885686,-0.0148824750606373,0.0435604462747902,0.334,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2015,112,sensitivity,-0.0434782608695651,-0.1380541871921182,0.0,0.73,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2015,112,specificity,-0.0112359550561798,-0.0505244755244755,0.0232558139534883,0.784,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2015,112,ece,0.0077809085499149,-0.0292185151870967,0.0422769546377601,0.704,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2014,77,sensitivity,0.0769230769230769,0.0,0.25,0.74,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2014,77,specificity,-0.03125,-0.1076923076923076,0.0338983050847457,0.554,tiny_cnn,0,0
+int8_ptq_pc,campaign,CC2014,77,ece,0.0505383171104248,0.0155440386070231,0.0761227043833276,0.004,tiny_cnn,0,0
+int8_ptq_pc,most_audible,TV,12,sensitivity,0.0833333333333332,0.0,0.25,0.674,tiny_cnn,0,0
+int8_ptq_pc,most_audible,TV,12,ece,-0.0149623786138803,-0.0563732054679435,0.011879348626745,0.426,tiny_cnn,0,0
+int8_ptq_pc,most_audible,PV,13,sensitivity,-0.0769230769230768,-0.2307692307692307,0.0,0.632,tiny_cnn,0,0
+int8_ptq_pc,most_audible,PV,13,ece,0.0075606286262043,-0.0201466279227434,0.0345545899686322,0.526,tiny_cnn,0,0
+int8_ptq_pc,murmur,Present,36,sensitivity,0.0,-0.0833333333333332,0.0833333333333332,1.304,tiny_cnn,0,0
+int8_ptq_pc,murmur,Present,36,ece,0.0026338081342058,-0.0153980684762191,0.0163861570663773,0.64,tiny_cnn,0,0
+int8_ptq_pc,murmur,Absent,139,specificity,-0.0215827338129497,-0.0647482014388489,0.0215827338129496,0.41,tiny_cnn,0,0
+int8_ptq_pc,murmur,Absent,139,ece,0.0213842081077615,0.0115128016295229,0.032257842482236,0.0,tiny_cnn,0,0
+int8_ptq_pc,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pc,murmur,Unknown,14,ece,0.0107041635333269,-0.0085242151076932,0.0345725021392765,0.294,tiny_cnn,0,0
+int8_ptq_pt,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pt,grade_group,grade I (soft),22,ece,-0.0021160874531332,-0.0208754976497247,0.0135017850225916,0.854,tiny_cnn,0,0
+int8_ptq_pt,grade_group,no murmur,153,specificity,-0.0326797385620915,-0.065359477124183,0.0,0.076,tiny_cnn,0,0
+int8_ptq_pt,grade_group,no murmur,153,ece,0.0315850653247347,0.0226847393738646,0.0413606218734567,0.0,tiny_cnn,0,0
+int8_ptq_pt,grade_group,grade II-III,14,sensitivity,0.0714285714285714,0.0,0.2142857142857143,0.71,tiny_cnn,0,0
+int8_ptq_pt,grade_group,grade II-III,14,ece,-0.013955902576423,-0.0461198156994812,0.0056684392129964,0.478,tiny_cnn,0,0
+int8_ptq_pt,age_group,Child,133,sensitivity,0.0344827586206897,0.0,0.1111111111111111,0.76,tiny_cnn,0,0
+int8_ptq_pt,age_group,Child,133,specificity,-0.0192307692307692,-0.0577063106796116,0.0105291153415453,0.454,tiny_cnn,0,0
+int8_ptq_pt,age_group,Child,133,ece,0.0151398319136337,-0.0154715976878544,0.0438093372525593,0.214,tiny_cnn,0,0
+int8_ptq_pt,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+int8_ptq_pt,age_group,Adolescent,17,specificity,-0.0666666666666666,-0.2142857142857143,0.0,0.67,tiny_cnn,0,0
+int8_ptq_pt,age_group,Adolescent,17,ece,0.0238018273078101,-0.0144419003619222,0.0570108795398143,0.158,tiny_cnn,0,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.254,tiny_cnn,0,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,specificity,-0.0625,-0.1875,0.0,0.674,tiny_cnn,0,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,ece,0.0406072521021261,0.0018119947098998,0.0783987386166823,0.036,tiny_cnn,0,0
+int8_ptq_pt,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+int8_ptq_pt,age_group,Neonate+Infant,22,specificity,-0.0555555555555554,-0.1666666666666666,0.0,0.768,tiny_cnn,0,0
+int8_ptq_pt,age_group,Neonate+Infant,22,ece,0.0550520617644997,0.0110333330780967,0.089223949330426,0.0,tiny_cnn,0,0
+int8_ptq_pt,sex,Male,85,sensitivity,0.0526315789473683,0.0,0.1766042780748662,0.746,tiny_cnn,0,0
+int8_ptq_pt,sex,Male,85,specificity,0.0,-0.0434782608695651,0.0454545454545455,1.298,tiny_cnn,0,0
+int8_ptq_pt,sex,Male,85,ece,0.0350348347448641,-0.0291568028763599,0.0567536029833413,0.35,tiny_cnn,0,0
+int8_ptq_pt,sex,Female,104,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pt,sex,Female,104,specificity,-0.0574712643678161,-0.1111111111111111,-0.0123456790123457,0.01,tiny_cnn,0,0
+int8_ptq_pt,sex,Female,104,ece,0.0261491143300817,-0.0044662758808891,0.0555104856436352,0.092,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2015,112,specificity,-0.0224719101123596,-0.057471264367816,0.0,0.278,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2015,112,ece,0.0039971501201551,-0.0277117085543544,0.0340938658756945,0.772,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2014,77,sensitivity,0.0769230769230769,0.0,0.25,0.74,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2014,77,specificity,-0.046875,-0.1184456009426551,0.0156312003968253,0.23,tiny_cnn,0,0
+int8_ptq_pt,campaign,CC2014,77,ece,0.0536788335760008,0.0118793249705779,0.0747365220421455,0.014,tiny_cnn,0,0
+int8_ptq_pt,most_audible,TV,12,sensitivity,0.0833333333333332,0.0,0.25,0.674,tiny_cnn,0,0
+int8_ptq_pt,most_audible,TV,12,ece,-0.0238517468301909,-0.0666586188112921,0.0031122994238717,0.122,tiny_cnn,0,0
+int8_ptq_pt,most_audible,PV,13,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pt,most_audible,PV,13,ece,-0.0031149169325014,-0.0313648568881942,0.0208222256324936,0.882,tiny_cnn,0,0
+int8_ptq_pt,murmur,Present,36,sensitivity,0.0277777777777777,0.0,0.0833333333333333,0.732,tiny_cnn,0,0
+int8_ptq_pt,murmur,Present,36,ece,-0.0067204600010793,-0.0241153436827792,0.0063706031585369,0.44,tiny_cnn,0,0
+int8_ptq_pt,murmur,Absent,139,specificity,-0.0359712230215827,-0.0791366906474819,0.0,0.062,tiny_cnn,0,0
+int8_ptq_pt,murmur,Absent,139,ece,0.0326497581510565,0.0228313437678667,0.0431482122898749,0.0,tiny_cnn,0,0
+int8_ptq_pt,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_ptq_pt,murmur,Unknown,14,ece,0.0210141865491114,2.341616310617294e-05,0.0459230703910331,0.05,tiny_cnn,0,0
+int8_qat,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_qat,grade_group,grade I (soft),22,ece,-0.0613762622046667,-0.0924132205234428,-0.0358794747621465,0.0,tiny_cnn,0,0
+int8_qat,grade_group,no murmur,153,specificity,-0.065359477124183,-0.1111111111111111,-0.0196078431372549,0.004,tiny_cnn,0,0
+int8_qat,grade_group,no murmur,153,ece,0.0856800702047678,0.0731794752624776,0.0993031904002089,0.0,tiny_cnn,0,0
+int8_qat,grade_group,grade II-III,14,sensitivity,0.0714285714285714,0.0,0.2142857142857143,0.71,tiny_cnn,0,0
+int8_qat,grade_group,grade II-III,14,ece,-0.0215131192498362,-0.0529326540688376,-0.0013212125041215,0.032,tiny_cnn,0,0
+int8_qat,age_group,Child,133,sensitivity,0.0344827586206897,0.0,0.1111111111111111,0.76,tiny_cnn,0,0
+int8_qat,age_group,Child,133,specificity,-0.0384615384615384,-0.091743119266055,0.0102121374865735,0.22,tiny_cnn,0,0
+int8_qat,age_group,Child,133,ece,0.0607501251853216,0.0255012720100901,0.0914673386987698,0.002,tiny_cnn,0,0
+int8_qat,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+int8_qat,age_group,Adolescent,17,specificity,-0.0666666666666666,-0.2142857142857143,0.0,0.67,tiny_cnn,0,0
+int8_qat,age_group,Adolescent,17,ece,0.0775707854957882,0.0343878584069992,0.1181981178919516,0.0,tiny_cnn,0,0
+int8_qat,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.254,tiny_cnn,0,0
+int8_qat,age_group,Unknown/Pregnant,17,specificity,-0.1875,-0.4,0.0,0.074,tiny_cnn,0,0
+int8_qat,age_group,Unknown/Pregnant,17,ece,0.0376432875148017,-0.0314977841440051,0.1387020171362207,0.17,tiny_cnn,0,0
+int8_qat,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+int8_qat,age_group,Neonate+Infant,22,specificity,-0.111111111111111,-0.2631578947368421,0.0,0.256,tiny_cnn,0,0
+int8_qat,age_group,Neonate+Infant,22,ece,0.0611928729093846,-0.0034699621842284,0.1259567854394017,0.064,tiny_cnn,0,0
+int8_qat,sex,Male,85,sensitivity,0.0526315789473683,0.0,0.1766042780748662,0.746,tiny_cnn,0,0
+int8_qat,sex,Male,85,specificity,-0.0151515151515152,-0.078125,0.0517468239564428,0.832,tiny_cnn,0,0
+int8_qat,sex,Male,85,ece,0.0801528763318022,0.0274871623971217,0.1046329458312129,0.004,tiny_cnn,0,0
+int8_qat,sex,Female,104,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_qat,sex,Female,104,specificity,-0.1034482758620689,-0.1739256825075834,-0.0481784279977051,0.0,tiny_cnn,0,0
+int8_qat,sex,Female,104,ece,0.0748568978330852,0.0294700448466877,0.0884200946396109,0.0,tiny_cnn,0,0
+int8_qat,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_qat,campaign,CC2015,112,specificity,-0.0337078651685393,-0.0740839243498817,0.0,0.098,tiny_cnn,0,0
+int8_qat,campaign,CC2015,112,ece,0.0451739694010475,0.0066871042515601,0.0708300726640094,0.026,tiny_cnn,0,0
+int8_qat,campaign,CC2014,77,sensitivity,0.0769230769230769,0.0,0.25,0.74,tiny_cnn,0,0
+int8_qat,campaign,CC2014,77,specificity,-0.109375,-0.213171500630517,-0.0158730158730158,0.024,tiny_cnn,0,0
+int8_qat,campaign,CC2014,77,ece,0.0998557215176409,0.0559084285995339,0.1236120314511341,0.0,tiny_cnn,0,0
+int8_qat,most_audible,TV,12,sensitivity,0.0833333333333332,0.0,0.25,0.674,tiny_cnn,0,0
+int8_qat,most_audible,TV,12,ece,-0.0599490096429983,-0.108355582288824,-0.018818121869992,0.0,tiny_cnn,0,0
+int8_qat,most_audible,PV,13,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,0,0
+int8_qat,most_audible,PV,13,ece,-0.0292845942784927,-0.0570113042710868,-0.0028842617070467,0.02,tiny_cnn,0,0
+int8_qat,murmur,Present,36,sensitivity,0.0277777777777777,0.0,0.0833333333333333,0.732,tiny_cnn,0,0
+int8_qat,murmur,Present,36,ece,-0.0458739288333438,-0.0686649913562431,-0.0255334728077636,0.0,tiny_cnn,0,0
+int8_qat,murmur,Absent,139,specificity,-0.0647482014388489,-0.1079136690647482,-0.0143884892086331,0.014,tiny_cnn,0,0
+int8_qat,murmur,Absent,139,ece,0.0878016215979585,0.0731285904465707,0.101636218749008,0.0,tiny_cnn,0,0
+int8_qat,murmur,Unknown,14,specificity,-0.0714285714285715,-0.2142857142857144,0.0,0.714,tiny_cnn,0,0
+int8_qat,murmur,Unknown,14,ece,0.0646160956580878,0.0374978702119625,0.0933330475313104,0.0,tiny_cnn,0,0
+ort_int8,grade_group,grade I (soft),22,sensitivity,0.0454545454545455,0.0,0.1363636363636364,0.662,tiny_cnn,0,0
+ort_int8,grade_group,grade I (soft),22,ece,-0.061784737833348,-0.1029205909577933,-0.022214751144877,0.0,tiny_cnn,0,0
+ort_int8,grade_group,no murmur,153,specificity,-0.2026143790849672,-0.2679738562091504,-0.1437908496732026,0.0,tiny_cnn,0,0
+ort_int8,grade_group,no murmur,153,ece,0.1163820919825674,0.0981547267641919,0.1338987163463521,0.0,tiny_cnn,0,0
+ort_int8,grade_group,grade II-III,14,sensitivity,0.0,-0.2142857142857143,0.2142857142857143,1.3,tiny_cnn,0,0
+ort_int8,grade_group,grade II-III,14,ece,-0.0028241996151319,-0.0401895004269623,0.0312154358323843,0.866,tiny_cnn,0,0
+ort_int8,age_group,Child,133,sensitivity,0.0344827586206897,-0.0857453416149068,0.161312118570183,0.826,tiny_cnn,0,0
+ort_int8,age_group,Child,133,specificity,-0.1250000000000001,-0.1963030568535824,-0.0679448282300223,0.0,tiny_cnn,0,0
+ort_int8,age_group,Child,133,ece,0.086942161317667,0.0405764850800767,0.1043305316864504,0.0,tiny_cnn,0,0
+ort_int8,age_group,Adolescent,17,sensitivity,0.0,0.0,0.0,1.768,tiny_cnn,0,0
+ort_int8,age_group,Adolescent,17,specificity,-0.4666666666666667,-0.7142857142857143,-0.2307692307692308,0.0,tiny_cnn,0,0
+ort_int8,age_group,Adolescent,17,ece,0.136331303270822,0.0530534355836902,0.2107897413357458,0.002,tiny_cnn,0,0
+ort_int8,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.254,tiny_cnn,0,0
+ort_int8,age_group,Unknown/Pregnant,17,specificity,-0.5,-0.7333333333333333,-0.25,0.0,tiny_cnn,0,0
+ort_int8,age_group,Unknown/Pregnant,17,ece,0.1680901727206786,0.095326403449032,0.2416979142355121,0.0,tiny_cnn,0,0
+ort_int8,age_group,Neonate+Infant,22,sensitivity,0.0,0.0,0.0,1.966,tiny_cnn,0,0
+ort_int8,age_group,Neonate+Infant,22,specificity,-0.1666666666666666,-0.3573051948051948,0.0,0.072,tiny_cnn,0,0
+ort_int8,age_group,Neonate+Infant,22,ece,0.0223994981153295,-0.0552626857805731,0.1079072951133148,0.384,tiny_cnn,0,0
+ort_int8,sex,Male,85,sensitivity,0.1052631578947368,0.0,0.25,0.266,tiny_cnn,0,0
+ort_int8,sex,Male,85,specificity,-0.1515151515151516,-0.2394366197183098,-0.0746268656716417,0.0,tiny_cnn,0,0
+ort_int8,sex,Male,85,ece,0.096917995704973,0.0204788710425052,0.1208784675529483,0.008,tiny_cnn,0,0
+ort_int8,sex,Female,104,sensitivity,-0.0588235294117647,-0.1819602272727273,0.0,0.756,tiny_cnn,0,0
+ort_int8,sex,Female,104,specificity,-0.2413793103448276,-0.3369628412537918,-0.1555357142857143,0.0,tiny_cnn,0,0
+ort_int8,sex,Female,104,ece,0.1016993925826321,0.0499834059722264,0.1232082099911318,0.0,tiny_cnn,0,0
+ort_int8,campaign,CC2015,112,sensitivity,0.0,-0.1305072463768116,0.1201249999999998,1.288,tiny_cnn,0,0
+ort_int8,campaign,CC2015,112,specificity,-0.1348314606741573,-0.2068965517241379,-0.0697674418604651,0.0,tiny_cnn,0,0
+ort_int8,campaign,CC2015,112,ece,0.062324420360714,0.0063715832888158,0.0841657179487513,0.03,tiny_cnn,0,0
+ort_int8,campaign,CC2014,77,sensitivity,0.0769230769230769,0.0,0.25,0.74,tiny_cnn,0,0
+ort_int8,campaign,CC2014,77,specificity,-0.296875,-0.40625,-0.1846153846153846,0.0,tiny_cnn,0,0
+ort_int8,campaign,CC2014,77,ece,0.1419021600725433,0.091811165189957,0.1633987709695851,0.0,tiny_cnn,0,0
+ort_int8,most_audible,TV,12,sensitivity,0.1666666666666666,0.0,0.4166666666666667,0.208,tiny_cnn,0,0
+ort_int8,most_audible,TV,12,ece,-0.0670572436631765,-0.1224480973886278,-0.018808477426213,0.002,tiny_cnn,0,0
+ort_int8,most_audible,PV,13,sensitivity,-0.0769230769230768,-0.2307692307692307,0.0,0.692,tiny_cnn,0,0
+ort_int8,most_audible,PV,13,ece,-0.0209276627752894,-0.0747020504324453,0.0306035751008417,0.456,tiny_cnn,0,0
+ort_int8,murmur,Present,36,sensitivity,0.0277777777777777,-0.0555555555555555,0.1111111111111111,0.752,tiny_cnn,0,0
+ort_int8,murmur,Present,36,ece,-0.0388556396373752,-0.0686026676159502,-0.0099307159582115,0.006,tiny_cnn,0,0
+ort_int8,murmur,Absent,139,specificity,-0.2086330935251799,-0.2805755395683453,-0.143884892086331,0.0,tiny_cnn,0,0
+ort_int8,murmur,Absent,139,ece,0.121648143374179,0.1018882061180706,0.1400786318869197,0.0,tiny_cnn,0,0
+ort_int8,murmur,Unknown,14,specificity,-0.1428571428571429,-0.3571428571428572,0.0,0.192,tiny_cnn,0,0
+ort_int8,murmur,Unknown,14,ece,0.0640977245944231,0.0234313771776805,0.1182460270687602,0.004,tiny_cnn,0,0
+int4_wo_sim,grade_group,no murmur,153,specificity,0.0065359477124183,0.0,0.0196078431372549,0.724,tiny_cnn,1,0
+int4_wo_sim,grade_group,no murmur,153,ece,-0.0190706127573944,-0.0222135001796619,-0.0158865941882102,0.0,tiny_cnn,1,0
+int4_wo_sim,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,grade_group,grade II-III,14,ece,-0.0065646149245881,-0.0113306369715798,-0.0024914234165053,0.0,tiny_cnn,1,0
+int4_wo_sim,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,grade_group,grade I (soft),22,ece,0.0152055029884091,0.0051660219674036,0.0262363382518918,0.002,tiny_cnn,1,0
+int4_wo_sim,age_group,Child,130,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,age_group,Child,130,specificity,0.0098039215686275,0.0,0.035422365245374,0.71,tiny_cnn,1,0
+int4_wo_sim,age_group,Child,130,ece,-0.0098400241732201,-0.0226292060779334,0.0040497342421718,0.16,tiny_cnn,1,0
+int4_wo_sim,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+int4_wo_sim,age_group,Neonate+Infant,28,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,age_group,Neonate+Infant,28,ece,-0.0042059712260887,-0.0697803833193992,0.0650554283270247,0.696,tiny_cnn,1,0
+int4_wo_sim,age_group,Adolescent,14,sensitivity,0.0,0.0,0.0,1.766,tiny_cnn,1,0
+int4_wo_sim,age_group,Adolescent,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,age_group,Adolescent,14,ece,-0.018220438556825,-0.0311310222532348,-0.0055697279000746,0.004,tiny_cnn,1,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,age_group,Unknown/Pregnant,17,ece,-0.017756824352943,-0.0260856120279636,-0.010478198625619,0.0,tiny_cnn,1,0
+int4_wo_sim,sex,Female,96,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,sex,Female,96,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,sex,Female,96,ece,-0.0289137042053477,-0.0441362963522011,0.0036766390926545,0.092,tiny_cnn,1,0
+int4_wo_sim,sex,Male,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,sex,Male,93,specificity,0.0126582278481012,0.0,0.04,0.766,tiny_cnn,1,0
+int4_wo_sim,sex,Male,93,ece,-0.0198246411112651,-0.0468552939008881,0.0010467052146809,0.064,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2015,112,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2015,112,ece,-0.0018651309832557,-0.0354621269107302,0.0108906248544044,0.268,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2014,77,specificity,0.015625,0.0,0.04840692755156,0.764,tiny_cnn,1,0
+int4_wo_sim,campaign,CC2014,77,ece,-0.0214294884108299,-0.0466072784806444,0.0153691182404573,0.272,tiny_cnn,1,0
+int4_wo_sim,most_audible,PV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,most_audible,PV,11,ece,-0.0007530478195373,-0.0118109309997644,0.0115650647128579,0.818,tiny_cnn,1,0
+int4_wo_sim,most_audible,TV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,most_audible,TV,11,ece,0.0047737640457295,-0.0043164608479276,0.014169798128878,0.318,tiny_cnn,1,0
+int4_wo_sim,murmur,Absent,139,specificity,0.0071942446043165,0.0,0.0215827338129497,0.772,tiny_cnn,1,0
+int4_wo_sim,murmur,Absent,139,ece,-0.019668970186705,-0.0229168644254375,-0.0165924829867501,0.0,tiny_cnn,1,0
+int4_wo_sim,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,murmur,Present,36,ece,0.0067393460222436,-0.0001377171159509,0.0145163126706799,0.056,tiny_cnn,1,0
+int4_wo_sim,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int4_wo_sim,murmur,Unknown,14,ece,-0.0131297782806675,-0.0227803105634418,-0.0031064040497537,0.008,tiny_cnn,1,0
+int8_dynamic,grade_group,no murmur,153,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,grade_group,no murmur,153,ece,-0.000497213366062,-0.0005740136008596,-0.0004246570988399,0.0,tiny_cnn,1,0
+int8_dynamic,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,grade_group,grade II-III,14,ece,-0.0002968786879133,-0.0005418023444661,-9.443686523438327e-05,0.002,tiny_cnn,1,0
+int8_dynamic,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,grade_group,grade I (soft),22,ece,0.0003262871150375,0.0001159086888289,0.0005415078898502,0.004,tiny_cnn,1,0
+int8_dynamic,age_group,Child,130,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,age_group,Child,130,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,age_group,Child,130,ece,-0.0004315648127918,-0.0004986089428504,-0.0003130607105831,0.0,tiny_cnn,1,0
+int8_dynamic,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+int8_dynamic,age_group,Neonate+Infant,28,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,age_group,Neonate+Infant,28,ece,-3.010246798459959e-05,-0.0003438075381516,0.0696854013413006,0.864,tiny_cnn,1,0
+int8_dynamic,age_group,Adolescent,14,sensitivity,0.0,0.0,0.0,1.766,tiny_cnn,1,0
+int8_dynamic,age_group,Adolescent,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,age_group,Adolescent,14,ece,-0.0004702774545277,-0.0007811668288703,-7.496159896760871e-05,0.022,tiny_cnn,1,0
+int8_dynamic,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+int8_dynamic,age_group,Unknown/Pregnant,17,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,age_group,Unknown/Pregnant,17,ece,-0.0005590244458932,-0.0007702240079526,-0.0003624445847252,0.0,tiny_cnn,1,0
+int8_dynamic,sex,Female,96,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,sex,Female,96,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,sex,Female,96,ece,-0.0002511730118476,-0.0004307929627336,-0.0001401940739832,0.0,tiny_cnn,1,0
+int8_dynamic,sex,Male,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,sex,Male,93,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,sex,Male,93,ece,-0.0012068989599282,-0.02348881223571,0.0103539812137346,0.19,tiny_cnn,1,0
+int8_dynamic,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,campaign,CC2015,112,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,campaign,CC2015,112,ece,0.0028357894846673,-0.0157093594781184,0.0176512561683896,0.504,tiny_cnn,1,0
+int8_dynamic,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,campaign,CC2014,77,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,campaign,CC2014,77,ece,-0.0004588721829481,-0.0005455859684255,-0.0002350408041385,0.0,tiny_cnn,1,0
+int8_dynamic,most_audible,PV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,most_audible,PV,11,ece,-0.0001388157952872,-0.0004462529418438,0.0001210261711599,0.33,tiny_cnn,1,0
+int8_dynamic,most_audible,TV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,most_audible,TV,11,ece,0.0001285851300932,-0.0001842774623133,0.0004795871686771,0.444,tiny_cnn,1,0
+int8_dynamic,murmur,Absent,139,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,murmur,Absent,139,ece,-0.0005213876191116,-0.0006013074511578,-0.0004404216244371,0.0,tiny_cnn,1,0
+int8_dynamic,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,murmur,Present,36,ece,8.394485833440601e-05,-8.978732276612237e-05,0.0002713322795836,0.388,tiny_cnn,1,0
+int8_dynamic,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_dynamic,murmur,Unknown,14,ece,-0.0002571975679263,-0.0004278281700436,-8.726820288657289e-05,0.004,tiny_cnn,1,0
+int8_ptq_pc,grade_group,no murmur,153,specificity,-0.0065359477124182,-0.0196078431372549,0.0,0.714,tiny_cnn,1,0
+int8_ptq_pc,grade_group,no murmur,153,ece,-0.0030008038407324,-0.0072684801215025,0.0016676682098563,0.214,tiny_cnn,1,0
+int8_ptq_pc,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,grade_group,grade II-III,14,ece,0.0106184195886033,0.0067505326668252,0.015073280520161,0.0,tiny_cnn,1,0
+int8_ptq_pc,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,grade_group,grade I (soft),22,ece,0.0280685227590462,0.0169063878727439,0.0389689845054182,0.0,tiny_cnn,1,0
+int8_ptq_pc,age_group,Child,130,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,age_group,Child,130,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,age_group,Child,130,ece,0.0001909271627536,-0.015192394184746,0.019799149479184,0.972,tiny_cnn,1,0
+int8_ptq_pc,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+int8_ptq_pc,age_group,Neonate+Infant,28,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,age_group,Neonate+Infant,28,ece,-0.0167163056390711,-0.0749053607274771,0.0567372422593032,0.888,tiny_cnn,1,0
+int8_ptq_pc,age_group,Adolescent,14,sensitivity,0.0,0.0,0.0,1.766,tiny_cnn,1,0
+int8_ptq_pc,age_group,Adolescent,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,age_group,Adolescent,14,ece,-0.0004636791465114,-0.0172646393041923,0.0182116689256538,0.994,tiny_cnn,1,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,specificity,-0.0625,-0.1875,0.0,0.686,tiny_cnn,1,0
+int8_ptq_pc,age_group,Unknown/Pregnant,17,ece,4.580747740007274e-05,-0.0154191063395141,0.0189344885639471,0.924,tiny_cnn,1,0
+int8_ptq_pc,sex,Female,96,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,sex,Female,96,specificity,-0.0135135135135134,-0.0428726708074533,0.0,0.702,tiny_cnn,1,0
+int8_ptq_pc,sex,Female,96,ece,-0.0126074110960787,-0.0511610931889864,0.0216705411608262,0.5,tiny_cnn,1,0
+int8_ptq_pc,sex,Male,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,sex,Male,93,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,sex,Male,93,ece,-0.0074911674599217,-0.0402423777970135,0.0102995877655033,0.216,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2015,112,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2015,112,ece,-0.0075841533287681,-0.0306399239297552,0.0062843671929474,0.25,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2014,77,specificity,-0.015625,-0.0491803278688525,0.0,0.732,tiny_cnn,1,0
+int8_ptq_pc,campaign,CC2014,77,ece,-0.0056483264367171,-0.0509811435425297,0.0349707990099075,0.722,tiny_cnn,1,0
+int8_ptq_pc,most_audible,PV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,most_audible,PV,11,ece,0.0235320246818701,0.0133895949498294,0.0328647671875435,0.0,tiny_cnn,1,0
+int8_ptq_pc,most_audible,TV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,most_audible,TV,11,ece,0.0276633832347082,0.0134782359030605,0.0436096970482913,0.0,tiny_cnn,1,0
+int8_ptq_pc,murmur,Absent,139,specificity,-0.0071942446043166,-0.0215827338129497,0.0,0.738,tiny_cnn,1,0
+int8_ptq_pc,murmur,Absent,139,ece,-0.0034405118345036,-0.0079015597982236,0.0014769343506571,0.178,tiny_cnn,1,0
+int8_ptq_pc,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,murmur,Present,36,ece,0.0212823715260961,0.0139897530528933,0.0283919205007528,0.0,tiny_cnn,1,0
+int8_ptq_pc,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pc,murmur,Unknown,14,ece,0.001364868383139,-0.0107109847475116,0.0149235672349676,0.878,tiny_cnn,1,0
+int8_ptq_pt,grade_group,no murmur,153,specificity,-0.0065359477124182,-0.0196078431372549,0.0,0.714,tiny_cnn,1,0
+int8_ptq_pt,grade_group,no murmur,153,ece,-0.0027986452496074,-0.0073203973169394,0.0021398598810915,0.26,tiny_cnn,1,0
+int8_ptq_pt,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,grade_group,grade II-III,14,ece,0.0094288099912316,0.0059154821021673,0.0133834065378757,0.0,tiny_cnn,1,0
+int8_ptq_pt,grade_group,grade I (soft),22,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,grade_group,grade I (soft),22,ece,0.0272896205940072,0.0161904228581767,0.0383812638893008,0.0,tiny_cnn,1,0
+int8_ptq_pt,age_group,Child,130,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,age_group,Child,130,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,age_group,Child,130,ece,0.0003333227885286,-0.0150608357475418,0.019437876769213,0.98,tiny_cnn,1,0
+int8_ptq_pt,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+int8_ptq_pt,age_group,Neonate+Infant,28,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,age_group,Neonate+Infant,28,ece,-0.0166218959510691,-0.0739478933969326,0.0571803378897193,0.88,tiny_cnn,1,0
+int8_ptq_pt,age_group,Adolescent,14,sensitivity,0.0,0.0,0.0,1.766,tiny_cnn,1,0
+int8_ptq_pt,age_group,Adolescent,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,age_group,Adolescent,14,ece,-0.0019979114112682,-0.0197108265779212,0.0175402127240503,0.884,tiny_cnn,1,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,specificity,-0.0625,-0.1875,0.0,0.686,tiny_cnn,1,0
+int8_ptq_pt,age_group,Unknown/Pregnant,17,ece,0.0006371742791426,-0.0147374404752024,0.0193563679956566,0.97,tiny_cnn,1,0
+int8_ptq_pt,sex,Female,96,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,sex,Female,96,specificity,-0.0135135135135134,-0.0428726708074533,0.0,0.702,tiny_cnn,1,0
+int8_ptq_pt,sex,Female,96,ece,-0.012120660662189,-0.0501236092913624,0.0218297551997442,0.526,tiny_cnn,1,0
+int8_ptq_pt,sex,Male,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,sex,Male,93,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,sex,Male,93,ece,-0.0076151695309164,-0.0413118489936309,0.0098750339441961,0.21,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2015,112,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2015,112,ece,-0.0087241071988251,-0.0311310861754959,0.0056014852042834,0.194,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2014,77,specificity,-0.015625,-0.0491803278688525,0.0,0.732,tiny_cnn,1,0
+int8_ptq_pt,campaign,CC2014,77,ece,-0.0054511672304066,-0.0507827912657792,0.0351473472033226,0.726,tiny_cnn,1,0
+int8_ptq_pt,most_audible,PV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,most_audible,PV,11,ece,0.0212162642762684,0.0116590165690623,0.030062910521396,0.0,tiny_cnn,1,0
+int8_ptq_pt,most_audible,TV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,most_audible,TV,11,ece,0.0260247894456111,0.01282891606405,0.0415535678257176,0.0,tiny_cnn,1,0
+int8_ptq_pt,murmur,Absent,139,specificity,-0.0071942446043166,-0.0215827338129497,0.0,0.738,tiny_cnn,1,0
+int8_ptq_pt,murmur,Absent,139,ece,-0.0032426121499098,-0.0078097787929061,0.0017082328984351,0.22,tiny_cnn,1,0
+int8_ptq_pt,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,murmur,Present,36,ece,0.020343749804039,0.0133162023816392,0.0278329770495888,0.0,tiny_cnn,1,0
+int8_ptq_pt,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_ptq_pt,murmur,Unknown,14,ece,0.001609311831967,-0.0109079964731536,0.0164802724809663,0.864,tiny_cnn,1,0
+int8_qat,grade_group,no murmur,153,specificity,-0.0261437908496732,-0.065359477124183,0.0065359477124183,0.218,tiny_cnn,1,0
+int8_qat,grade_group,no murmur,153,ece,0.0244557453689435,0.0152819588951054,0.0344254785594309,0.0,tiny_cnn,1,0
+int8_qat,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,grade_group,grade II-III,14,ece,0.0100622593799445,-0.0024625121789404,0.0250462530737612,0.168,tiny_cnn,1,0
+int8_qat,grade_group,grade I (soft),22,sensitivity,0.0454545454545454,0.0,0.1363636363636363,0.686,tiny_cnn,1,0
+int8_qat,grade_group,grade I (soft),22,ece,0.0265414421889231,-0.010543405473873,0.067129926147543,0.18,tiny_cnn,1,0
+int8_qat,age_group,Child,130,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,age_group,Child,130,specificity,-0.0196078431372548,-0.0499999999999999,0.0,0.252,tiny_cnn,1,0
+int8_qat,age_group,Child,130,ece,0.0133110039395201,-0.0140413766948568,0.0346081250768523,0.392,tiny_cnn,1,0
+int8_qat,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+int8_qat,age_group,Neonate+Infant,28,specificity,-0.0434782608695653,-0.1428571428571429,0.0,0.682,tiny_cnn,1,0
+int8_qat,age_group,Neonate+Infant,28,ece,0.0269742513631616,-0.0243223092186705,0.0735687718951006,0.3,tiny_cnn,1,0
+int8_qat,age_group,Adolescent,14,sensitivity,0.5,0.0,1.0,0.428,tiny_cnn,1,0
+int8_qat,age_group,Adolescent,14,specificity,-0.0833333333333332,-0.2727272727272727,0.0,0.708,tiny_cnn,1,0
+int8_qat,age_group,Adolescent,14,ece,0.0040221729581165,-0.0401027844037113,0.0449334503031244,0.852,tiny_cnn,1,0
+int8_qat,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+int8_qat,age_group,Unknown/Pregnant,17,specificity,0.0,-0.2142857142857143,0.25,1.224,tiny_cnn,1,0
+int8_qat,age_group,Unknown/Pregnant,17,ece,0.0471253784553016,0.0032574260616174,0.0901693871392422,0.028,tiny_cnn,1,0
+int8_qat,sex,Female,96,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,sex,Female,96,specificity,-0.0135135135135134,-0.0779220779220779,0.0441176470588234,0.796,tiny_cnn,1,0
+int8_qat,sex,Female,96,ece,-0.0033134533140862,-0.0327994387283553,0.036009589535436,0.746,tiny_cnn,1,0
+int8_qat,sex,Male,93,sensitivity,0.0714285714285715,0.0,0.2307692307692307,0.738,tiny_cnn,1,0
+int8_qat,sex,Male,93,specificity,-0.0379746835443037,-0.0821958098307816,0.0,0.076,tiny_cnn,1,0
+int8_qat,sex,Male,93,ece,0.0358122679643533,-0.0081713217222819,0.0640786605674858,0.176,tiny_cnn,1,0
+int8_qat,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,campaign,CC2015,112,specificity,-0.0224719101123596,-0.0697879616963064,0.0222222222222222,0.432,tiny_cnn,1,0
+int8_qat,campaign,CC2015,112,ece,0.0105103295244798,-0.0143079582223217,0.0250643183777313,0.544,tiny_cnn,1,0
+int8_qat,campaign,CC2014,77,sensitivity,0.0769230769230768,0.0,0.25,0.756,tiny_cnn,1,0
+int8_qat,campaign,CC2014,77,specificity,-0.03125,-0.09375,0.029862053369516,0.442,tiny_cnn,1,0
+int8_qat,campaign,CC2014,77,ece,0.0169098439291719,-0.0302808159148291,0.0659269701708331,0.406,tiny_cnn,1,0
+int8_qat,most_audible,PV,11,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,most_audible,PV,11,ece,0.0035072840229481,-0.0082659098205144,0.0154891269499514,0.53,tiny_cnn,1,0
+int8_qat,most_audible,TV,11,sensitivity,0.0909090909090908,0.0,0.2727272727272727,0.678,tiny_cnn,1,0
+int8_qat,most_audible,TV,11,ece,0.0320736246275068,-0.0250114569413075,0.0845091260197728,0.258,tiny_cnn,1,0
+int8_qat,murmur,Absent,139,specificity,-0.0287769784172662,-0.0719424460431654,0.0071942446043166,0.224,tiny_cnn,1,0
+int8_qat,murmur,Absent,139,ece,0.0245603232267693,0.0137284402990774,0.0360414867605305,0.0,tiny_cnn,1,0
+int8_qat,murmur,Present,36,sensitivity,0.0277777777777777,0.0,0.0833333333333333,0.736,tiny_cnn,1,0
+int8_qat,murmur,Present,36,ece,0.0201328710965426,-0.0039263352249716,0.0444721070950284,0.086,tiny_cnn,1,0
+int8_qat,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+int8_qat,murmur,Unknown,14,ece,0.0234174366376739,0.00997207557081,0.0372080706967972,0.0,tiny_cnn,1,0
+ort_int8,grade_group,no murmur,153,specificity,-0.1699346405228757,-0.2352941176470587,-0.1111111111111111,0.0,tiny_cnn,1,0
+ort_int8,grade_group,no murmur,153,ece,0.120359852394961,0.1014481687666296,0.1411216898235847,0.0,tiny_cnn,1,0
+ort_int8,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+ort_int8,grade_group,grade II-III,14,ece,0.0113035613150115,0.0004334169835787,0.021934742604458,0.042,tiny_cnn,1,0
+ort_int8,grade_group,grade I (soft),22,sensitivity,0.1363636363636363,0.0,0.2727272727272728,0.088,tiny_cnn,1,0
+ort_int8,grade_group,grade I (soft),22,ece,-0.036135370525789,-0.0727502661357061,-0.0068897790051317,0.02,tiny_cnn,1,0
+ort_int8,age_group,Child,130,sensitivity,0.0714285714285714,0.0,0.1785714285714286,0.254,tiny_cnn,1,0
+ort_int8,age_group,Child,130,specificity,-0.1274509803921568,-0.1894868421052631,-0.0654205607476635,0.0,tiny_cnn,1,0
+ort_int8,age_group,Child,130,ece,0.0494997298869672,0.0171655926836179,0.0843715933793872,0.008,tiny_cnn,1,0
+ort_int8,age_group,Neonate+Infant,28,sensitivity,0.0,0.0,0.0,1.992,tiny_cnn,1,0
+ort_int8,age_group,Neonate+Infant,28,specificity,-0.1739130434782608,-0.3636363636363635,-0.0416666666666667,0.024,tiny_cnn,1,0
+ort_int8,age_group,Neonate+Infant,28,ece,0.0772991444659933,-0.031060888712383,0.1571505774428092,0.164,tiny_cnn,1,0
+ort_int8,age_group,Adolescent,14,sensitivity,0.5,0.0,1.0,0.428,tiny_cnn,1,0
+ort_int8,age_group,Adolescent,14,specificity,-0.3333333333333333,-0.6153846153846154,-0.0833333333333333,0.02,tiny_cnn,1,0
+ort_int8,age_group,Adolescent,14,ece,0.0587134177151089,-0.0567667984181589,0.2008720618248239,0.224,tiny_cnn,1,0
+ort_int8,age_group,Unknown/Pregnant,17,sensitivity,0.0,0.0,0.0,1.324,tiny_cnn,1,0
+ort_int8,age_group,Unknown/Pregnant,17,specificity,-0.3125,-0.6,-0.0588235294117647,0.048,tiny_cnn,1,0
+ort_int8,age_group,Unknown/Pregnant,17,ece,0.1374285855361928,0.0518670384074359,0.228147881674081,0.0,tiny_cnn,1,0
+ort_int8,sex,Female,96,sensitivity,0.0454545454545455,0.0,0.1499999999999999,0.774,tiny_cnn,1,0
+ort_int8,sex,Female,96,specificity,-0.1621621621621621,-0.2572077922077923,-0.0735027706734867,0.0,tiny_cnn,1,0
+ort_int8,sex,Female,96,ece,0.0631036263117387,0.0081828398291995,0.1025191593157327,0.016,tiny_cnn,1,0
+ort_int8,sex,Male,93,sensitivity,0.1428571428571429,0.0,0.3636363636363636,0.29,tiny_cnn,1,0
+ort_int8,sex,Male,93,specificity,-0.1772151898734176,-0.2632245169886743,-0.0933026315789473,0.0,tiny_cnn,1,0
+ort_int8,sex,Male,93,ece,0.0926677838832678,0.0412023973328732,0.1215809894452798,0.0,tiny_cnn,1,0
+ort_int8,campaign,CC2015,112,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+ort_int8,campaign,CC2015,112,specificity,-0.0786516853932585,-0.1446155408149451,-0.0222161172161171,0.012,tiny_cnn,1,0
+ort_int8,campaign,CC2015,112,ece,0.0626070696019624,0.0241984091418763,0.0825371062207732,0.0,tiny_cnn,1,0
+ort_int8,campaign,CC2014,77,sensitivity,0.2307692307692307,0.0,0.5,0.11,tiny_cnn,1,0
+ort_int8,campaign,CC2014,77,specificity,-0.296875,-0.409090909090909,-0.1832954545454546,0.0,tiny_cnn,1,0
+ort_int8,campaign,CC2014,77,ece,0.122221172943241,0.0455455051252729,0.1682018881362576,0.0,tiny_cnn,1,0
+ort_int8,most_audible,PV,11,sensitivity,0.0909090909090909,0.0,0.2727272727272727,0.718,tiny_cnn,1,0
+ort_int8,most_audible,PV,11,ece,-0.0030477223078208,-0.0258235442824048,0.0192786552234124,0.874,tiny_cnn,1,0
+ort_int8,most_audible,TV,11,sensitivity,0.1818181818181817,0.0,0.4545454545454546,0.194,tiny_cnn,1,0
+ort_int8,most_audible,TV,11,ece,-0.0259609922104972,-0.0791177164198288,0.0118796797412055,0.248,tiny_cnn,1,0
+ort_int8,murmur,Absent,139,specificity,-0.1870503597122302,-0.2517985611510791,-0.1223021582733813,0.0,tiny_cnn,1,0
+ort_int8,murmur,Absent,139,ece,0.1246035745442918,0.1034067253807,0.1459216965635886,0.0,tiny_cnn,1,0
+ort_int8,murmur,Present,36,sensitivity,0.0833333333333333,0.0,0.1944444444444444,0.1,tiny_cnn,1,0
+ort_int8,murmur,Present,36,ece,-0.0176868970321443,-0.0405232722811356,0.0021639883376837,0.09,tiny_cnn,1,0
+ort_int8,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,1,0
+ort_int8,murmur,Unknown,14,ece,0.0782257539123204,0.0437363261946046,0.1144481021370386,0.0,tiny_cnn,1,0
+int4_wo_sim,grade_group,no murmur,153,specificity,0.0522875816993463,0.0196078431372549,0.0915032679738562,0.002,tiny_cnn,2,0
+int4_wo_sim,grade_group,no murmur,153,ece,-0.0771020684303973,-0.0847763094292137,-0.0697395622397978,0.0,tiny_cnn,2,0
+int4_wo_sim,grade_group,grade I (soft),21,sensitivity,-0.0952380952380952,-0.238095238095238,0.0,0.252,tiny_cnn,2,0
+int4_wo_sim,grade_group,grade I (soft),21,ece,0.0659694975614426,0.0472632653450604,0.0867098622570791,0.0,tiny_cnn,2,0
+int4_wo_sim,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int4_wo_sim,grade_group,grade II-III,14,ece,0.0289057451601043,0.0096785118702639,0.0533211101414432,0.0,tiny_cnn,2,0
+int4_wo_sim,age_group,Child,129,sensitivity,-0.0454545454545454,-0.1481481481481481,0.0,0.732,tiny_cnn,2,0
+int4_wo_sim,age_group,Child,129,specificity,0.0373831775700934,0.0091743119266054,0.0799999999999999,0.026,tiny_cnn,2,0
+int4_wo_sim,age_group,Child,129,ece,-0.0605856320820084,-0.0824971201184436,-0.0282077215722845,0.002,tiny_cnn,2,0
+int4_wo_sim,age_group,Adolescent,15,sensitivity,-0.2,-0.6666666666666666,0.0,0.73,tiny_cnn,2,0
+int4_wo_sim,age_group,Adolescent,15,specificity,0.0999999999999999,0.0,0.3,0.762,tiny_cnn,2,0
+int4_wo_sim,age_group,Adolescent,15,ece,-0.0368172709389916,-0.0754376055552954,0.002565383534038,0.066,tiny_cnn,2,0
+int4_wo_sim,age_group,Neonate+Infant,34,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,2,0
+int4_wo_sim,age_group,Neonate+Infant,34,specificity,0.111111111111111,0.0,0.2307692307692307,0.094,tiny_cnn,2,0
+int4_wo_sim,age_group,Neonate+Infant,34,ece,-0.0284324621366894,-0.0733167390313758,0.0224236052804774,0.22,tiny_cnn,2,0
+int4_wo_sim,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+int4_wo_sim,age_group,Unknown/Pregnant,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int4_wo_sim,age_group,Unknown/Pregnant,10,ece,-0.0406801709371351,-0.0584579459216399,-0.023662499193037,0.0,tiny_cnn,2,0
+int4_wo_sim,sex,Male,86,sensitivity,-0.0625,-0.2,0.0,0.692,tiny_cnn,2,0
+int4_wo_sim,sex,Male,86,specificity,0.0714285714285714,0.0147005541346974,0.1388888888888888,0.006,tiny_cnn,2,0
+int4_wo_sim,sex,Male,86,ece,-0.0440610682070613,-0.0793963667023554,-0.0128481100771109,0.018,tiny_cnn,2,0
+int4_wo_sim,sex,Female,102,sensitivity,-0.0526315789473684,-0.1764705882352941,0.0,0.724,tiny_cnn,2,0
+int4_wo_sim,sex,Female,102,specificity,0.0361445783132529,0.0,0.0823529411764705,0.086,tiny_cnn,2,0
+int4_wo_sim,sex,Female,102,ece,-0.0528097068274925,-0.0802155635418266,-0.007323287441401,0.024,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2015,111,sensitivity,-0.0434782608695651,-0.1428571428571428,0.0,0.722,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2015,111,specificity,0.0454545454545455,0.00975,0.0919540229885057,0.05,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2015,111,ece,-0.0145950643897649,-0.0565091673650276,0.015832606751932,0.268,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2014,77,sensitivity,-0.0833333333333332,-0.2727272727272727,0.0,0.736,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2014,77,specificity,0.0615384615384615,0.0149253731343282,0.1212587412587412,0.026,tiny_cnn,2,0
+int4_wo_sim,campaign,CC2014,77,ece,-0.0684559792564011,-0.1073912639295349,-0.0125096902142519,0.016,tiny_cnn,2,0
+int4_wo_sim,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int4_wo_sim,most_audible,MV,10,ece,0.0423144941242666,0.0223520515679041,0.0620761347336406,0.0,tiny_cnn,2,0
+int4_wo_sim,most_audible,TV,12,sensitivity,-0.0833333333333332,-0.25,0.0,0.684,tiny_cnn,2,0
+int4_wo_sim,most_audible,TV,12,ece,0.060240086073911,0.028581413918725,0.0971681520104185,0.0,tiny_cnn,2,0
+int4_wo_sim,most_audible,PV,10,sensitivity,-0.1,-0.3,0.0,0.664,tiny_cnn,2,0
+int4_wo_sim,most_audible,PV,10,ece,0.0635949588035317,0.0443390293968706,0.0841924277153979,0.0,tiny_cnn,2,0
+int4_wo_sim,murmur,Unknown,13,specificity,0.0769230769230769,0.0,0.2307692307692308,0.706,tiny_cnn,2,0
+int4_wo_sim,murmur,Unknown,13,ece,-0.0794826969146255,-0.1071477635979169,-0.0525213657250092,0.0,tiny_cnn,2,0
+int4_wo_sim,murmur,Absent,140,specificity,0.05,0.0142857142857143,0.0928571428571427,0.002,tiny_cnn,2,0
+int4_wo_sim,murmur,Absent,140,ece,-0.0768810100711475,-0.0846003113519067,-0.0688585896389916,0.0,tiny_cnn,2,0
+int4_wo_sim,murmur,Present,35,sensitivity,-0.0571428571428571,-0.1428571428571429,0.0,0.23,tiny_cnn,2,0
+int4_wo_sim,murmur,Present,35,ece,0.0511439966009072,0.0359474683055918,0.0684517244360596,0.0,tiny_cnn,2,0
+int8_dynamic,grade_group,no murmur,153,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,grade_group,no murmur,153,ece,-0.0004426164202356,-0.0005212691037838,-0.0003593072620007,0.0,tiny_cnn,2,0
+int8_dynamic,grade_group,grade I (soft),21,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,grade_group,grade I (soft),21,ece,0.000181862636882,-2.473439736614402e-05,0.0003801029971789,0.082,tiny_cnn,2,0
+int8_dynamic,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,grade_group,grade II-III,14,ece,-0.0002686464256108,-0.0004432557660208,-0.0001221170645882,0.0,tiny_cnn,2,0
+int8_dynamic,age_group,Child,129,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,age_group,Child,129,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,age_group,Child,129,ece,-0.0004619809464761,-0.0005249414001081,-0.0002116857747699,0.0,tiny_cnn,2,0
+int8_dynamic,age_group,Adolescent,15,sensitivity,0.0,0.0,0.0,1.994,tiny_cnn,2,0
+int8_dynamic,age_group,Adolescent,15,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,age_group,Adolescent,15,ece,-0.0001527911295112,-0.0005164614670849,0.0001213839982229,0.262,tiny_cnn,2,0
+int8_dynamic,age_group,Neonate+Infant,34,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,2,0
+int8_dynamic,age_group,Neonate+Infant,34,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,age_group,Neonate+Infant,34,ece,-0.0001770663255797,-0.0003548567787082,8.944573182623898e-05,0.198,tiny_cnn,2,0
+int8_dynamic,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+int8_dynamic,age_group,Unknown/Pregnant,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,age_group,Unknown/Pregnant,10,ece,-0.0004752416399941,-0.0006705625183223,-0.0003057693467151,0.0,tiny_cnn,2,0
+int8_dynamic,sex,Male,86,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,sex,Male,86,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,sex,Male,86,ece,-0.0002934839659871,-0.0004333170954312,-0.0001763753940831,0.0,tiny_cnn,2,0
+int8_dynamic,sex,Female,102,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,sex,Female,102,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,sex,Female,102,ece,-0.0004690395551384,-0.0005268005149122,-0.0001310578661977,0.002,tiny_cnn,2,0
+int8_dynamic,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,campaign,CC2015,111,ece,-0.0003686754286344,-0.0004606928812822,-8.35825040665161e-05,0.006,tiny_cnn,2,0
+int8_dynamic,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,campaign,CC2014,77,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,campaign,CC2014,77,ece,-0.0004404194972498,-0.0005270883573794,-0.0001214540005125,0.002,tiny_cnn,2,0
+int8_dynamic,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,most_audible,MV,10,ece,9.431964203351906e-05,-0.0002070092009354,0.0003861869727009,0.548,tiny_cnn,2,0
+int8_dynamic,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,most_audible,TV,12,ece,0.0001179434994263,-0.0001483501059699,0.0004063567107735,0.41,tiny_cnn,2,0
+int8_dynamic,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,most_audible,PV,10,ece,-0.0002254331903785,-0.0005007030009751,7.246255296011183e-05,0.132,tiny_cnn,2,0
+int8_dynamic,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,murmur,Unknown,13,ece,-0.0004666544178057,-0.0007656031904546,-0.000142923087898,0.006,tiny_cnn,2,0
+int8_dynamic,murmur,Absent,140,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,murmur,Absent,140,ece,-0.0004403843204613,-0.0005179011725032,-0.0003641263469947,0.0,tiny_cnn,2,0
+int8_dynamic,murmur,Present,35,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_dynamic,murmur,Present,35,ece,1.659011884869166e-06,-0.0001558697942934,0.0001541387785816,0.98,tiny_cnn,2,0
+int8_ptq_pc,grade_group,no murmur,153,specificity,0.0130718954248365,0.0,0.0326797385620915,0.248,tiny_cnn,2,0
+int8_ptq_pc,grade_group,no murmur,153,ece,-0.0223185746798655,-0.0271296569794155,-0.0178513838964764,0.0,tiny_cnn,2,0
+int8_ptq_pc,grade_group,grade I (soft),21,sensitivity,-0.0476190476190475,-0.1428571428571429,0.0,0.764,tiny_cnn,2,0
+int8_ptq_pc,grade_group,grade I (soft),21,ece,0.0247213738976339,0.0131121408609747,0.0386429724480497,0.0,tiny_cnn,2,0
+int8_ptq_pc,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,grade_group,grade II-III,14,ece,0.0101307536184989,0.0047732017238411,0.0170823805681279,0.0,tiny_cnn,2,0
+int8_ptq_pc,age_group,Child,129,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,age_group,Child,129,specificity,0.0186915887850467,0.0,0.0480885922330097,0.202,tiny_cnn,2,0
+int8_ptq_pc,age_group,Child,129,ece,-0.0123636121829916,-0.0471680852066404,-0.0010155207059123,0.034,tiny_cnn,2,0
+int8_ptq_pc,age_group,Adolescent,15,sensitivity,-0.2,-0.6666666666666666,0.0,0.73,tiny_cnn,2,0
+int8_ptq_pc,age_group,Adolescent,15,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,age_group,Adolescent,15,ece,-0.0141384842056378,-0.0495145397061114,0.019902381538178,0.304,tiny_cnn,2,0
+int8_ptq_pc,age_group,Neonate+Infant,34,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,2,0
+int8_ptq_pc,age_group,Neonate+Infant,34,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,age_group,Neonate+Infant,34,ece,-0.0051200324738089,-0.041641000392613,0.0524524416928708,0.784,tiny_cnn,2,0
+int8_ptq_pc,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+int8_ptq_pc,age_group,Unknown/Pregnant,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,age_group,Unknown/Pregnant,10,ece,-0.0068984294593897,-0.0175469178295309,0.0024274224159419,0.176,tiny_cnn,2,0
+int8_ptq_pc,sex,Male,86,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,sex,Male,86,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,sex,Male,86,ece,-0.0311429682309613,-0.0587329781143129,0.0088989441933204,0.164,tiny_cnn,2,0
+int8_ptq_pc,sex,Female,102,sensitivity,-0.0526315789473684,-0.1764705882352941,0.0,0.724,tiny_cnn,2,0
+int8_ptq_pc,sex,Female,102,specificity,0.0240963855421686,0.0,0.0609944293887382,0.29,tiny_cnn,2,0
+int8_ptq_pc,sex,Female,102,ece,-0.0222601743463912,-0.0541841976398992,-0.0030515248610357,0.02,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2015,111,sensitivity,-0.0434782608695651,-0.1428571428571428,0.0,0.722,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2015,111,ece,-0.0128648269060611,-0.0332812479955736,0.0029643608635199,0.1,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2014,77,specificity,0.0307692307692308,0.0,0.0769230769230769,0.256,tiny_cnn,2,0
+int8_ptq_pc,campaign,CC2014,77,ece,-0.0252697550855719,-0.065277587439403,0.0077829264768199,0.136,tiny_cnn,2,0
+int8_ptq_pc,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,most_audible,MV,10,ece,0.0198237977234707,0.0071357198503781,0.0338468852813586,0.0,tiny_cnn,2,0
+int8_ptq_pc,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,most_audible,TV,12,ece,0.0277582681715902,0.010871586449589,0.0487838091955583,0.0,tiny_cnn,2,0
+int8_ptq_pc,most_audible,PV,10,sensitivity,-0.1,-0.3,0.0,0.664,tiny_cnn,2,0
+int8_ptq_pc,most_audible,PV,10,ece,0.0121608749865808,0.0046563115056153,0.0194503047528252,0.002,tiny_cnn,2,0
+int8_ptq_pc,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pc,murmur,Unknown,13,ece,-0.0197450975668743,-0.0345260753242797,-0.0057059276230094,0.002,tiny_cnn,2,0
+int8_ptq_pc,murmur,Absent,140,specificity,0.0142857142857143,0.0,0.0357142857142857,0.264,tiny_cnn,2,0
+int8_ptq_pc,murmur,Absent,140,ece,-0.0225575404117861,-0.0277768713675642,-0.0172405555481929,0.0,tiny_cnn,2,0
+int8_ptq_pc,murmur,Present,35,sensitivity,-0.0285714285714285,-0.0857142857142857,0.0,0.748,tiny_cnn,2,0
+int8_ptq_pc,murmur,Present,35,ece,0.0188851257859798,0.0114651637648565,0.0278448045813645,0.0,tiny_cnn,2,0
+int8_ptq_pt,grade_group,no murmur,153,specificity,0.0130718954248365,0.0,0.0326797385620915,0.248,tiny_cnn,2,0
+int8_ptq_pt,grade_group,no murmur,153,ece,-0.0275092356631526,-0.0328228101938579,-0.0228886904474086,0.0,tiny_cnn,2,0
+int8_ptq_pt,grade_group,grade I (soft),21,sensitivity,-0.0476190476190475,-0.1428571428571429,0.0,0.764,tiny_cnn,2,0
+int8_ptq_pt,grade_group,grade I (soft),21,ece,0.0279769941675196,0.0161230898100313,0.0423331372143146,0.0,tiny_cnn,2,0
+int8_ptq_pt,grade_group,grade II-III,14,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,grade_group,grade II-III,14,ece,0.0116639126694938,0.0059946917924641,0.0197546390360653,0.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Child,129,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Child,129,specificity,0.0186915887850467,0.0,0.0480885922330097,0.202,tiny_cnn,2,0
+int8_ptq_pt,age_group,Child,129,ece,-0.0240242773704583,-0.0511217629317189,-0.0144092872009075,0.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Adolescent,15,sensitivity,-0.2,-0.6666666666666666,0.0,0.73,tiny_cnn,2,0
+int8_ptq_pt,age_group,Adolescent,15,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Adolescent,15,ece,-0.0251644606229138,-0.0611464598659888,0.0148464091062305,0.168,tiny_cnn,2,0
+int8_ptq_pt,age_group,Neonate+Infant,34,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,2,0
+int8_ptq_pt,age_group,Neonate+Infant,34,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Neonate+Infant,34,ece,-0.0146164368356269,-0.051509846053732,0.0484870657589672,0.666,tiny_cnn,2,0
+int8_ptq_pt,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+int8_ptq_pt,age_group,Unknown/Pregnant,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,age_group,Unknown/Pregnant,10,ece,-0.011446363652198,-0.0227585576739437,-0.0010838415120028,0.02,tiny_cnn,2,0
+int8_ptq_pt,sex,Male,86,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,sex,Male,86,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,sex,Male,86,ece,-0.0356349217135926,-0.0625715860789385,0.0025452155833359,0.058,tiny_cnn,2,0
+int8_ptq_pt,sex,Female,102,sensitivity,-0.0526315789473684,-0.1764705882352941,0.0,0.724,tiny_cnn,2,0
+int8_ptq_pt,sex,Female,102,specificity,0.0240963855421686,0.0,0.0609944293887382,0.29,tiny_cnn,2,0
+int8_ptq_pt,sex,Female,102,ece,-0.0265249111777629,-0.0576772521988974,-0.0060650729383163,0.01,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2015,111,sensitivity,-0.0434782608695651,-0.1428571428571428,0.0,0.722,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2015,111,ece,-0.0174797095958938,-0.0386243681854843,-0.0005455746222156,0.046,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2014,77,specificity,0.0307692307692308,0.0,0.0769230769230769,0.256,tiny_cnn,2,0
+int8_ptq_pt,campaign,CC2014,77,ece,-0.028868785783589,-0.0650445961834954,0.0060988373119902,0.098,tiny_cnn,2,0
+int8_ptq_pt,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,most_audible,MV,10,ece,0.0221285757059894,0.0085818238889312,0.0370129714800573,0.0,tiny_cnn,2,0
+int8_ptq_pt,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,most_audible,TV,12,ece,0.0309165825831232,0.0130389836422523,0.0528169958253646,0.0,tiny_cnn,2,0
+int8_ptq_pt,most_audible,PV,10,sensitivity,-0.1,-0.3,0.0,0.664,tiny_cnn,2,0
+int8_ptq_pt,most_audible,PV,10,ece,0.0149687564037779,0.0081033519412052,0.0216361212834785,0.0,tiny_cnn,2,0
+int8_ptq_pt,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_ptq_pt,murmur,Unknown,13,ece,-0.0241510924735518,-0.0392714027626885,-0.0110707383611548,0.0,tiny_cnn,2,0
+int8_ptq_pt,murmur,Absent,140,specificity,0.0142857142857143,0.0,0.0357142857142857,0.264,tiny_cnn,2,0
+int8_ptq_pt,murmur,Absent,140,ece,-0.0278210632450441,-0.0333361114294344,-0.0222493253670032,0.0,tiny_cnn,2,0
+int8_ptq_pt,murmur,Present,35,sensitivity,-0.0285714285714285,-0.0857142857142857,0.0,0.748,tiny_cnn,2,0
+int8_ptq_pt,murmur,Present,35,ece,0.0214517615683093,0.0135195348328197,0.030618163147738,0.0,tiny_cnn,2,0
+int8_qat,grade_group,no murmur,153,specificity,-0.0718954248366013,-0.1112745098039216,-0.0326797385620915,0.0,tiny_cnn,2,0
+int8_qat,grade_group,no murmur,153,ece,0.0751488533119615,0.0646794500327418,0.0870693581895429,0.0,tiny_cnn,2,0
+int8_qat,grade_group,grade I (soft),21,sensitivity,0.0476190476190476,0.0,0.1428571428571429,0.716,tiny_cnn,2,0
+int8_qat,grade_group,grade I (soft),21,ece,-0.0396733736787203,-0.0637462879225808,-0.0164591007544209,0.0,tiny_cnn,2,0
+int8_qat,grade_group,grade II-III,14,sensitivity,0.0714285714285714,0.0,0.2142857142857143,0.714,tiny_cnn,2,0
+int8_qat,grade_group,grade II-III,14,ece,-0.0162840555863252,-0.0283014583193446,-0.0058538619588382,0.002,tiny_cnn,2,0
+int8_qat,age_group,Child,129,sensitivity,0.0454545454545455,0.0,0.1538461538461538,0.768,tiny_cnn,2,0
+int8_qat,age_group,Child,129,specificity,-0.0654205607476635,-0.1142931547619048,-0.0265486725663717,0.0,tiny_cnn,2,0
+int8_qat,age_group,Child,129,ece,0.0656220806319207,0.0282939340710754,0.0895841088834748,0.0,tiny_cnn,2,0
+int8_qat,age_group,Adolescent,15,sensitivity,0.0,0.0,0.0,1.994,tiny_cnn,2,0
+int8_qat,age_group,Adolescent,15,specificity,-0.1,-0.3333333333333333,0.0,0.742,tiny_cnn,2,0
+int8_qat,age_group,Adolescent,15,ece,0.0372269535261228,-0.0159151847089152,0.0914476433736531,0.164,tiny_cnn,2,0
+int8_qat,age_group,Neonate+Infant,34,sensitivity,0.1428571428571428,0.0,0.5,0.696,tiny_cnn,2,0
+int8_qat,age_group,Neonate+Infant,34,specificity,-0.074074074074074,-0.1785714285714286,0.0,0.25,tiny_cnn,2,0
+int8_qat,age_group,Neonate+Infant,34,ece,0.0525985371019187,0.0066145682170665,0.0856748934541454,0.026,tiny_cnn,2,0
+int8_qat,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+int8_qat,age_group,Unknown/Pregnant,10,specificity,-0.1111111111111111,-0.3333333333333332,0.0,0.704,tiny_cnn,2,0
+int8_qat,age_group,Unknown/Pregnant,10,ece,0.1040525443424208,0.0254535947439681,0.2030129557576029,0.0,tiny_cnn,2,0
+int8_qat,sex,Male,86,sensitivity,0.0625,0.0,0.2222222222222222,0.732,tiny_cnn,2,0
+int8_qat,sex,Male,86,specificity,-0.0714285714285714,-0.1384615384615384,-0.0142857142857143,0.016,tiny_cnn,2,0
+int8_qat,sex,Male,86,ece,0.0556338283040414,-0.0051606331639784,0.0862244536707265,0.072,tiny_cnn,2,0
+int8_qat,sex,Female,102,sensitivity,0.0526315789473683,0.0,0.176470588235294,0.732,tiny_cnn,2,0
+int8_qat,sex,Female,102,specificity,-0.072289156626506,-0.1351518184851517,-0.0238095238095238,0.006,tiny_cnn,2,0
+int8_qat,sex,Female,102,ece,0.0580509135145732,0.0173065948708553,0.0939445758436103,0.014,tiny_cnn,2,0
+int8_qat,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_qat,campaign,CC2015,111,specificity,-0.0113636363636363,-0.0366082317073171,0.0,0.694,tiny_cnn,2,0
+int8_qat,campaign,CC2015,111,ece,0.0483687976705126,0.0152207750618805,0.0916704664726013,0.012,tiny_cnn,2,0
+int8_qat,campaign,CC2014,77,sensitivity,0.1666666666666667,0.0,0.4446969696969694,0.254,tiny_cnn,2,0
+int8_qat,campaign,CC2014,77,specificity,-0.1538461538461537,-0.2461538461538461,-0.0768939393939393,0.0,tiny_cnn,2,0
+int8_qat,campaign,CC2014,77,ece,0.0793065953169389,0.0127654914735124,0.1071556555290467,0.02,tiny_cnn,2,0
+int8_qat,most_audible,MV,10,sensitivity,0.0999999999999999,0.0,0.3,0.718,tiny_cnn,2,0
+int8_qat,most_audible,MV,10,ece,-0.0327368893078297,-0.0738502824686718,-0.0020341566502724,0.03,tiny_cnn,2,0
+int8_qat,most_audible,TV,12,sensitivity,0.0833333333333333,0.0,0.25,0.746,tiny_cnn,2,0
+int8_qat,most_audible,TV,12,ece,-0.0381397701949159,-0.0727111026820847,-0.0114910383750777,0.002,tiny_cnn,2,0
+int8_qat,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,2,0
+int8_qat,most_audible,PV,10,ece,-0.0264581774815473,-0.0447997390143481,-0.0073534590125656,0.006,tiny_cnn,2,0
+int8_qat,murmur,Unknown,13,specificity,-0.1538461538461537,-0.3846153846153846,0.0,0.25,tiny_cnn,2,0
+int8_qat,murmur,Unknown,13,ece,0.0505032092025796,0.0253429220476099,0.0769001426951188,0.0,tiny_cnn,2,0
+int8_qat,murmur,Absent,140,specificity,-0.0642857142857142,-0.1071428571428572,-0.0285714285714285,0.0,tiny_cnn,2,0
+int8_qat,murmur,Absent,140,ece,0.0774373774078328,0.065597920587277,0.0915412254729051,0.0,tiny_cnn,2,0
+int8_qat,murmur,Present,35,sensitivity,0.0571428571428571,0.0,0.1428571428571428,0.254,tiny_cnn,2,0
+int8_qat,murmur,Present,35,ece,-0.0303176464417622,-0.0470454084633789,-0.0150515438487897,0.0,tiny_cnn,2,0
+ort_int8,grade_group,no murmur,153,specificity,-0.5620915032679739,-0.6341503267973857,-0.4836601307189542,0.0,tiny_cnn,2,0
+ort_int8,grade_group,no murmur,153,ece,0.264370624453959,0.2388198200295435,0.2928634028730886,0.0,tiny_cnn,2,0
+ort_int8,grade_group,grade I (soft),21,sensitivity,0.2380952380952381,0.0952380952380952,0.4285714285714286,0.008,tiny_cnn,2,0
+ort_int8,grade_group,grade I (soft),21,ece,-0.1336348446429441,-0.2180581414221779,-0.0604652855237255,0.0,tiny_cnn,2,0
+ort_int8,grade_group,grade II-III,14,sensitivity,0.0714285714285714,0.0,0.2142857142857143,0.714,tiny_cnn,2,0
+ort_int8,grade_group,grade II-III,14,ece,-0.0179192070042365,-0.0639683603544864,0.0195884061305441,0.422,tiny_cnn,2,0
+ort_int8,age_group,Child,129,sensitivity,0.1818181818181818,0.0416249999999999,0.3637559808612439,0.036,tiny_cnn,2,0
+ort_int8,age_group,Child,129,specificity,-0.5981308411214953,-0.6804475164011247,-0.4998831775700935,0.0,tiny_cnn,2,0
+ort_int8,age_group,Child,129,ece,0.2443589017823243,0.1907846439070112,0.2684416970791024,0.0,tiny_cnn,2,0
+ort_int8,age_group,Adolescent,15,sensitivity,0.1999999999999999,0.0,0.6666666666666667,0.664,tiny_cnn,2,0
+ort_int8,age_group,Adolescent,15,specificity,-0.6000000000000001,-0.9002272727272728,-0.2727272727272727,0.004,tiny_cnn,2,0
+ort_int8,age_group,Adolescent,15,ece,0.1593330502331256,-0.0187098881160352,0.3014841812126124,0.076,tiny_cnn,2,0
+ort_int8,age_group,Neonate+Infant,34,sensitivity,0.1428571428571428,0.0,0.5,0.696,tiny_cnn,2,0
+ort_int8,age_group,Neonate+Infant,34,specificity,-0.4444444444444444,-0.6296296296296297,-0.25,0.0,tiny_cnn,2,0
+ort_int8,age_group,Neonate+Infant,34,ece,0.1092901674132906,0.0186679890901609,0.1767896217181381,0.02,tiny_cnn,2,0
+ort_int8,age_group,Unknown/Pregnant,10,sensitivity,0.0,0.0,0.0,1.326,tiny_cnn,2,0
+ort_int8,age_group,Unknown/Pregnant,10,specificity,-0.4444444444444444,-0.7777777777777778,-0.1111111111111111,0.012,tiny_cnn,2,0
+ort_int8,age_group,Unknown/Pregnant,10,ece,0.2288869472728013,0.0610942738382412,0.3998091845220346,0.0,tiny_cnn,2,0
+ort_int8,sex,Male,86,sensitivity,0.1875,0.0,0.4166666666666666,0.092,tiny_cnn,2,0
+ort_int8,sex,Male,86,specificity,-0.5857142857142857,-0.6986643835616437,-0.4714285714285714,0.0,tiny_cnn,2,0
+ort_int8,sex,Male,86,ece,0.1968597280860741,0.1275618867038671,0.2436141426098178,0.0,tiny_cnn,2,0
+ort_int8,sex,Female,102,sensitivity,0.1578947368421052,0.0,0.3530462184873948,0.102,tiny_cnn,2,0
+ort_int8,sex,Female,102,specificity,-0.5421686746987953,-0.6437254474028808,-0.4390243902439025,0.0,tiny_cnn,2,0
+ort_int8,sex,Female,102,ece,0.2280537192037936,0.162755716976041,0.2637039085210753,0.0,tiny_cnn,2,0
+ort_int8,campaign,CC2015,111,sensitivity,0.0869565217391303,0.0,0.217391304347826,0.274,tiny_cnn,2,0
+ort_int8,campaign,CC2015,111,specificity,-0.4772727272727273,-0.574712643678161,-0.3749684343434343,0.0,tiny_cnn,2,0
+ort_int8,campaign,CC2015,111,ece,0.1447827231579913,0.0941825536501239,0.187159263927477,0.0,tiny_cnn,2,0
+ort_int8,campaign,CC2014,77,sensitivity,0.3333333333333333,0.0909090909090909,0.625,0.032,tiny_cnn,2,0
+ort_int8,campaign,CC2014,77,specificity,-0.6769230769230768,-0.7847368421052633,-0.5538461538461539,0.0,tiny_cnn,2,0
+ort_int8,campaign,CC2014,77,ece,0.3064944577535567,0.2280634119970146,0.3473397487982142,0.0,tiny_cnn,2,0
+ort_int8,most_audible,MV,10,sensitivity,0.1999999999999999,0.0,0.5,0.206,tiny_cnn,2,0
+ort_int8,most_audible,MV,10,ece,-0.1076688352773478,-0.2720667650794084,-0.009461504008759,0.0,tiny_cnn,2,0
+ort_int8,most_audible,TV,12,sensitivity,0.25,0.0,0.5,0.064,tiny_cnn,2,0
+ort_int8,most_audible,TV,12,ece,-0.1185631150902066,-0.2142269012179293,-0.0314136715043594,0.004,tiny_cnn,2,0
+ort_int8,most_audible,PV,10,sensitivity,0.0999999999999999,0.0,0.3,0.72,tiny_cnn,2,0
+ort_int8,most_audible,PV,10,ece,-0.054397439833401,-0.1079044670704695,-0.0050914566576729,0.032,tiny_cnn,2,0
+ort_int8,murmur,Unknown,13,specificity,-0.4615384615384614,-0.6923076923076924,-0.2307692307692307,0.0,tiny_cnn,2,0
+ort_int8,murmur,Unknown,13,ece,0.1645301081109938,0.0973739845298025,0.2293523073175653,0.0,tiny_cnn,2,0
+ort_int8,murmur,Absent,140,specificity,-0.5714285714285714,-0.6571428571428571,-0.4928571428571429,0.0,tiny_cnn,2,0
+ort_int8,murmur,Absent,140,ece,0.2736415295429486,0.240927985745307,0.3047277148143795,0.0,tiny_cnn,2,0
+ort_int8,murmur,Present,35,sensitivity,0.1714285714285713,0.057142857142857,0.3142857142857143,0.004,tiny_cnn,2,0
+ort_int8,murmur,Present,35,ece,-0.0873485895874611,-0.1467340895940991,-0.037514778789611,0.0,tiny_cnn,2,0
+int4_wo_sim,grade_group,no murmur,152,specificity,0.0065789473684211,0.0,0.0197368421052632,0.726,tiny_cnn,3,0
+int4_wo_sim,grade_group,no murmur,152,ece,-0.0021080561240195,-0.0048223128126014,0.0006208551331883,0.136,tiny_cnn,3,0
+int4_wo_sim,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,grade_group,grade II-III,17,ece,-0.003681964579574,-0.0100684161105076,0.0018996439358761,0.198,tiny_cnn,3,0
+int4_wo_sim,grade_group,grade I (soft),19,sensitivity,-0.0526315789473684,-0.1578947368421053,0.0,0.758,tiny_cnn,3,0
+int4_wo_sim,grade_group,grade I (soft),19,ece,-0.0033022562060056,-0.016311265408191,0.0113330263647498,0.616,tiny_cnn,3,0
+int4_wo_sim,age_group,Child,131,sensitivity,-0.0454545454545454,-0.1430357142857143,0.0,0.726,tiny_cnn,3,0
+int4_wo_sim,age_group,Child,131,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,age_group,Child,131,ece,-0.0018382327079446,-0.022436248421643,0.0247123719053414,0.864,tiny_cnn,3,0
+int4_wo_sim,age_group,Adolescent,16,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,3,0
+int4_wo_sim,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,age_group,Adolescent,16,ece,0.0042563841757682,-0.0050046599298053,0.0159659728566228,0.542,tiny_cnn,3,0
+int4_wo_sim,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,age_group,Neonate+Infant,25,specificity,0.0588235294117647,0.0,0.1875,0.728,tiny_cnn,3,0
+int4_wo_sim,age_group,Neonate+Infant,25,ece,-0.0254084771991631,-0.093495160501945,0.025878380817464,0.854,tiny_cnn,3,0
+int4_wo_sim,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+int4_wo_sim,age_group,Unknown/Pregnant,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,age_group,Unknown/Pregnant,16,ece,0.0449784150230753,-0.0144751308088194,0.1011042234498827,0.83,tiny_cnn,3,0
+int4_wo_sim,sex,Male,95,sensitivity,-0.0526315789473683,-0.1666666666666667,0.0,0.744,tiny_cnn,3,0
+int4_wo_sim,sex,Male,95,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,sex,Male,95,ece,0.0102970968704509,-0.0238434528583393,0.0379915556188839,0.74,tiny_cnn,3,0
+int4_wo_sim,sex,Female,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,sex,Female,93,specificity,0.0131578947368421,0.0,0.04,0.718,tiny_cnn,3,0
+int4_wo_sim,sex,Female,93,ece,-0.0059030571861014,-0.0364613509956497,0.0333911746132667,0.772,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2015,111,ece,0.0008141162343297,-0.0219805024466926,0.0248923149272218,0.968,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2014,77,sensitivity,-0.0833333333333333,-0.2727272727272727,0.0,0.742,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2014,77,specificity,0.0153846153846153,0.0,0.049200819672131,0.708,tiny_cnn,3,0
+int4_wo_sim,campaign,CC2014,77,ece,-0.0063257371510881,-0.0396226540713432,0.037452060105704,0.698,tiny_cnn,3,0
+int4_wo_sim,most_audible,PV,10,sensitivity,-0.0999999999999999,-0.3,0.0,0.702,tiny_cnn,3,0
+int4_wo_sim,most_audible,PV,10,ece,0.0032354608496578,-0.0065326998529579,0.0141004294579502,0.536,tiny_cnn,3,0
+int4_wo_sim,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,most_audible,MV,10,ece,-0.0060244879391908,-0.0200078121902516,0.0117252853139963,0.454,tiny_cnn,3,0
+int4_wo_sim,murmur,Absent,139,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int4_wo_sim,murmur,Absent,139,ece,-0.0034300579238416,-0.0061992746985149,-0.0007712811937793,0.006,tiny_cnn,3,0
+int4_wo_sim,murmur,Present,36,sensitivity,-0.0277777777777777,-0.0833333333333333,0.0,0.71,tiny_cnn,3,0
+int4_wo_sim,murmur,Present,36,ece,-0.0034815629379685,-0.0112617275940947,0.0044614398936615,0.37,tiny_cnn,3,0
+int4_wo_sim,murmur,Unknown,13,specificity,0.0769230769230769,0.0,0.2307692307692308,0.656,tiny_cnn,3,0
+int4_wo_sim,murmur,Unknown,13,ece,0.0120271938894616,0.0030357988437057,0.0210903370275928,0.008,tiny_cnn,3,0
+int8_dynamic,grade_group,no murmur,152,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,grade_group,no murmur,152,ece,-0.0008295618761821,-0.0009298569822319,-0.0007351050218855,0.0,tiny_cnn,3,0
+int8_dynamic,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,grade_group,grade II-III,17,ece,0.0004280319771166,0.0002728259534406,0.0006097831464135,0.0,tiny_cnn,3,0
+int8_dynamic,grade_group,grade I (soft),19,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,grade_group,grade I (soft),19,ece,0.0012565993572721,0.000894040152147,0.0015970460368895,0.0,tiny_cnn,3,0
+int8_dynamic,age_group,Child,131,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Child,131,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Child,131,ece,-0.0017323123314982,-0.0183855854163125,0.0043931478982121,0.16,tiny_cnn,3,0
+int8_dynamic,age_group,Adolescent,16,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,3,0
+int8_dynamic,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Adolescent,16,ece,-7.049323784732997e-05,-0.0005399659265329,0.0004560091310211,0.748,tiny_cnn,3,0
+int8_dynamic,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Neonate+Infant,25,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Neonate+Infant,25,ece,-0.0001733490987029,-0.0007213343971811,0.0001721924656014,0.234,tiny_cnn,3,0
+int8_dynamic,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+int8_dynamic,age_group,Unknown/Pregnant,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,age_group,Unknown/Pregnant,16,ece,-0.0007115723165516,-0.0009479386177595,-1.05533693133801e-05,0.05,tiny_cnn,3,0
+int8_dynamic,sex,Male,95,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,sex,Male,95,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,sex,Male,95,ece,-0.0047561475606837,-0.0258279735783306,0.0120686889208043,0.444,tiny_cnn,3,0
+int8_dynamic,sex,Female,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,sex,Female,93,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,sex,Female,93,ece,-0.0005589357997439,-0.0044697922588733,0.0014568298114168,0.064,tiny_cnn,3,0
+int8_dynamic,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,campaign,CC2015,111,ece,-0.0092519731151964,-0.0221506145963658,0.0033407274281431,0.144,tiny_cnn,3,0
+int8_dynamic,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,campaign,CC2014,77,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,campaign,CC2014,77,ece,-0.0024889209181892,-0.0058226145418643,-0.0002438192200289,0.002,tiny_cnn,3,0
+int8_dynamic,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,most_audible,PV,10,ece,0.000782071262963,0.000390733901601,0.0012323641987162,0.0,tiny_cnn,3,0
+int8_dynamic,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,most_audible,MV,10,ece,0.0011710096656448,0.0007329775165339,0.0016785658194311,0.0,tiny_cnn,3,0
+int8_dynamic,murmur,Absent,139,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,murmur,Absent,139,ece,-0.0008384647487958,-0.000943129392524,-0.0007403200494387,0.0,tiny_cnn,3,0
+int8_dynamic,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,murmur,Present,36,ece,0.0008653314277543,0.0006345803125312,0.0010986615530858,0.0,tiny_cnn,3,0
+int8_dynamic,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_dynamic,murmur,Unknown,13,ece,-0.0007343696228521,-0.0009705220407212,-0.0004693065215913,0.0,tiny_cnn,3,0
+int8_ptq_pc,grade_group,no murmur,152,specificity,-0.0197368421052631,-0.0460526315789473,0.0,0.086,tiny_cnn,3,0
+int8_ptq_pc,grade_group,no murmur,152,ece,0.0129519650016037,0.0056843708937006,0.020539313442017,0.0,tiny_cnn,3,0
+int8_ptq_pc,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,grade_group,grade II-III,17,ece,0.0074806200798183,0.0017156389925642,0.0128796650663814,0.004,tiny_cnn,3,0
+int8_ptq_pc,grade_group,grade I (soft),19,sensitivity,-0.0526315789473684,-0.1578947368421053,0.0,0.676,tiny_cnn,3,0
+int8_ptq_pc,grade_group,grade I (soft),19,ece,-0.0075039003389519,-0.042243284394687,0.0205291946192818,0.734,tiny_cnn,3,0
+int8_ptq_pc,age_group,Child,131,sensitivity,-0.0454545454545454,-0.1538461538461538,0.0,0.708,tiny_cnn,3,0
+int8_ptq_pc,age_group,Child,131,specificity,-0.018348623853211,-0.0476421636615811,0.0,0.274,tiny_cnn,3,0
+int8_ptq_pc,age_group,Child,131,ece,-0.000928243273297,-0.0183254963408585,0.0331021944376935,0.648,tiny_cnn,3,0
+int8_ptq_pc,age_group,Adolescent,16,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,3,0
+int8_ptq_pc,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,age_group,Adolescent,16,ece,0.0151183229084501,0.0047944357999675,0.0263491302691417,0.0,tiny_cnn,3,0
+int8_ptq_pc,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,age_group,Neonate+Infant,25,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,age_group,Neonate+Infant,25,ece,0.0003176135889917,-0.0495960301155898,0.0455522722567042,0.634,tiny_cnn,3,0
+int8_ptq_pc,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+int8_ptq_pc,age_group,Unknown/Pregnant,16,specificity,-0.0666666666666666,-0.1999999999999999,0.0,0.744,tiny_cnn,3,0
+int8_ptq_pc,age_group,Unknown/Pregnant,16,ece,0.0379803967742406,-0.0440352281156213,0.0781829496342851,0.336,tiny_cnn,3,0
+int8_ptq_pc,sex,Male,95,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,sex,Male,95,specificity,-0.0131578947368421,-0.0428726708074533,0.0,0.728,tiny_cnn,3,0
+int8_ptq_pc,sex,Male,95,ece,0.0071236674167381,-0.0223227853852315,0.0299389161539514,0.628,tiny_cnn,3,0
+int8_ptq_pc,sex,Female,93,sensitivity,-0.0588235294117647,-0.2,0.0,0.754,tiny_cnn,3,0
+int8_ptq_pc,sex,Female,93,specificity,-0.0263157894736841,-0.0658114035087719,0.0,0.296,tiny_cnn,3,0
+int8_ptq_pc,sex,Female,93,ece,0.0175174926145507,-0.0232613712942345,0.0444280984298745,0.404,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2015,111,sensitivity,-0.0416666666666667,-0.1363636363636364,0.0,0.704,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2015,111,ece,-0.0012533430071858,-0.0238404455541976,0.0278662920148874,0.908,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2014,77,specificity,-0.0461538461538462,-0.1044776119402984,0.0,0.084,tiny_cnn,3,0
+int8_ptq_pc,campaign,CC2014,77,ece,0.0205402833857333,-0.0232425985070293,0.0391763024630818,0.342,tiny_cnn,3,0
+int8_ptq_pc,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,most_audible,PV,10,ece,-0.0153476805833964,-0.0696955423651023,0.0162083910481216,0.7,tiny_cnn,3,0
+int8_ptq_pc,most_audible,MV,10,sensitivity,-0.0999999999999999,-0.3,0.0,0.694,tiny_cnn,3,0
+int8_ptq_pc,most_audible,MV,10,ece,-0.0071476077017035,-0.0424560911656133,0.0252792859382769,0.778,tiny_cnn,3,0
+int8_ptq_pc,murmur,Absent,139,specificity,-0.0215827338129497,-0.0503597122302158,0.0,0.094,tiny_cnn,3,0
+int8_ptq_pc,murmur,Absent,139,ece,0.0131863938968106,0.0044645870091868,0.0215502253058905,0.0,tiny_cnn,3,0
+int8_ptq_pc,murmur,Present,36,sensitivity,-0.0277777777777777,-0.0833333333333333,0.0,0.672,tiny_cnn,3,0
+int8_ptq_pc,murmur,Present,36,ece,-0.0004278768078659,-0.0207040758464017,0.0141399519739953,0.996,tiny_cnn,3,0
+int8_ptq_pc,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pc,murmur,Unknown,13,ece,0.010445379122083,-0.009130408183813,0.0337605177431858,0.422,tiny_cnn,3,0
+int8_ptq_pt,grade_group,no murmur,152,specificity,-0.0197368421052631,-0.0460526315789473,0.0,0.086,tiny_cnn,3,0
+int8_ptq_pt,grade_group,no murmur,152,ece,0.0089186759990404,0.0019155807695845,0.0163378793871786,0.006,tiny_cnn,3,0
+int8_ptq_pt,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,grade_group,grade II-III,17,ece,0.0080183876393402,0.0023655309648511,0.0133456526009628,0.004,tiny_cnn,3,0
+int8_ptq_pt,grade_group,grade I (soft),19,sensitivity,-0.0526315789473684,-0.1578947368421053,0.0,0.676,tiny_cnn,3,0
+int8_ptq_pt,grade_group,grade I (soft),19,ece,-0.0041543922537368,-0.0371489946927961,0.0234857637992504,0.88,tiny_cnn,3,0
+int8_ptq_pt,age_group,Child,131,sensitivity,-0.0454545454545454,-0.1538461538461538,0.0,0.708,tiny_cnn,3,0
+int8_ptq_pt,age_group,Child,131,specificity,-0.018348623853211,-0.0476421636615811,0.0,0.274,tiny_cnn,3,0
+int8_ptq_pt,age_group,Child,131,ece,8.248857572479285e-05,-0.0184842532144288,0.0314730734317745,0.732,tiny_cnn,3,0
+int8_ptq_pt,age_group,Adolescent,16,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,3,0
+int8_ptq_pt,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,age_group,Adolescent,16,ece,0.0134171385452054,0.0038845436463196,0.0242608987505111,0.006,tiny_cnn,3,0
+int8_ptq_pt,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,age_group,Neonate+Infant,25,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,age_group,Neonate+Infant,25,ece,-0.001353785198537,-0.0515708091504342,0.0434173031655601,0.61,tiny_cnn,3,0
+int8_ptq_pt,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+int8_ptq_pt,age_group,Unknown/Pregnant,16,specificity,-0.0666666666666666,-0.1999999999999999,0.0,0.744,tiny_cnn,3,0
+int8_ptq_pt,age_group,Unknown/Pregnant,16,ece,0.0913264957861508,0.0069417776671256,0.1617126041846569,0.002,tiny_cnn,3,0
+int8_ptq_pt,sex,Male,95,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,sex,Male,95,specificity,-0.0131578947368421,-0.0428726708074533,0.0,0.728,tiny_cnn,3,0
+int8_ptq_pt,sex,Male,95,ece,0.004352333385918,-0.0248172991124157,0.03029512672064,0.734,tiny_cnn,3,0
+int8_ptq_pt,sex,Female,93,sensitivity,-0.0588235294117647,-0.2,0.0,0.754,tiny_cnn,3,0
+int8_ptq_pt,sex,Female,93,specificity,-0.0263157894736841,-0.0658114035087719,0.0,0.296,tiny_cnn,3,0
+int8_ptq_pt,sex,Female,93,ece,0.0240957718639237,-0.0144109555345323,0.0542201558535676,0.224,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2015,111,sensitivity,-0.0416666666666667,-0.1363636363636364,0.0,0.704,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2015,111,ece,0.0035678344758083,-0.0237358586772471,0.0310026831921968,0.964,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2014,77,specificity,-0.0461538461538462,-0.1044776119402984,0.0,0.084,tiny_cnn,3,0
+int8_ptq_pt,campaign,CC2014,77,ece,0.0166242744564384,-0.0242840173500319,0.0446372047488626,0.42,tiny_cnn,3,0
+int8_ptq_pt,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,most_audible,PV,10,ece,-0.0121546984770805,-0.0646110963633445,0.0187459858866294,0.7,tiny_cnn,3,0
+int8_ptq_pt,most_audible,MV,10,sensitivity,-0.0999999999999999,-0.3,0.0,0.694,tiny_cnn,3,0
+int8_ptq_pt,most_audible,MV,10,ece,-0.0032311896836595,-0.0390202820766142,0.0304141554826431,0.954,tiny_cnn,3,0
+int8_ptq_pt,murmur,Absent,139,specificity,-0.0215827338129497,-0.0503597122302158,0.0,0.094,tiny_cnn,3,0
+int8_ptq_pt,murmur,Absent,139,ece,0.0090309572314351,0.0005353939447338,0.0170855306937811,0.024,tiny_cnn,3,0
+int8_ptq_pt,murmur,Present,36,sensitivity,-0.0277777777777777,-0.0833333333333333,0.0,0.672,tiny_cnn,3,0
+int8_ptq_pt,murmur,Present,36,ece,0.001593864917994,-0.017729736188667,0.0160125064877447,0.83,tiny_cnn,3,0
+int8_ptq_pt,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_ptq_pt,murmur,Unknown,13,ece,0.0077181305142046,-0.0116776506267337,0.0314547849305415,0.6,tiny_cnn,3,0
+int8_qat,grade_group,no murmur,152,specificity,-0.0394736842105263,-0.0723684210526316,-0.013157894736842,0.002,tiny_cnn,3,0
+int8_qat,grade_group,no murmur,152,ece,0.0541479724629859,0.0455238324945276,0.0628380613595901,0.0,tiny_cnn,3,0
+int8_qat,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,grade_group,grade II-III,17,ece,0.0003986558567317,-0.0103981570981197,0.0098754165700446,0.974,tiny_cnn,3,0
+int8_qat,grade_group,grade I (soft),19,sensitivity,0.0526315789473683,0.0,0.1578947368421053,0.752,tiny_cnn,3,0
+int8_qat,grade_group,grade I (soft),19,ece,-0.0158467949318162,-0.0491553928139955,0.0174601152205101,0.326,tiny_cnn,3,0
+int8_qat,age_group,Child,131,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,age_group,Child,131,specificity,-0.055045871559633,-0.1009174311926605,-0.0181818181818181,0.002,tiny_cnn,3,0
+int8_qat,age_group,Child,131,ece,0.0330705125299527,0.0111699617222647,0.0624299255671145,0.012,tiny_cnn,3,0
+int8_qat,age_group,Adolescent,16,sensitivity,0.2,0.0,0.6666666666666666,0.756,tiny_cnn,3,0
+int8_qat,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,age_group,Adolescent,16,ece,0.019795380724265,-0.0146421011172303,0.0579491094759798,0.28,tiny_cnn,3,0
+int8_qat,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,age_group,Neonate+Infant,25,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,age_group,Neonate+Infant,25,ece,-0.0001516744184835,-0.0694270974302474,0.0452603891711514,0.76,tiny_cnn,3,0
+int8_qat,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+int8_qat,age_group,Unknown/Pregnant,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,age_group,Unknown/Pregnant,16,ece,0.12489276071953,0.0546904993691807,0.1741164692300891,0.0,tiny_cnn,3,0
+int8_qat,sex,Male,95,sensitivity,0.0526315789473684,0.0,0.176470588235294,0.79,tiny_cnn,3,0
+int8_qat,sex,Male,95,specificity,-0.0657894736842106,-0.1298701298701299,-0.0136940022213994,0.012,tiny_cnn,3,0
+int8_qat,sex,Male,95,ece,0.0343524945292075,0.0012990745424224,0.0669043569845637,0.044,tiny_cnn,3,0
+int8_qat,sex,Female,93,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,sex,Female,93,specificity,-0.0131578947368421,-0.0410958904109588,0.0,0.758,tiny_cnn,3,0
+int8_qat,sex,Female,93,ece,0.0426681379025215,0.0060670161439452,0.0711094627431532,0.032,tiny_cnn,3,0
+int8_qat,campaign,CC2015,111,sensitivity,0.0416666666666666,0.0,0.125,0.696,tiny_cnn,3,0
+int8_qat,campaign,CC2015,111,specificity,-0.0344827586206897,-0.0786740296220633,0.0,0.098,tiny_cnn,3,0
+int8_qat,campaign,CC2015,111,ece,0.0214971643439032,0.0008457151149123,0.0566032328555029,0.048,tiny_cnn,3,0
+int8_qat,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,campaign,CC2014,77,specificity,-0.0461538461538462,-0.1017260717846461,0.0,0.072,tiny_cnn,3,0
+int8_qat,campaign,CC2014,77,ece,0.0276193893814487,-0.0193748371470833,0.0732023614767422,0.174,tiny_cnn,3,0
+int8_qat,most_audible,PV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,most_audible,PV,10,ece,-0.0106550613173796,-0.0245100713704283,0.0028916910240764,0.136,tiny_cnn,3,0
+int8_qat,most_audible,MV,10,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,most_audible,MV,10,ece,-0.0073137954951326,-0.0430097465580118,0.0213641252419384,0.74,tiny_cnn,3,0
+int8_qat,murmur,Absent,139,specificity,-0.0431654676258993,-0.079136690647482,-0.014388489208633,0.002,tiny_cnn,3,0
+int8_qat,murmur,Absent,139,ece,0.0542817025960663,0.0450639734171422,0.0639449313584061,0.0,tiny_cnn,3,0
+int8_qat,murmur,Present,36,sensitivity,0.0277777777777777,0.0,0.0833333333333333,0.762,tiny_cnn,3,0
+int8_qat,murmur,Present,36,ece,-0.0081753320594463,-0.0251899707077783,0.0094405850393255,0.334,tiny_cnn,3,0
+int8_qat,murmur,Unknown,13,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+int8_qat,murmur,Unknown,13,ece,0.0527180887323556,0.0383809908106522,0.0685312885134634,0.0,tiny_cnn,3,0
+ort_int8,grade_group,no murmur,152,specificity,0.0,-0.0197368421052631,0.0197368421052631,1.292,tiny_cnn,3,0
+ort_int8,grade_group,no murmur,152,ece,0.0169192626890995,0.0073869140480874,0.0264335362915602,0.0,tiny_cnn,3,0
+ort_int8,grade_group,grade II-III,17,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+ort_int8,grade_group,grade II-III,17,ece,0.0208649392635985,0.0096696038466096,0.0335656058705133,0.0,tiny_cnn,3,0
+ort_int8,grade_group,grade I (soft),19,sensitivity,-0.1578947368421053,-0.3171052631578947,0.0,0.082,tiny_cnn,3,0
+ort_int8,grade_group,grade I (soft),19,ece,0.0487711370255287,0.0143323616613701,0.0870158279155168,0.0,tiny_cnn,3,0
+ort_int8,age_group,Child,131,sensitivity,-0.1363636363636363,-0.2858630952380952,0.0,0.082,tiny_cnn,3,0
+ort_int8,age_group,Child,131,specificity,-0.0091743119266055,-0.0285782967032967,0.0,0.77,tiny_cnn,3,0
+ort_int8,age_group,Child,131,ece,-0.008287390454289,-0.0412488822162985,0.0254115618661542,0.626,tiny_cnn,3,0
+ort_int8,age_group,Adolescent,16,sensitivity,0.0,0.0,0.0,1.998,tiny_cnn,3,0
+ort_int8,age_group,Adolescent,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+ort_int8,age_group,Adolescent,16,ece,0.0020028448368362,-0.0540273664488213,0.0608667438230629,0.554,tiny_cnn,3,0
+ort_int8,age_group,Neonate+Infant,25,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+ort_int8,age_group,Neonate+Infant,25,specificity,0.0588235294117647,0.0,0.1875,0.728,tiny_cnn,3,0
+ort_int8,age_group,Neonate+Infant,25,ece,-0.017869601595389,-0.0757909206011302,0.054553892268805,0.876,tiny_cnn,3,0
+ort_int8,age_group,Unknown/Pregnant,16,sensitivity,0.0,0.0,0.0,1.31,tiny_cnn,3,0
+ort_int8,age_group,Unknown/Pregnant,16,specificity,0.0,0.0,0.0,2.0,tiny_cnn,3,0
+ort_int8,age_group,Unknown/Pregnant,16,ece,0.0572763498980574,0.0267667124320906,0.0868605063818869,0.0,tiny_cnn,3,0
+ort_int8,sex,Male,95,sensitivity,-0.1052631578947368,-0.2502717391304347,0.0,0.286,tiny_cnn,3,0
+ort_int8,sex,Male,95,specificity,-0.0131578947368421,-0.0410958904109589,0.0,0.672,tiny_cnn,3,0
+ort_int8,sex,Male,95,ece,-0.0006766536763769,-0.0372217102757095,0.0286176801474987,0.88,tiny_cnn,3,0
+ort_int8,sex,Female,93,sensitivity,-0.0588235294117647,-0.2,0.0,0.754,tiny_cnn,3,0
+ort_int8,sex,Female,93,specificity,0.0131578947368421,0.0,0.04,0.718,tiny_cnn,3,0
+ort_int8,sex,Female,93,ece,0.0193545427809386,-0.0262993122237846,0.0664836682583034,0.45,tiny_cnn,3,0
+ort_int8,campaign,CC2015,111,sensitivity,-0.0416666666666667,-0.1363636363636364,0.0,0.704,tiny_cnn,3,0
+ort_int8,campaign,CC2015,111,specificity,-0.0114942528735633,-0.0379746835443037,0.0,0.746,tiny_cnn,3,0
+ort_int8,campaign,CC2015,111,ece,-0.0092542263628764,-0.0323959331436095,0.0329194358016349,0.824,tiny_cnn,3,0
+ort_int8,campaign,CC2014,77,sensitivity,-0.1666666666666667,-0.4166666666666666,0.0,0.258,tiny_cnn,3,0
+ort_int8,campaign,CC2014,77,specificity,0.0153846153846153,0.0,0.049200819672131,0.708,tiny_cnn,3,0
+ort_int8,campaign,CC2014,77,ece,-0.0014510377761223,-0.0527974767450257,0.0437195869822851,0.96,tiny_cnn,3,0
+ort_int8,most_audible,PV,10,sensitivity,-0.0999999999999999,-0.3,0.0,0.702,tiny_cnn,3,0
+ort_int8,most_audible,PV,10,ece,0.0288107445329233,0.0069201097533284,0.0528473552726895,0.012,tiny_cnn,3,0
+ort_int8,most_audible,MV,10,sensitivity,-0.1999999999999999,-0.5,0.0,0.214,tiny_cnn,3,0
+ort_int8,most_audible,MV,10,ece,0.0642412722257817,0.0353956473816666,0.1020242842033788,0.0,tiny_cnn,3,0
+ort_int8,murmur,Absent,139,specificity,-0.0071942446043166,-0.0217625899280576,0.0,0.712,tiny_cnn,3,0
+ort_int8,murmur,Absent,139,ece,0.018065097864974,0.0088159118635797,0.0275057517320581,0.002,tiny_cnn,3,0
+ort_int8,murmur,Present,36,sensitivity,-0.0833333333333333,-0.1944444444444444,0.0,0.066,tiny_cnn,3,0
+ort_int8,murmur,Present,36,ece,0.0355932103046174,0.0164929185081556,0.0580588894912102,0.0,tiny_cnn,3,0
+ort_int8,murmur,Unknown,13,specificity,0.0769230769230769,0.0,0.2307692307692308,0.656,tiny_cnn,3,0
+ort_int8,murmur,Unknown,13,ece,0.0046676404239785,-0.0195714845641996,0.027868294468784,0.664,tiny_cnn,3,0
+int4_wo_sim,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,grade_group,grade II-III,16,ece,-0.0028838793393113,-0.0079907690599243,0.0017223285481227,0.228,tiny_cnn,4,0
+int4_wo_sim,grade_group,no murmur,152,specificity,0.0131578947368421,-0.0065789473684211,0.0394736842105263,0.392,tiny_cnn,4,0
+int4_wo_sim,grade_group,no murmur,152,ece,-0.012491084110858,-0.0164698886186416,-0.0092492476227296,0.0,tiny_cnn,4,0
+int4_wo_sim,grade_group,grade I (soft),20,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,grade_group,grade I (soft),20,ece,-0.0067986709047893,-0.0145678396236992,0.0018361128285943,0.114,tiny_cnn,4,0
+int4_wo_sim,age_group,Child,141,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,age_group,Child,141,specificity,0.0181818181818181,-0.018018018018018,0.0560747663551401,0.426,tiny_cnn,4,0
+int4_wo_sim,age_group,Child,141,ece,-0.002794950575831,-0.0160548001332987,0.0215136572210746,0.666,tiny_cnn,4,0
+int4_wo_sim,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+int4_wo_sim,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,age_group,Adolescent,10,ece,-0.0146571643943649,-0.0298405408111017,-0.000504008181875,0.042,tiny_cnn,4,0
+int4_wo_sim,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+int4_wo_sim,age_group,Neonate+Infant,23,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,age_group,Neonate+Infant,23,ece,-0.0148217929546898,-0.0263841020860607,-0.0036182112409543,0.004,tiny_cnn,4,0
+int4_wo_sim,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+int4_wo_sim,age_group,Unknown/Pregnant,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,age_group,Unknown/Pregnant,14,ece,-0.0146511676492875,-0.0230612393458301,-0.0064034645496913,0.0,tiny_cnn,4,0
+int4_wo_sim,sex,Female,91,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,sex,Female,91,specificity,0.0135135135135134,-0.028169014084507,0.0617476851851851,0.828,tiny_cnn,4,0
+int4_wo_sim,sex,Female,91,ece,-0.0100607544629713,-0.0329934148501492,0.0166608798442084,0.216,tiny_cnn,4,0
+int4_wo_sim,sex,Male,97,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,sex,Male,97,specificity,0.0128205128205127,0.0,0.0410958904109588,0.65,tiny_cnn,4,0
+int4_wo_sim,sex,Male,97,ece,-0.013482494431686,-0.021230386425308,-0.0080088846835584,0.01,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2015,111,specificity,0.0113636363636363,-0.0224719101123594,0.0549603174603173,0.762,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2015,111,ece,-0.0044306514357368,-0.011527951004204,0.0405801675644773,0.896,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2014,77,specificity,0.015625,0.0,0.0491803278688524,0.746,tiny_cnn,4,0
+int4_wo_sim,campaign,CC2014,77,ece,-0.0160162003368078,-0.0427055791993072,-0.0094815146490731,0.006,tiny_cnn,4,0
+int4_wo_sim,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,most_audible,TV,12,ece,-0.007655145471091,-0.0189390545849943,0.0020723414622914,0.164,tiny_cnn,4,0
+int4_wo_sim,most_audible,PV,18,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,most_audible,PV,18,ece,-0.0036843321005327,-0.009549899418455,0.001320165052004,0.184,tiny_cnn,4,0
+int4_wo_sim,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int4_wo_sim,murmur,Present,36,ece,-0.0050587635423547,-0.010512274062497,-0.0003884828035537,0.036,tiny_cnn,4,0
+int4_wo_sim,murmur,Unknown,14,specificity,0.1428571428571429,0.0,0.3571428571428572,0.248,tiny_cnn,4,0
+int4_wo_sim,murmur,Unknown,14,ece,-0.0002359929624824,-0.0110743222720276,0.0124642179598821,0.944,tiny_cnn,4,0
+int4_wo_sim,murmur,Absent,138,specificity,0.0,-0.0217391304347825,0.0217391304347825,1.314,tiny_cnn,4,0
+int4_wo_sim,murmur,Absent,138,ece,-0.0137343542273599,-0.0171936793269509,-0.0104916781681612,0.0,tiny_cnn,4,0
+int8_dynamic,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,grade_group,grade II-III,16,ece,2.8099956009414173e-06,-6.133298007155469e-05,8.008274914012257e-05,0.964,tiny_cnn,4,0
+int8_dynamic,grade_group,no murmur,152,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,grade_group,no murmur,152,ece,0.0001804121812671,9.738460622286672e-05,0.0002701149731866,0.0,tiny_cnn,4,0
+int8_dynamic,grade_group,grade I (soft),20,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,grade_group,grade I (soft),20,ece,-5.8662675204157466e-05,-0.0001192014258064,1.440377436534572e-06,0.056,tiny_cnn,4,0
+int8_dynamic,age_group,Child,141,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,age_group,Child,141,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,age_group,Child,141,ece,0.0001417585457313,3.577183428954689e-05,0.0002243413349447,0.016,tiny_cnn,4,0
+int8_dynamic,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+int8_dynamic,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,age_group,Adolescent,10,ece,0.0001274329656423,-5.337280246844149e-05,0.0003164133034178,0.186,tiny_cnn,4,0
+int8_dynamic,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+int8_dynamic,age_group,Neonate+Infant,23,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,age_group,Neonate+Infant,23,ece,2.1851533538536083e-05,-0.0001654188909474,0.000208413122403,0.77,tiny_cnn,4,0
+int8_dynamic,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+int8_dynamic,age_group,Unknown/Pregnant,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,age_group,Unknown/Pregnant,14,ece,0.0003979609700983,0.0001240380393688,0.000686972045375,0.0,tiny_cnn,4,0
+int8_dynamic,sex,Female,91,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,sex,Female,91,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,sex,Female,91,ece,0.0001140645390609,-3.7315154522123833e-05,0.0002173842181254,0.162,tiny_cnn,4,0
+int8_dynamic,sex,Male,97,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,sex,Male,97,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,sex,Male,97,ece,0.0001749350550644,8.630165940669982e-05,0.0072894380000232,0.0,tiny_cnn,4,0
+int8_dynamic,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,campaign,CC2015,111,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,campaign,CC2015,111,ece,0.0001148007313795,3.1152577893421575e-05,0.0022009828577619,0.018,tiny_cnn,4,0
+int8_dynamic,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,campaign,CC2014,77,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,campaign,CC2014,77,ece,0.0001762256365422,4.57796144243558e-05,0.000292304680957,0.006,tiny_cnn,4,0
+int8_dynamic,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,most_audible,TV,12,ece,-7.757555372134295e-05,-0.0001557929711009,7.122950600847714e-06,0.086,tiny_cnn,4,0
+int8_dynamic,most_audible,PV,18,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,most_audible,PV,18,ece,-6.140153838846141e-06,-7.320483005704357e-05,7.43121671507002e-05,0.864,tiny_cnn,4,0
+int8_dynamic,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,murmur,Present,36,ece,-3.134148817957039e-05,-8.232497928991403e-05,2.0498790330302605e-05,0.19,tiny_cnn,4,0
+int8_dynamic,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,murmur,Unknown,14,ece,9.357432863255076e-05,-0.0001688649946523,0.0003004405291283,0.428,tiny_cnn,4,0
+int8_dynamic,murmur,Absent,138,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_dynamic,murmur,Absent,138,ece,0.0001892218184909,0.0001025781873069,0.0002770178443938,0.0,tiny_cnn,4,0
+int8_ptq_pc,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,grade_group,grade II-III,16,ece,0.0064390225811509,0.0022077207603856,0.0114102900724574,0.002,tiny_cnn,4,0
+int8_ptq_pc,grade_group,no murmur,152,specificity,-0.0592105263157894,-0.0986842105263158,-0.0263157894736841,0.0,tiny_cnn,4,0
+int8_ptq_pc,grade_group,no murmur,152,ece,0.0185175068025,0.0119512518176519,0.0257514035911831,0.0,tiny_cnn,4,0
+int8_ptq_pc,grade_group,grade I (soft),20,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,grade_group,grade I (soft),20,ece,0.0115118223818468,-0.0040085797583647,0.0259321113482837,0.13,tiny_cnn,4,0
+int8_ptq_pc,age_group,Child,141,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,age_group,Child,141,specificity,-0.0636363636363636,-0.1132075471698113,-0.0255050505050505,0.0,tiny_cnn,4,0
+int8_ptq_pc,age_group,Child,141,ece,0.0194004475172356,0.0028181433096203,0.0419036419256855,0.032,tiny_cnn,4,0
+int8_ptq_pc,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+int8_ptq_pc,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,age_group,Adolescent,10,ece,0.0144543398828025,-0.0089409503376104,0.0343117305086974,0.2,tiny_cnn,4,0
+int8_ptq_pc,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+int8_ptq_pc,age_group,Neonate+Infant,23,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,age_group,Neonate+Infant,23,ece,0.0155554863373674,-0.0002894055690463,0.0296781783277769,0.056,tiny_cnn,4,0
+int8_ptq_pc,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+int8_ptq_pc,age_group,Unknown/Pregnant,14,specificity,-0.1538461538461538,-0.3636363636363635,0.0,0.216,tiny_cnn,4,0
+int8_ptq_pc,age_group,Unknown/Pregnant,14,ece,0.0039647655133585,-0.0938016339486625,0.0815180471237751,0.74,tiny_cnn,4,0
+int8_ptq_pc,sex,Female,91,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,sex,Female,91,specificity,-0.1081081081081081,-0.1805555555555555,-0.0428571428571428,0.0,tiny_cnn,4,0
+int8_ptq_pc,sex,Female,91,ece,0.0324886078944536,0.0099573894312618,0.0533114829906799,0.01,tiny_cnn,4,0
+int8_ptq_pc,sex,Male,97,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,sex,Male,97,specificity,-0.0128205128205128,-0.0405405405405405,0.0,0.724,tiny_cnn,4,0
+int8_ptq_pc,sex,Male,97,ece,-0.001006243178015,-0.0226915182666162,0.0167145282324689,0.826,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2015,111,specificity,-0.0227272727272727,-0.0588410364145658,0.0,0.27,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2015,111,ece,0.0056293311828043,-0.0071421198565202,0.0298290820523447,0.29,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2014,77,specificity,-0.109375,-0.196727521112767,-0.0327868852459016,0.0,tiny_cnn,4,0
+int8_ptq_pc,campaign,CC2014,77,ece,0.0207355491052143,-0.0044071627018058,0.0520642021650282,0.102,tiny_cnn,4,0
+int8_ptq_pc,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,most_audible,TV,12,ece,0.0049472985134767,-0.0122667299080685,0.0232681547050434,0.584,tiny_cnn,4,0
+int8_ptq_pc,most_audible,PV,18,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,most_audible,PV,18,ece,0.0074878022464889,-0.0012149829844196,0.0158760793626425,0.094,tiny_cnn,4,0
+int8_ptq_pc,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pc,murmur,Present,36,ece,0.0092572446926486,0.0004004723304565,0.0179730801639209,0.038,tiny_cnn,4,0
+int8_ptq_pc,murmur,Unknown,14,specificity,-0.0714285714285714,-0.2142857142857143,0.0,0.756,tiny_cnn,4,0
+int8_ptq_pc,murmur,Unknown,14,ece,0.0328102732929044,0.0077826688092586,0.059931985576693,0.004,tiny_cnn,4,0
+int8_ptq_pc,murmur,Absent,138,specificity,-0.0579710144927536,-0.1014492753623188,-0.0217391304347825,0.0,tiny_cnn,4,0
+int8_ptq_pc,murmur,Absent,138,ece,0.0170675159991255,0.0094437016855887,0.0249337692817617,0.0,tiny_cnn,4,0
+int8_ptq_pt,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,grade_group,grade II-III,16,ece,0.0035657199477485,0.0006954539276157,0.0066219136854852,0.016,tiny_cnn,4,0
+int8_ptq_pt,grade_group,no murmur,152,specificity,-0.0921052631578946,-0.138157894736842,-0.0460526315789474,0.0,tiny_cnn,4,0
+int8_ptq_pt,grade_group,no murmur,152,ece,0.0286880615555425,0.0220296015313876,0.0361832206163094,0.0,tiny_cnn,4,0
+int8_ptq_pt,grade_group,grade I (soft),20,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,grade_group,grade I (soft),20,ece,0.0015791713990423,-0.0144833615999568,0.0149634352368479,0.84,tiny_cnn,4,0
+int8_ptq_pt,age_group,Child,141,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,age_group,Child,141,specificity,-0.0909090909090909,-0.1517857142857143,-0.0416666666666666,0.0,tiny_cnn,4,0
+int8_ptq_pt,age_group,Child,141,ece,0.0205094653871369,0.0060460803776927,0.0354719573323456,0.02,tiny_cnn,4,0
+int8_ptq_pt,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+int8_ptq_pt,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,age_group,Adolescent,10,ece,0.0217873513888645,-0.0014294754692054,0.0441083624132211,0.062,tiny_cnn,4,0
+int8_ptq_pt,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+int8_ptq_pt,age_group,Neonate+Infant,23,specificity,-0.0476190476190476,-0.15,0.0,0.694,tiny_cnn,4,0
+int8_ptq_pt,age_group,Neonate+Infant,23,ece,0.0219020619311888,0.0069420902886551,0.0358784259537167,0.004,tiny_cnn,4,0
+int8_ptq_pt,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+int8_ptq_pt,age_group,Unknown/Pregnant,14,specificity,-0.2307692307692307,-0.4615384615384615,0.0,0.066,tiny_cnn,4,0
+int8_ptq_pt,age_group,Unknown/Pregnant,14,ece,0.0640689941699189,0.0329238201868731,0.0991399090500038,0.0,tiny_cnn,4,0
+int8_ptq_pt,sex,Female,91,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,sex,Female,91,specificity,-0.1351351351351352,-0.2191780821917808,-0.0641025641025641,0.0,tiny_cnn,4,0
+int8_ptq_pt,sex,Female,91,ece,0.0309953289000889,0.0043762487842264,0.0518848113919716,0.024,tiny_cnn,4,0
+int8_ptq_pt,sex,Male,97,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,sex,Male,97,specificity,-0.0512820512820513,-0.1066666666666666,0.0,0.062,tiny_cnn,4,0
+int8_ptq_pt,sex,Male,97,ece,0.0122903984776712,-0.0035860787359287,0.0247103789757587,0.088,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2015,111,specificity,-0.0454545454545454,-0.0919540229885056,-0.0108695652173913,0.028,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2015,111,ece,0.0185467542001207,0.0097146688375532,0.0288326431219549,0.008,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2014,77,specificity,-0.15625,-0.2456275303643725,-0.0757504288164666,0.0,tiny_cnn,4,0
+int8_ptq_pt,campaign,CC2014,77,ece,0.024312125084922,0.0026794975116411,0.0617697920714815,0.042,tiny_cnn,4,0
+int8_ptq_pt,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,most_audible,TV,12,ece,-0.0036650477241726,-0.0215355109971391,0.0115761535444861,0.69,tiny_cnn,4,0
+int8_ptq_pt,most_audible,PV,18,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,most_audible,PV,18,ece,0.0017458914639345,-0.0075925020108646,0.0091061099475716,0.62,tiny_cnn,4,0
+int8_ptq_pt,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_ptq_pt,murmur,Present,36,ece,0.0024620818651339,-0.0059959073116925,0.0103456955221154,0.578,tiny_cnn,4,0
+int8_ptq_pt,murmur,Unknown,14,specificity,-0.0714285714285714,-0.2142857142857143,0.0,0.756,tiny_cnn,4,0
+int8_ptq_pt,murmur,Unknown,14,ece,0.0425006501238037,0.0159559971556539,0.0711041641403285,0.0,tiny_cnn,4,0
+int8_ptq_pt,murmur,Absent,138,specificity,-0.0942028985507246,-0.144927536231884,-0.0507246376811594,0.0,tiny_cnn,4,0
+int8_ptq_pt,murmur,Absent,138,ece,0.0272867844544145,0.0196201276532525,0.0353207236942228,0.0,tiny_cnn,4,0
+int8_qat,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,grade_group,grade II-III,16,ece,-0.0201869552832494,-0.0315701336428381,-0.0094696124591026,0.0,tiny_cnn,4,0
+int8_qat,grade_group,no murmur,152,specificity,-0.0197368421052631,-0.0592105263157893,0.013157894736842,0.318,tiny_cnn,4,0
+int8_qat,grade_group,no murmur,152,ece,0.024441948504884,0.01482782689898,0.0336945696586827,0.0,tiny_cnn,4,0
+int8_qat,grade_group,grade I (soft),20,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,grade_group,grade I (soft),20,ece,-0.0220351272055812,-0.0499269326012279,0.0020612251808183,0.076,tiny_cnn,4,0
+int8_qat,age_group,Child,141,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,age_group,Child,141,specificity,-0.0272727272727272,-0.063063063063063,0.0,0.094,tiny_cnn,4,0
+int8_qat,age_group,Child,141,ece,0.0280885638471377,0.0131949220855219,0.053881602740733,0.002,tiny_cnn,4,0
+int8_qat,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+int8_qat,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,age_group,Adolescent,10,ece,0.0229259034707908,-0.0108978956306892,0.0602788423413558,0.204,tiny_cnn,4,0
+int8_qat,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+int8_qat,age_group,Neonate+Infant,23,specificity,-0.0476190476190476,-0.2002631578947369,0.1052631578947368,0.796,tiny_cnn,4,0
+int8_qat,age_group,Neonate+Infant,23,ece,0.0185289928479388,-0.0046884323354171,0.0432116869641274,0.116,tiny_cnn,4,0
+int8_qat,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+int8_qat,age_group,Unknown/Pregnant,14,specificity,0.0769230769230769,0.0,0.2499999999999999,0.718,tiny_cnn,4,0
+int8_qat,age_group,Unknown/Pregnant,14,ece,-0.0144460427420777,-0.0435670583858796,0.0105754735969958,0.28,tiny_cnn,4,0
+int8_qat,sex,Female,91,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,sex,Female,91,specificity,0.0,-0.0379746835443037,0.0399999999999999,1.248,tiny_cnn,4,0
+int8_qat,sex,Female,91,ece,0.0190691031903324,-0.0037909962505726,0.0526658091520973,0.098,tiny_cnn,4,0
+int8_qat,sex,Male,97,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,sex,Male,97,specificity,-0.0384615384615385,-0.0972306910569105,0.0128246753246753,0.224,tiny_cnn,4,0
+int8_qat,sex,Male,97,ece,0.0248287257131921,0.0074044626212711,0.0361567433304758,0.022,tiny_cnn,4,0
+int8_qat,campaign,CC2015,111,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,campaign,CC2015,111,specificity,0.0,-0.0434782608695651,0.0454545454545455,1.226,tiny_cnn,4,0
+int8_qat,campaign,CC2015,111,ece,0.0206686962641517,0.00408006508874,0.0596877340431731,0.016,tiny_cnn,4,0
+int8_qat,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,campaign,CC2014,77,specificity,-0.046875,-0.1052830940988834,0.0,0.074,tiny_cnn,4,0
+int8_qat,campaign,CC2014,77,ece,0.0243189000941862,0.0095551147128779,0.0458254999274136,0.002,tiny_cnn,4,0
+int8_qat,most_audible,TV,12,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,most_audible,TV,12,ece,-0.0204269143410491,-0.0523182344771518,0.0065913814337232,0.166,tiny_cnn,4,0
+int8_qat,most_audible,PV,18,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,most_audible,PV,18,ece,-0.0271810771341868,-0.043453378758095,-0.012823870856417,0.0,tiny_cnn,4,0
+int8_qat,murmur,Present,36,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,murmur,Present,36,ece,-0.0212137174623225,-0.0364966295690951,-0.0069058395589172,0.006,tiny_cnn,4,0
+int8_qat,murmur,Unknown,14,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+int8_qat,murmur,Unknown,14,ece,0.0248286713311126,-0.0036607200411751,0.0531965493235666,0.084,tiny_cnn,4,0
+int8_qat,murmur,Absent,138,specificity,-0.0217391304347825,-0.0652173913043477,0.0144927536231883,0.318,tiny_cnn,4,0
+int8_qat,murmur,Absent,138,ece,0.024402715754397,0.0143122027093137,0.0343679114466099,0.0,tiny_cnn,4,0
+ort_int8,grade_group,grade II-III,16,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+ort_int8,grade_group,grade II-III,16,ece,-0.0005758018519538,-0.0110182770348506,0.0084436944426559,0.956,tiny_cnn,4,0
+ort_int8,grade_group,no murmur,152,specificity,-0.1776315789473684,-0.2368421052631578,-0.1184210526315789,0.0,tiny_cnn,4,0
+ort_int8,grade_group,no murmur,152,ece,0.0807508534095615,0.0678809011022043,0.0938483500325357,0.0,tiny_cnn,4,0
+ort_int8,grade_group,grade I (soft),20,sensitivity,0.1499999999999999,0.0,0.3,0.07,tiny_cnn,4,0
+ort_int8,grade_group,grade I (soft),20,ece,-0.0426968926965798,-0.0995170914333421,8.900501871634609e-05,0.054,tiny_cnn,4,0
+ort_int8,age_group,Child,141,sensitivity,0.0967741935483871,0.0,0.2223118279569891,0.118,tiny_cnn,4,0
+ort_int8,age_group,Child,141,specificity,-0.1545454545454545,-0.2307692307692307,-0.0900699806949806,0.0,tiny_cnn,4,0
+ort_int8,age_group,Child,141,ece,0.0735296673413297,0.0474323873246161,0.0925433046167562,0.0,tiny_cnn,4,0
+ort_int8,age_group,Adolescent,10,sensitivity,0.0,0.0,0.0,1.82,tiny_cnn,4,0
+ort_int8,age_group,Adolescent,10,specificity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+ort_int8,age_group,Adolescent,10,ece,0.0626491439508422,-0.0016015267863762,0.1314934811477272,0.056,tiny_cnn,4,0
+ort_int8,age_group,Neonate+Infant,23,sensitivity,0.0,0.0,0.0,1.762,tiny_cnn,4,0
+ort_int8,age_group,Neonate+Infant,23,specificity,-0.1904761904761904,-0.3636363636363636,-0.0454545454545454,0.03,tiny_cnn,4,0
+ort_int8,age_group,Neonate+Infant,23,ece,0.0624871858291653,0.0394833937240034,0.0867284821725173,0.0,tiny_cnn,4,0
+ort_int8,age_group,Unknown/Pregnant,14,sensitivity,0.0,0.0,0.0,1.282,tiny_cnn,4,0
+ort_int8,age_group,Unknown/Pregnant,14,specificity,-0.4615384615384615,-0.7142857142857143,-0.1666666666666667,0.002,tiny_cnn,4,0
+ort_int8,age_group,Unknown/Pregnant,14,ece,0.0875475507669462,-0.0090451247415962,0.1784590792091634,0.072,tiny_cnn,4,0
+ort_int8,sex,Female,91,sensitivity,0.1176470588235294,0.0,0.3,0.304,tiny_cnn,4,0
+ort_int8,sex,Female,91,specificity,-0.1756756756756757,-0.2666666666666666,-0.0985915492957746,0.0,tiny_cnn,4,0
+ort_int8,sex,Female,91,ece,0.0693302004718228,0.0297964325675988,0.0902867134396052,0.0,tiny_cnn,4,0
+ort_int8,sex,Male,97,sensitivity,0.0526315789473684,0.0,0.1875,0.724,tiny_cnn,4,0
+ort_int8,sex,Male,97,specificity,-0.1794871794871795,-0.2716049382716049,-0.0987268518518518,0.0,tiny_cnn,4,0
+ort_int8,sex,Male,97,ece,0.0570277481052332,0.0311774663662056,0.0828844867951474,0.0,tiny_cnn,4,0
+ort_int8,campaign,CC2015,111,sensitivity,0.1304347826086956,0.0,0.28,0.078,tiny_cnn,4,0
+ort_int8,campaign,CC2015,111,specificity,-0.1136363636363636,-0.1789473684210526,-0.0530812143227816,0.0,tiny_cnn,4,0
+ort_int8,campaign,CC2015,111,ece,0.0582108877836763,0.0412871756770015,0.1005756700241792,0.0,tiny_cnn,4,0
+ort_int8,campaign,CC2014,77,sensitivity,0.0,0.0,0.0,2.0,tiny_cnn,4,0
+ort_int8,campaign,CC2014,77,specificity,-0.265625,-0.3692741935483871,-0.1612903225806451,0.0,tiny_cnn,4,0
+ort_int8,campaign,CC2014,77,ece,0.0874166018409162,0.0465232894724427,0.118816583427777,0.0,tiny_cnn,4,0
+ort_int8,most_audible,TV,12,sensitivity,0.1666666666666666,0.0,0.4166666666666666,0.238,tiny_cnn,4,0
+ort_int8,most_audible,TV,12,ece,-0.0413516809089919,-0.0952618975200158,-0.0026276770202459,0.026,tiny_cnn,4,0
+ort_int8,most_audible,PV,18,sensitivity,0.0555555555555555,0.0,0.1666666666666666,0.768,tiny_cnn,4,0
+ort_int8,most_audible,PV,18,ece,-0.027003747038442,-0.0761042085526943,0.0046273933831343,0.216,tiny_cnn,4,0
+ort_int8,murmur,Present,36,sensitivity,0.0833333333333333,0.0,0.1673611111111105,0.078,tiny_cnn,4,0
+ort_int8,murmur,Present,36,ece,-0.0239764078767459,-0.0576208252599164,0.0008956002901008,0.06,tiny_cnn,4,0
+ort_int8,murmur,Unknown,14,specificity,-0.2142857142857142,-0.4285714285714286,0.0,0.076,tiny_cnn,4,0
+ort_int8,murmur,Unknown,14,ece,0.1074158082150269,0.0716749378155238,0.1445614301864018,0.0,tiny_cnn,4,0
+ort_int8,murmur,Absent,138,specificity,-0.1739130434782608,-0.2391304347826087,-0.1159420289855073,0.0,tiny_cnn,4,0
+ort_int8,murmur,Absent,138,ece,0.0780457130669782,0.0642770598653542,0.092482879566018,0.0,tiny_cnn,4,0

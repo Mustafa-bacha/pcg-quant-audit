@@ -148,15 +148,17 @@ def main() -> None:
     if noise_rows:
         nz = pd.concat(noise_rows)
         nz.to_csv(csvdir / "t6_noise_runs.csv", index=False)
-        piv = nz.pivot_table(index=["model", "cond"], columns="snr_db", values="wa", aggfunc="mean").round(3)
-        dpiv = nz.pivot_table(index=["model", "cond"], columns="snr_db", values="delta_wa", aggfunc="mean").round(3)
+        order = ["clean"] + sorted([c for c in nz["snr_db"].astype(str).unique() if c != "clean"], key=lambda s: -float(s))
+        nz["snr_db"] = nz["snr_db"].astype(str)
+        piv = nz.pivot_table(index=["model", "cond"], columns="snr_db", values="wa", aggfunc="mean").round(3)[order]
+        dpiv = nz.pivot_table(index=["model", "cond"], columns="snr_db", values="delta_wa", aggfunc="mean").round(3)[order]
         md += ["## T6b. SNR sweep: WA per condition (columns = SNR dB or clean)\n", piv.reset_index().to_markdown(index=False), "",
                "### T6b'. SNR sweep: WA minus FP32 at the same SNR (the interaction)\n", dpiv.reset_index().to_markdown(index=False), ""]
     if clip_rows:
         cl = pd.concat(clip_rows)
         cl.to_csv(csvdir / "t6_clipping_runs.csv", index=False)
         md += ["## T6c. H2: activation clipping rate of the in-domain-calibrated INT8 PTQ graph\n",
-               cl.groupby(["model", "input_set"])[["mean_clip_rate", "max_clip_rate", "nodes_over_1pct"]].mean().round(4).reset_index().to_markdown(index=False), ""]
+               cl.groupby(["model", "input_set"])[[c for c in ("mean_clip_rate", "max_clip_rate", "nodes_over_1pct", "mean_range_span_99", "mean_frac_at_zero_level") if c in cl.columns]].mean().round(4).reset_index().to_markdown(index=False), ""]
 
     out.write_text("\n".join(md), encoding="utf-8")
     print(f"wrote {out} and CSVs in {csvdir}/")
