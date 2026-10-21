@@ -86,7 +86,7 @@ treat every statement below as a hypothesis to confirm with the other three mode
 | arm | effect |
 |---|---|
 | **ORT percentile calibration** (99.99th percentile instead of MinMax) | WA **0.781** (vs 0.720 default, FP32 0.783); recording-level agreement 0.99; specificity back to 0.914; ECE 0.130 = FP32. The deployment collapse was entirely a range-calibration artefact. Symmetric activations change nothing further (0.780). |
-| ORT entropy calibration | identical to MinMax on every fold (to verify that the option took effect in ORT 1.31) |
+| ORT entropy calibration | identical scales to MinMax on every tensor and fold. Verified 2026-10-21 by inspecting the QuantizeLinear initializers and re-running `quantize_static` with `CalibrationMethod.Entropy` (128 and 2048 bins): the KL-optimal threshold coincides with the full MinMax range for these sparse, peaky activations, so entropy offers no mitigation here. `Distribution` behaves the same (input scale 0.235 vs 0.229). Only percentile narrows the range (input scale 0.112 vs 0.229 on 128 windows; MinMax grows to 0.463 on 512 windows because rare S1/S2 peaks set the range). |
 | **Temperature scaling** fitted on the validation fold | ECE roughly halves for every condition: FP32 0.131 → 0.066, PTQ 0.130 → 0.073, QAT 0.170 → 0.097, ORT-MinMax 0.223 → 0.178. Decisions unchanged (WA identical). AURC slightly worse (0.068 → 0.080) because the max-probability confidence ordering changes. |
 | QAT (5 epochs) | recovers WA (0.779) and grade-I sensitivity (0.777) and is the most noise-robust condition, but doubles AURC and raises ECE unless followed by temperature scaling |
 
