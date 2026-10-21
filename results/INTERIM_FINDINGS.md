@@ -95,6 +95,18 @@ accuracy and calibration damage, and two cheap fixes (percentile range calibrati
 remove nearly all of it. The residual effects that survive the fixes are the ones worth reporting:
 grade-I sensitivity loss under PTQ/INT4 and the quantization × dataset-shift interaction.
 
+## Edge latency (T7b, batch 1, ONNX Runtime, tiny_cnn fold 0)
+| device | FP32 1 thr | INT8 1 thr | speed-up | FP32 4 thr | INT8 4 thr | size |
+|---|---|---|---|---|---|---|
+| x86 laptop (Core Ultra 7 265U) | 1.45 ms | 0.96 ms | 1.5x | 0.61 ms | 0.49 ms | 107 -> 40 KB |
+| **ARM64 Neoverse-N2** (GitHub Actions `ubuntu-24.04-arm`, real INT8 dot-product kernels) | 0.59 ms | 0.25 ms | **2.4x** | 0.19 ms | 0.13 ms | 107 -> 40 KB |
+
+- The percentile-calibrated INT8 model (the accuracy-preserving one) has the same latency as the MinMax one, so
+  the mitigation is free at inference time. A 5 s window therefore costs ~0.25 ms on an ARM64 core: the
+  model is nowhere near the latency budget; the paper's edge argument rests on size and trustworthiness, not speed.
+- Raspberry Pi / Orange Pi numbers are still to be measured on real boards (`docs/raspberry_pi_setup.md`);
+  the ARM64 server core is a defensible proxy and must be labelled as such.
+
 ## Open items before any of this is a result
 1. Repeat for m5, logmel_cnn and effnet_b0 × 3 seeds on Kaggle (`notebooks/kaggle_p1_train.ipynb`).
 2. Phase 4 (shift) on all folds; fold 0 running now.

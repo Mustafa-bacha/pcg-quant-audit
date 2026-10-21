@@ -38,16 +38,25 @@
 
 ## T7b. Device latency from scripts/pi_benchmark.py (batch 1, ONNX Runtime; onnx = file)
 
-| device   | cpu                                                 | model    | onnx                           |   threads |   median_ms |   p90_ms |   size_kb |
-|:---------|:----------------------------------------------------|:---------|:-------------------------------|----------:|------------:|---------:|----------:|
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_fp32.onnx             |         1 |       1.452 |    1.926 |   107.346 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_fp32.onnx             |         4 |       0.606 |    0.759 |   107.346 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_int8.onnx             |         1 |       1.001 |    1.256 |    39.574 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_int8.onnx             |         4 |       0.472 |    0.709 |    39.574 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_ort_int8_pct.onnx     |         1 |       0.959 |    1.227 |    39.574 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_ort_int8_pct.onnx     |         4 |       0.494 |    0.668 |    39.574 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_ort_int8_pct_sym.onnx |         1 |       1.288 |    1.512 |    42.416 |
-| laptop   | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn | backbone_ort_int8_pct_sym.onnx |         4 |       0.779 |    0.974 |    42.416 |
+| device       | cpu                                                 | model          | onnx                           |   threads |   median_ms |   p90_ms |   size_kb |
+|:-------------|:----------------------------------------------------|:---------------|:-------------------------------|----------:|------------:|---------:|----------:|
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_fp32.onnx             |         1 |       0.595 |    0.605 |   107.346 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_fp32.onnx             |         2 |       0.318 |    0.339 |   107.346 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_fp32.onnx             |         4 |       0.187 |    0.207 |   107.346 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_int8.onnx             |         1 |       0.254 |    0.276 |    39.574 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_int8.onnx             |         2 |       0.173 |    0.19  |    39.574 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_int8.onnx             |         4 |       0.132 |    0.147 |    39.574 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_ort_int8_pct.onnx     |         1 |       0.254 |    0.273 |    39.574 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_ort_int8_pct.onnx     |         2 |       0.174 |    0.191 |    39.574 |
+| github_arm64 |                                                     | tiny_cnn_fold0 | backbone_ort_int8_pct.onnx     |         4 |       0.13  |    0.149 |    39.574 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_fp32.onnx             |         1 |       1.452 |    1.926 |   107.346 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_fp32.onnx             |         4 |       0.606 |    0.759 |   107.346 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_int8.onnx             |         1 |       1.001 |    1.256 |    39.574 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_int8.onnx             |         4 |       0.472 |    0.709 |    39.574 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_ort_int8_pct.onnx     |         1 |       0.959 |    1.227 |    39.574 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_ort_int8_pct.onnx     |         4 |       0.494 |    0.668 |    39.574 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_ort_int8_pct_sym.onnx |         1 |       1.288 |    1.512 |    42.416 |
+| laptop       | Intel64 Family 6 Model 181 Stepping 0, GenuineIntel | tiny_cnn       | backbone_ort_int8_pct_sym.onnx |         4 |       0.779 |    0.974 |    42.416 |
 
 ## T3. Calibration and selective prediction (mean of per-run point estimates; CIs per run in CSV)
 
