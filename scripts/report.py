@@ -86,6 +86,25 @@ def main() -> None:
         md += ["## T7. Size and batch-1 latency (laptop x86 CPU, 4 threads)\n",
                mean_sd(t7, ["model", "cond"], ["size_kb", "latency_b1_ms"]).to_markdown(index=False), ""]
 
+    # T7b: device latency JSONs written by scripts/pi_benchmark.py (laptop_latency.json, pi_latency*.json, arm64_latency*.json)
+    dev_rows = []
+    for rd in run_dirs:
+        for f in list((rd / "quant").glob("*latency*.json")):
+            d = json.loads(f.read_text())
+            tag = f.stem.replace("_latency", "")
+            for r in d.get("results", []):
+                dev_rows.append(meta(rd) | {"device": tag, "cpu": d.get("device", {}).get("cpu_model", d.get("device", {}).get("processor", ""))} | {k: v for k, v in r.items() if k != "model"} | {"onnx": r["model"]})
+    for f in Path(".").glob("arm64_latency_*.json"):
+        d = json.loads(f.read_text())
+        for r in d.get("results", []):
+            dev_rows.append({"model": f.stem.replace("arm64_latency_", ""), "fold": -1, "seed": -1, "device": "github_arm64",
+                             "cpu": d.get("device", {}).get("cpu_model", "")} | {k: v for k, v in r.items() if k != "model"} | {"onnx": r["model"]})
+    if dev_rows:
+        t7b = pd.DataFrame(dev_rows)
+        t7b.to_csv(csvdir / "t7b_device_latency.csv", index=False)
+        md += ["## T7b. Device latency from scripts/pi_benchmark.py (batch 1, ONNX Runtime; onnx = file)\n",
+               t7b.groupby(["device", "cpu", "model", "onnx", "threads"])[["median_ms", "p90_ms", "size_kb"]].mean().round(3).reset_index().to_markdown(index=False), ""]
+
     # T3 + T4 from audit/
     ci_rows, sg_rows, sd_rows = [], [], []
     for rd in run_dirs:
