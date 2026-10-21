@@ -1,0 +1,105 @@
+{
+ "device": {
+  "machine": "aarch64",
+  "platform": "Linux-7.0.0-1017-azure-aarch64-with-glibc2.39",
+  "processor": "aarch64",
+  "cpu_count": 4,
+  "onnxruntime": "1.31.0",
+  "input_shape": [
+   1,
+   20000
+  ]
+ },
+ "results": [
+  {
+   "model": "backbone_fp32.onnx",
+   "threads": 1,
+   "median_ms": 0.5946914999412911,
+   "p90_ms": 0.6048567001471383,
+   "mean_ms": 0.5915047149960628,
+   "min_ms": 0.5735390000154439,
+   "size_kb": 107.345703125,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_fp32.onnx",
+   "threads": 2,
+   "median_ms": 0.3180140000722531,
+   "p90_ms": 0.33860460007417714,
+   "mean_ms": 0.32130360998962715,
+   "min_ms": 0.30580199995711155,
+   "size_kb": 107.345703125,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_fp32.onnx",
+   "threads": 4,
+   "median_ms": 0.18698199994560127,
+   "p90_ms": 0.20723500003896334,
+   "mean_ms": 0.19168203998788158,
+   "min_ms": 0.18176599996877485,
+   "size_kb": 107.345703125,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_int8.onnx",
+   "threads": 1,
+   "median_ms": 0.2544799999668612,
+   "p90_ms": 0.27612250007678085,
+   "mean_ms": 0.258980494993466,
+   "min_ms": 0.246030999960567,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_int8.onnx",
+   "threads": 2,
+   "median_ms": 0.17296900000474125,
+   "p90_ms": 0.1903683998989436,
+   "mean_ms": 0.17653585999823918,
+   "min_ms": 0.16614900005151867,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_int8.onnx",
+   "threads": 4,
+   "median_ms": 0.1316764999046427,
+   "p90_ms": 0.1471458000878556,
+   "mean_ms": 0.15262501500274084,
+   "min_ms": 0.12598000012076227,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_ort_int8_pct.onnx",
+   "threads": 1,
+   "median_ms": 0.2544320000197331,
+   "p90_ms": 0.2730241000335809,
+   "mean_ms": 0.25811709999516097,
+   "min_ms": 0.24639999992359662,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_ort_int8_pct.onnx",
+   "threads": 2,
+   "median_ms": 0.17367800001011346,
+   "p90_ms": 0.19145730013860884,
+   "mean_ms": 0.17657279499530887,
+   "min_ms": 0.1674059999459132,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  },
+  {
+   "model": "backbone_ort_int8_pct.onnx",
+   "threads": 4,
+   "median_ms": 0.13038849999702506,
+   "p90_ms": 0.14872649996959808,
+   "mean_ms": 0.13352787499911756,
+   "min_ms": 0.12668399995163782,
+   "size_kb": 39.57421875,
+   "n_iter": 200
+  }
+ ]
+}
