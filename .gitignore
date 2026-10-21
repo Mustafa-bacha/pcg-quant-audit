@@ -9,3 +9,4 @@ __pycache__/
 *.pdf
 WhatsApp Image*.jpeg
 my-chat-history.md
+.claude/
