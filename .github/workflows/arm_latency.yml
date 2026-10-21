@@ -1,0 +1,34 @@
+name: ARM64 edge latency
+
+# Runs scripts/pi_benchmark.py on GitHub's free Linux ARM64 runner (Cobalt 100 / Neoverse cores).
+# Real ARM64 INT8 kernels, so the numbers are a defensible edge-class proxy until a Raspberry Pi is available.
+# Trigger: every push that touches models/ or the script, or manually from the Actions tab.
+
+on:
+  push:
+    paths: ["models/**", "scripts/pi_benchmark.py", ".github/workflows/arm_latency.yml"]
+  workflow_dispatch:
+
+jobs:
+  latency:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet onnxruntime numpy
+      - run: lscpu | head -20
+      - name: Benchmark every model folder
+        run: |
+          set -e
+          for d in models/*/; do
+            name=$(basename "$d")
+            shape="1 20000"
+            case "$name" in logmel*|effnet*) shape="1 1 64 201";; esac
+            python scripts/pi_benchmark.py --models "$d"/backbone_*.onnx --input-shape $shape --threads 1 2 4 --out "arm64_latency_${name}.json"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arm64-latency
+          path: arm64_latency_*.json

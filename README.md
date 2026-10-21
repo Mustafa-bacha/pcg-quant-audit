@@ -82,3 +82,18 @@ systole/diastole-swapped control), deletion faithfulness vs random deletion (`au
 | P4 Shift | done for tiny_cnn fold 0 (full PhysioNet 2016), folds 1-4 with a 900-recording subsample. H2 clipping not supported; quantization x dataset-shift interaction is large |
 | P5 Mitigation | |
 | P6 Writing | |
+
+## Edge latency without a Raspberry Pi
+
+- **Laptop (route 2):** `scripts/pi_benchmark.py` run on the dev laptop writes `runs/<model>/fold0/seed0/quant/laptop_latency.json`;
+  `scripts/report.py` picks it up as table T7b. Report the 1-thread numbers and the INT8/FP32 ratio, labelled "x86 laptop".
+- **Real ARM64 for free (route 1):** `.github/workflows/arm_latency.yml` benchmarks every folder under `models/` on GitHub's
+  free Linux ARM64 runner and uploads `arm64_latency_<model>.json` as an artifact. Setup once:
+  ```powershell
+  gh auth login                      # browser login to your GitHub account
+  gh repo create pcg-quant-audit --public --source . --remote origin --push
+  gh workflow run arm_latency.yml    # or just push; then: gh run watch
+  gh run download -n arm64-latency   # drops the JSONs into the project root; re-run scripts/report.py
+  ```
+  Public repository is required for the free ARM runner. `models/` holds only the small exported ONNX backbones (no data).
+- **Raspberry Pi (when available):** `docs/raspberry_pi_setup.md`.
