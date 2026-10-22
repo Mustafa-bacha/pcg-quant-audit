@@ -34,3 +34,16 @@ Kind regards,
 
 Mustafa Shah
 tariq@kentech.ac.kr
+
+---
+
+## Update 2026-10-22: data obtained
+
+The first author publishes the dataset on GitHub: https://github.com/WeiJieOvO/ZCHSound-Dataset (created 2026-05-26,
+README edited 2026-10-21, contact weijieovo69@gmail.com). `ZCHSound.zip` (339,554,986 bytes, Git LFS,
+sha256 112432cb10c5ab768cabf217f0a090a20bd0102b093d8b42dbdabc19e39b58b7) was downloaded from the LFS endpoint,
+the checksum verified, and the archive extracted to `data/raw/zchsound/extracted/ZCHSound/`:
+941 clean recordings (NORMAL 533, VSD 187, ASD 119, PFO 70, PDA 32) and 318 noisy neonatal recordings, 8 kHz, 16-bit,
+exactly as in the paper. Loader: `pcg/zchsound.py`; evaluation: `scripts/p4b_zchsound.py`.
+Licence: the README says to follow the paper and the original site; cite Jia et al. 2024. Confirm the terms with the
+authors if they reply; the e-mail above stays valid.

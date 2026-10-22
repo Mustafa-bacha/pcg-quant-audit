@@ -164,6 +164,18 @@ def main() -> None:
         p16.to_csv(csvdir / "t6_physionet2016_runs.csv", index=False)
         md += ["## T6a. Zero-shot PhysioNet 2016 (P(Present) vs abnormal)\n",
                mean_sd(p16, ["model", "cond"], ["auroc", "delta_auroc", "bal_acc_rule", "bal_acc_oracle_youden", "ece", "delta_ece"]).to_markdown(index=False), ""]
+    zch_rows = [pd.read_csv(rd / "shift" / "zchsound.csv").assign(**meta(rd)) for rd in run_dirs if (rd / "shift" / "zchsound.csv").exists()]
+    if zch_rows:
+        zc = pd.concat(zch_rows)
+        zc.to_csv(csvdir / "t6_zchsound_runs.csv", index=False)
+        cols = [c for c in ("auroc", "delta_auroc", "auroc_clean", "auroc_noisy", "auroc_neonate", "auroc_child",
+                            "bal_acc_rule", "bal_acc_oracle_youden", "ece") if c in zc.columns]
+        md += ["## T6d. Zero-shot ZCHSound (pediatric, other stethoscope; P(Present) vs echo-confirmed CHD)\n",
+               mean_sd(zc, ["model", "cond"], cols).to_markdown(index=False), ""]
+        dx = [c for c in zc.columns if c.endswith("_vs_normal")]
+        if dx:
+            md += ["### T6d'. ZCHSound AUROC per diagnosis vs normal (mean over runs)\n",
+                   zc.groupby(["model", "cond"])[dx].mean().round(3).reset_index().to_markdown(index=False), ""]
     if noise_rows:
         nz = pd.concat(noise_rows)
         nz.to_csv(csvdir / "t6_noise_runs.csv", index=False)
