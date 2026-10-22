@@ -117,15 +117,13 @@ def fold_bn(backbone: nn.Module) -> nn.Module:
 # --------------------------------------------------------------------------- PT2E static PTQ / QAT
 
 def _quantizer(per_channel: bool, is_qat: bool = False):
-    from torchao.quantization.pt2e.quantizer.x86_inductor_quantizer import (
-        X86InductorQuantizer, get_default_x86_inductor_quantization_config)
+    from .pt2e_compat import X86InductorQuantizer, get_default_x86_inductor_quantization_config
     q = X86InductorQuantizer()
     q.set_global(get_default_x86_inductor_quantization_config(is_qat=is_qat, is_dynamic=False))
     if not per_channel:
         # the default x86 config is per-channel for weights; build a per-tensor-symmetric variant
-        from torchao.quantization.pt2e import FusedMovingAvgObsFakeQuantize, MinMaxObserver, MovingAverageMinMaxObserver
-        from torchao.quantization.pt2e.quantizer import QuantizationSpec
-        from torchao.quantization.pt2e.quantizer.x86_inductor_quantizer import QuantizationConfig
+        from .pt2e_compat import (FusedMovingAvgObsFakeQuantize, MinMaxObserver, MovingAverageMinMaxObserver,
+                                  QuantizationConfig, QuantizationSpec)
         cfg = get_default_x86_inductor_quantization_config(is_qat=is_qat, is_dynamic=False)
         if is_qat:
             ctr = FusedMovingAvgObsFakeQuantize.with_args(observer=MovingAverageMinMaxObserver, eps=2**-12)
@@ -151,13 +149,13 @@ def export_backbone(backbone: nn.Module, example: torch.Tensor) -> torch.fx.Grap
 def ptq_static(backbone: nn.Module, calib: list[torch.Tensor], per_channel: bool = True
                ) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
     """Returns (prepared_fake_quant, converted_int8). Both take backbone inputs."""
-    from torchao.quantization.pt2e.quantize_pt2e import convert_pt2e, prepare_pt2e
+    from .pt2e_compat import convert_pt2e, prepare_pt2e
     ex = export_backbone(backbone, calib[0])
     prepared = prepare_pt2e(ex, _quantizer(per_channel))
     with torch.no_grad():
         for b in calib:
             prepared(b)
-    from torchao.quantization.pt2e import move_exported_model_to_eval
+    from .pt2e_compat import move_exported_model_to_eval
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)  # frozen observers, fake-quant forward with autograd
     converted = convert_pt2e(prepared)
@@ -166,19 +164,19 @@ def ptq_static(backbone: nn.Module, calib: list[torch.Tensor], per_channel: bool
 
 def prepare_qat(backbone: nn.Module, example: torch.Tensor, per_channel: bool = True) -> torch.fx.GraphModule:
     """Trainable fake-quant graph. Train it with the normal loop (it has parameters + autograd)."""
-    from torchao.quantization.pt2e.quantize_pt2e import prepare_qat_pt2e
+    from .pt2e_compat import prepare_qat_pt2e
     # BN is folded first (see fold_bn); QAT then fine-tunes a BN-free graph from the trained weights.
     backbone = fold_bn(backbone).train()
     ex = _export(backbone, example)
-    from torchao.quantization.pt2e import move_exported_model_to_train
+    from .pt2e_compat import move_exported_model_to_train
     prepared = prepare_qat_pt2e(ex, _quantizer(per_channel, is_qat=True))
     move_exported_model_to_train(prepared)
     return prepared
 
 
 def convert_qat(prepared: torch.fx.GraphModule) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
-    from torchao.quantization.pt2e import move_exported_model_to_eval
-    from torchao.quantization.pt2e.quantize_pt2e import convert_pt2e
+    from .pt2e_compat import move_exported_model_to_eval
+    from .pt2e_compat import convert_pt2e
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)
     return reference, convert_pt2e(prepared)
@@ -225,8 +223,8 @@ def rebuild_from_state(backbone: nn.Module, example: torch.Tensor, state_path: P
                        per_channel: bool = True) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
     """Recreate (reference_fake_quant, converted_int8) from a saved prepared-graph state_dict.
     PT2E graphs cannot be pickled, but prepare + load_state_dict reproduces them exactly (verified)."""
-    from torchao.quantization.pt2e import move_exported_model_to_eval
-    from torchao.quantization.pt2e.quantize_pt2e import convert_pt2e, prepare_pt2e
+    from .pt2e_compat import move_exported_model_to_eval
+    from .pt2e_compat import convert_pt2e, prepare_pt2e
     if is_qat:
         prepared = prepare_qat(backbone, example, per_channel)
     else:
