@@ -59,7 +59,13 @@ _PATIENT_FIELDS = {
 
 def find_training_dir(raw_dir: Path = RAW_DIR) -> Path:
     """Locate the extracted `training_data` folder under data/raw."""
-    candidates = list(raw_dir.rglob("training_data"))
+    # Walk with symlinks followed: Path.rglob does not descend into symlinked dirs (Python 3.13),
+    # and on Kaggle the dataset is attached as a symlink into /kaggle/input.
+    import os
+    candidates = []
+    for root, dirs, _files in os.walk(raw_dir, followlinks=True):
+        if "training_data" in dirs:
+            candidates.append(Path(root) / "training_data")
     candidates = [c for c in candidates if c.is_dir() and any(c.glob("*.txt"))]
     if not candidates:
         raise FileNotFoundError(
