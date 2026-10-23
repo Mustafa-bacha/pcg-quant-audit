@@ -12,6 +12,16 @@ pcg/                 project package
   scoring.py         official CinC 2022 scorer, wrapped (unmodified code in third_party/)
 scripts/
   p0_verify_data.py  Phase 0: extract, verify counts, build folds, test scorer
+  p1_train.py        Phase 1: FP32 training (patient-level folds x seeds)
+  p2_quantize.py     Phase 2: compression sweep (torchao PTQ/QAT, INT4 sim, dynamic, ONNX Runtime INT8 + calibration arms)
+  p3_audit.py        Phase 3: calibration, subgroup CIs, temperature-scaling arms, explanation drift/phase/deletion
+  p4_shift.py        Phase 4: noise sweep, PhysioNet 2016 zero-shot, activation-range (H2) probe
+  p4b_zchsound.py    Phase 4b: ZCHSound zero-shot (local only; the data is not on Kaggle)
+  p5_pooled.py       pooled out-of-fold paired bootstrap (grade-I power), results/t8_*.csv
+  report.py          tables T1-T8 -> results/RESULTS.md + results/t*.csv
+  figures.py         paper figures -> results/figures/
+  collect_onnx.py    copy a run's ONNX graphs into models/ for the ARM64 latency workflow
+  pi_benchmark.py    ONNX Runtime batch-1 latency on any device
 splits/              frozen fold assignments (committed)
 data/raw/            CirCor zip + extracted files (not committed)
 third_party/         physionetchallenges/evaluation-2022 and python-classifier-2022 (BSD-2)
@@ -80,8 +90,8 @@ systole/diastole-swapped control), deletion faithfulness vs random deletion (`au
 | P2 Compression sweep | code done 2026-10-20 (`pcg/quant.py`, `scripts/p2_quantize.py`): INT8 PTQ per-channel/per-tensor (torchao PT2E), INT8 QAT, INT4 weight-only sim, dynamic INT8, ONNX Runtime INT8; verified on random weights and a smoke checkpoint |
 | P3 Trust audit | done for tiny_cnn seed 0 (5 folds). Key numbers in `results/INTERIM_FINDINGS.md` |
 | P4 Shift | done for tiny_cnn fold 0 (full PhysioNet 2016), folds 1-4 with a 900-recording subsample. H2 clipping not supported; quantization x dataset-shift interaction is large |
-| P5 Mitigation | |
-| P6 Writing | |
+| P5 Mitigation | done for tiny_cnn seed 0: ORT percentile calibration restores the MinMax collapse, temperature scaling halves ECE (tables T3/T4 `_ts` and `ort_int8_pct` arms) |
+| P6 Writing | pending: 3 seeds x 4 models (Kaggle + laptop), then `scripts/p5_pooled.py`, `scripts/report.py`, `scripts/figures.py` |
 
 ## Edge latency without a Raspberry Pi
 
