@@ -219,7 +219,7 @@ def paired_bootstrap_delta(fn: Callable, ca: Cols, cb: Cols, n: int = 2000, seed
     d = np.array([fn(cb, idx) - fn(ca, idx) for idx in rs], dtype=float)
     return {"delta": float(fn(cb) - fn(ca)), "ci_lo": float(np.nanpercentile(d, 2.5)),
             "ci_hi": float(np.nanpercentile(d, 97.5)),
-            "p_two_sided": float(2 * min(np.nanmean(d <= 0), np.nanmean(d >= 0)))}
+            "p_two_sided": float(min(1.0, 2 * min(np.nanmean(d <= 0), np.nanmean(d >= 0))))}
 
 
 # --------------------------------------------------------------------------- tables
