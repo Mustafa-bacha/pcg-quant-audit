@@ -321,6 +321,28 @@ class OrtBackbone(nn.Module):
 
 # --------------------------------------------------------------------------- utilities
 
+def module_to_device(m: nn.Module, device: torch.device) -> nn.Module:
+    """Move a backbone to `device`, including the tensor constants of an exported / converted PT2E graph.
+    nn.Module.to() moves parameters and buffers only; torch.export registers lifted constants (e.g. the
+    per-channel scale / zero-point tensors inserted by convert_pt2e) as plain attributes, so they are
+    moved here by walking every get_attr node. OrtBackbone (CPU ONNX Runtime) is returned unchanged."""
+    if isinstance(m, OrtBackbone):
+        return m
+    m = m.to(device)
+    if isinstance(m, torch.fx.GraphModule):
+        for node in m.graph.nodes:
+            if node.op != "get_attr":
+                continue
+            *path, leaf = node.target.split(".")
+            owner = m
+            for p in path:
+                owner = getattr(owner, p)
+            t = getattr(owner, leaf)
+            if isinstance(t, torch.Tensor) and t.device != device and not isinstance(t, nn.Parameter):
+                setattr(owner, leaf, t.to(device))
+    return m
+
+
 @torch.no_grad()
 def agreement(a: Callable, b: Callable, inputs: list[torch.Tensor]) -> dict[str, float]:
     """Max |logit difference| and top-1 agreement between two backbones on the same inputs."""

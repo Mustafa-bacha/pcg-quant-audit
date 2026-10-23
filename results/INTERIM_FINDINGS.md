@@ -1,5 +1,34 @@
 # Interim findings, 2026-10-20 (tiny_cnn only, seed 0, 5 patient-level folds, laptop CPU)
 
+## Update 2026-10-23: tiny_cnn with 3 seeds (15 runs), pooled out-of-fold bootstrap (T8)
+
+Seeds 1 and 2 were run through P2-P4b on the laptop (P4 on the full 3,240-recording PhysioNet set for every fold);
+`scripts/p5_pooled.py` concatenates the 5 test folds of a seed (942 patients, each once) and resamples patients as
+clusters across seeds. Headline changes vs the seed-0 picture below:
+
+- **Compression cost is small and stable** (T2, mean +- sd over 15 runs, WA minus FP32): INT8 PTQ -0.005 +- 0.017,
+  INT8 QAT +0.001 +- 0.021, INT4 weight-only -0.003 +- 0.013, ORT INT8 MinMax -0.044 +- 0.042 (collapse in some
+  folds), ORT INT8 percentile +0.001 +- 0.009. FP32: WA 0.780 +- 0.028, AUROC 0.864 +- 0.023.
+- **H1 does not replicate across seeds.** The seed-0 grade-I sensitivity drop (INT4 -0.048 [-0.096, -0.010],
+  PTQ -0.029 [-0.067, 0.000]) is absent in seeds 1 and 2 (PTQ 0.000, INT4 +0.019 / -0.010). Pooled over the 3 seeds
+  with a patient-cluster bootstrap (T8b): INT4 -0.013 [-0.038, +0.010], INT8 PTQ -0.006 [-0.022, +0.010],
+  QAT +0.026 [-0.006, +0.058]; grade II-III unchanged throughout. The only condition that moves grade-I
+  sensitivity with a CI excluding zero is ORT MinMax (+0.071 [+0.022, +0.119]), and it does so by collapsing toward
+  "Present" (specificity -0.170 [-0.191, -0.151], ECE +0.075). Conclusion for the paper: for this model family,
+  INT8/INT4 do not selectively forget the quiet murmurs; a seed-0-only analysis would have claimed they do.
+  The remaining H1 question is whether the larger models (m5, logmel_cnn, effnet_b0; Kaggle runs) behave the same.
+- **Calibration** (T8, pooled): ECE change INT8 PTQ +0.004 [-0.000, +0.009], QAT +0.016 [+0.012, +0.023],
+  ORT MinMax +0.075 [+0.069, +0.084], ORT percentile -0.004 [-0.007, 0.000]. Temperature scaling on the validation
+  fold still halves ECE for every condition (T3 `_ts` arms).
+- **Shift** (T6a, 15 runs, full PhysioNet 2016): zero-shot AUROC is at chance for FP32 (0.499 +- 0.094), so the
+  adult multi-device transfer is a failure of the FP32 model first; quantization adds INT8 PTQ -0.037 +- 0.032,
+  QAT -0.060 +- 0.032, ORT MinMax -0.127 +- 0.069 on top. The SNR sweep shows no quantization x noise interaction
+  (T6b'). H2 clipping stays refuted (clip rate ~0 on every input set; activations use 23-34% of the INT8 range).
+- **ZCHSound** (T6d, 15 runs): FP32 AUROC 0.728 +- 0.027 (clean 0.789, noisy 0.547); INT8 PTQ +0.013 +- 0.011,
+  QAT +0.015 +- 0.016, INT4 -0.003 +- 0.011, ORT MinMax -0.027 +- 0.029, ORT percentile +0.012 +- 0.007. The
+  pediatric, different-stethoscope transfer works and quantization does not hurt it; the MinMax collapse does.
+- Figures for all of the above are in `results/figures/` (`scripts/figures.py`).
+
 These are first-pass numbers from `scripts/report.py` (tables in `RESULTS.md`). One model, one seed:
 treat every statement below as a hypothesis to confirm with the other three models and two more seeds on Kaggle.
 

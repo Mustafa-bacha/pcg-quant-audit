@@ -16,6 +16,7 @@ Outputs: runs/<model>/fold<k>/seed<s>/shift/{campaign.csv, noise.csv, physionet2
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import sys
 from pathlib import Path
@@ -30,12 +31,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from pcg import PROJECT_ROOT  # noqa: E402
 from pcg import metrics as M  # noqa: E402
 from pcg import physionet2016 as P16  # noqa: E402
+from pcg import quant as Q  # noqa: E402
 from pcg.circor import load_metadata  # noqa: E402
 from pcg.dataset import load_waveforms  # noqa: E402
 from pcg.models import MODELS  # noqa: E402
 from pcg.runs import AssembledEval, load_conditions  # noqa: E402
 from pcg.splits import load_folds  # noqa: E402
-from pcg.train import patient_metrics, predict_recordings  # noqa: E402
+from pcg.train import patient_metrics, pick_device, predict_recordings  # noqa: E402
 
 CONDS = ("fp32", "int8_ptq_pc", "int8_ptq_pt", "int8_qat", "int4_wo_sim", "ort_int8")
 
@@ -54,7 +56,34 @@ def add_noise(waves: dict, snr_db: float, seed: int) -> dict:
     return out
 
 
-def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
+def build_evaluators(fe, conds: dict, dev: torch.device, te, waves, tol: float = 0.02) -> tuple[dict, dict, dict]:
+    """(assembled model, device) per condition. Only the PyTorch conditions (eager and fake-quant QDQ graphs)
+    go to `dev`; ONNX Runtime INT8 always runs on CPU. On an accelerator every condition is first checked
+    against its CPU twin on a few test recordings: the shift metrics are properties of the quantized graphs,
+    not of the hardware that simulates them, so the two must agree to float-rounding level (max |dp| < tol)
+    or the condition falls back to CPU. The measured max |dp| is returned for the provenance record."""
+    asm, devs, check = {}, {}, {}
+    probe = te.head(3)
+    for cond, bb in conds.items():
+        cpu = AssembledEval(fe, bb)
+        if dev.type == "cpu" or isinstance(bb, Q.OrtBackbone):
+            asm[cond], devs[cond] = cpu, torch.device("cpu")
+            continue
+        try:
+            fast = AssembledEval(copy.deepcopy(fe).to(dev), Q.module_to_device(copy.deepcopy(bb), dev))
+            a = predict_recordings(cpu, probe, waves, torch.device("cpu"), batch_windows=128)
+            b = predict_recordings(fast, probe, waves, dev, batch_windows=128)
+            d = float(np.abs(a[["p_present", "p_unknown", "p_absent"]].values - b[["p_present", "p_unknown", "p_absent"]].values).max())
+            if not np.isfinite(d) or d > tol:
+                raise RuntimeError(f"{dev} disagrees with CPU: max |dp| = {d:.4f}")
+            asm[cond], devs[cond], check[cond] = fast, dev, d
+        except Exception as e:  # device move or numerical mismatch -> stay on CPU for this condition
+            print(f"  [device] {cond}: falling back to CPU ({type(e).__name__}: {str(e)[:120]})", flush=True)
+            asm[cond], devs[cond], check[cond] = cpu, torch.device("cpu"), None
+    return asm, devs, check
+
+
+def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args, dev: torch.device) -> dict:
     sdir = run_dir / "shift"
     if (sdir / "summary.json").exists() and not args.force:
         print(f"[skip] {sdir}")
@@ -64,15 +93,17 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
     conds = {k: conds[k] for k in CONDS if k in conds}
     folds = load_folds(Path(cfg["split_file"]))
     te = rdf[rdf["patient_id"].map(folds) == cfg["test_fold"]]
-    dev = torch.device("cpu")
     print(f"[{cfg['model']} fold{cfg['fold']} seed{cfg['seed']}] conditions={list(conds)}")
+    asm, devs, dev_check = build_evaluators(fe, conds, dev, te, waves)
+    if dev.type != "cpu":
+        print("  [device] " + " ".join(f"{c}={devs[c].type}" + (f"(|dp|<{dev_check[c]:.1e})" if dev_check.get(c) is not None else "") for c in conds), flush=True)
 
     # A + B: CirCor test fold, clean and noisy
     rows_c, rows_n, src_thr = [], [], {}
     for snr in [None] + args.snr:
         w = waves if snr is None else add_noise({k: waves[k] for k in te["recording_id"]}, snr, cfg["seed"])
         for cond, bb in conds.items():
-            rec = predict_recordings(AssembledEval(fe, bb), te, w, dev, batch_windows=128)
+            rec = predict_recordings(asm[cond], te, w, devs[cond], batch_windows=128)
             t = M.patient_table(rec, pdf)
             pm = patient_metrics(rec, pdf)
             base = {"cond": cond, "snr_db": snr if snr is not None else "clean", "wa": pm["weighted_accuracy"],
@@ -99,7 +130,7 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
     if p16_df is not None:
         y = p16_df["abnormal"].values
         for cond, bb in conds.items():
-            rec = predict_recordings(AssembledEval(fe, bb), p16_df, p16_waves, dev, batch_windows=128)
+            rec = predict_recordings(asm[cond], p16_df, p16_waves, devs[cond], batch_windows=128)
             p = rec.set_index("recording_id").loc[p16_df["recording_id"], "p_present"].values
             pred_rule = (rec.set_index("recording_id").loc[p16_df["recording_id"], ["p_present", "p_unknown", "p_absent"]]
                          .values.argmax(1) != 2).astype(int)  # Present or Unknown -> refer (positive)
@@ -150,6 +181,7 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args) -> dict:
         pd.DataFrame({t: {k: v for k, v in d.items() if k != "per_node"} for t, d in clip.items()}).T.to_csv(sdir / "clipping.csv")
 
     summ = {"model": cfg["model"], "fold": cfg["fold"], "seed": cfg["seed"],
+            "eval_device": {c: devs[c].type for c in conds}, "device_check_max_abs_dp": dev_check,
             "noise": noise.to_dict(orient="records"), "campaign": camp.to_dict(orient="records"),
             "physionet2016": rows_p, "clipping": clip}
     (sdir / "summary.json").write_text(json.dumps(summ, indent=1, default=float))
@@ -166,8 +198,13 @@ def main() -> None:
     ap.add_argument("--p16-subsets", default="a,b,c,d,e,f", help="PhysioNet 2016 training subsets; '' to skip")
     ap.add_argument("--p16-max", type=int, default=0, help="cap on PhysioNet 2016 recordings (0 = all)")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--device", default="cpu", help="cpu (default) | cuda | auto: accelerator for the PyTorch conditions; "
+                    "ONNX Runtime INT8 and the clipping probe always run on CPU; every accelerated condition is checked "
+                    "against CPU and falls back if they disagree")
     args = ap.parse_args()
     torch.set_num_threads(8)
+    dev = pick_device(args.device)
+    print(f"evaluation device for PyTorch conditions: {dev}")
 
     pdf, rdf = load_metadata()
     waves = load_waveforms(rdf)
@@ -186,7 +223,7 @@ def main() -> None:
                 if not (rd / "quant" / "summary.json").exists():
                     print(f"[missing quant] {rd}")
                     continue
-                run_one(rd, pdf, rdf, waves, p16_df, p16_waves, args)
+                run_one(rd, pdf, rdf, waves, p16_df, p16_waves, args, dev)
 
 
 if __name__ == "__main__":
