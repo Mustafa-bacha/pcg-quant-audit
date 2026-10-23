@@ -10,6 +10,7 @@ Tables
   T5  Explanations: drift vs FP32 and phase relevance per model x condition x method (from audit/)
   T6  Shift (H2): PhysioNet 2016 AUROC, SNR sweep deltas, clipping rates (from shift/)
   T7  Size and latency per condition
+  T8  Pooled out-of-fold paired deltas (results/t8_*.csv from p5_pooled.py)
 """
 
 from __future__ import annotations
@@ -190,6 +191,32 @@ def main() -> None:
         cl.to_csv(csvdir / "t6_clipping_runs.csv", index=False)
         md += ["## T6c. H2: activation clipping rate of the in-domain-calibrated INT8 PTQ graph\n",
                cl.groupby(["model", "input_set"])[[c for c in ("mean_clip_rate", "max_clip_rate", "nodes_over_1pct", "mean_range_span_99", "mean_frac_at_zero_level") if c in cl.columns]].mean().round(4).reset_index().to_markdown(index=False), ""]
+
+    # T8: pooled out-of-fold analysis written by scripts/p5_pooled.py (read from the results dir, not runs/)
+    pc, ps = csvdir / "t8_pooled_conditions.csv", csvdir / "t8_pooled_subgroups.csv"
+    if pc.exists() and ps.exists():
+        pcd, psd = pd.read_csv(pc, dtype={"seed": str}), pd.read_csv(ps, dtype={"seed": str})
+        keep = ["wa", "auroc_present", "sensitivity", "specificity", "ece"]
+        a = pcd[(pcd["cond"] != "fp32") & pcd["metric"].isin(keep)].copy()
+        if (a["seed"] == "all").any():
+            a = a[a["seed"] == "all"]
+        a["delta [95% CI]"] = [f"{d:+.3f} [{lo:+.3f}, {hi:+.3f}]" for d, lo, hi in zip(a["delta_delta"], a["delta_ci_lo"], a["delta_ci_hi"])]
+        piv = a.pivot_table(index=["model", "seed", "cond"], columns="metric", values="delta [95% CI]", aggfunc="first")
+        md += ["## T8. Pooled out-of-fold deltas vs FP32 (5 test folds of a seed concatenated; seed = all: patient-cluster bootstrap over seeds)\n",
+               piv[[c for c in keep if c in piv.columns]].reset_index().to_markdown(index=False), ""]
+        g = psd[(psd["subgroup"] == "grade_group") & (psd["metric"] == "sensitivity")].copy()
+        g["delta [95% CI]"] = [f"{d:+.3f} [{lo:+.3f}, {hi:+.3f}] p={pv:.3f}" for d, lo, hi, pv in zip(g["delta"], g["ci_lo"], g["ci_hi"], g["p_two_sided"])]
+        piv = g.pivot_table(index=["model", "seed", "cond"], columns="level", values="delta [95% CI]", aggfunc="first")
+        md += ["### T8b. H1 pooled: sensitivity delta vs FP32 by murmur grade (paired bootstrap on the pooled set)\n",
+               piv.reset_index().to_markdown(index=False), ""]
+        o = psd[psd["subgroup"].isin(["age_group", "sex", "most_audible"]) & (psd["metric"] == "sensitivity")].copy()
+        if (o["seed"] == "all").any():
+            o = o[o["seed"] == "all"]
+        if not o.empty:
+            o["delta [95% CI]"] = [f"{d:+.3f} [{lo:+.3f}, {hi:+.3f}]" for d, lo, hi in zip(o["delta"], o["ci_lo"], o["ci_hi"])]
+            piv = o.pivot_table(index=["model", "subgroup", "level"], columns="cond", values="delta [95% CI]", aggfunc="first")
+            md += ["### T8c. Pooled sensitivity delta vs FP32 by age, sex and most-audible site\n",
+                   piv.reset_index().to_markdown(index=False), ""]
 
     out.write_text("\n".join(md), encoding="utf-8")
     print(f"wrote {out} and CSVs in {csvdir}/")
