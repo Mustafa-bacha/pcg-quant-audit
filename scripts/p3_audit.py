@@ -65,6 +65,9 @@ class AssembledEval(Q.Assembled):
 def part_a(run_dir: Path, pdf, args) -> None:
     qdir, adir = run_dir / "quant", run_dir / "audit"
     adir.mkdir(exist_ok=True)
+    if (adir / "subgroup_deltas.csv").exists() and not args.force:  # last file part A writes
+        print("  [part A] exists, skip")
+        return
     tables = {}
     for cdir in sorted(qdir.iterdir()):
         f = cdir / "rec_probs_test.csv"
