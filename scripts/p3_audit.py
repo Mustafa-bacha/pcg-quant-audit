@@ -136,13 +136,14 @@ def build_backbones(run_dir: Path, name: str, calib: torch.Tensor):
     model.eval()
     fe, bb = Q.split(model)
     fe.eval()
-    ex = Q.backbone_inputs(fe, [calib[:8]])[0]
+    calib_in = Q.backbone_inputs(fe, [calib[i : i + 64] for i in range(0, len(calib), 64)])
+    ex = calib_in[0][:8]
     qdir = run_dir / "quant"
     grad_bb, int8_bb = {"fp32": X.disable_inplace(Q.fold_bn(bb))}, {}
     for cond, is_qat in (("int8_ptq_pc", False), ("int8_qat", True)):
         sd = qdir / cond / "prepared_sd.pt"
         if sd.exists():
-            _, conv = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=True)
+            _, conv = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=True, calib=calib_in)
             # gradient methods need the STE rewrite of the converted (QDQ) graph: same numbers, STE gradient
             grad_bb[cond], int8_bb[cond] = Q.ste_graph(conv), conv
     grad_bb["int4_wo_sim"] = X.disable_inplace(Q.int4_weight_only_sim(Q.fold_bn(bb)))

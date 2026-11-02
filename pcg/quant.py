@@ -146,12 +146,43 @@ def export_backbone(backbone: nn.Module, example: torch.Tensor) -> torch.fx.Grap
     return _export(fold_bn(backbone), example)
 
 
+def n_quant_modules(g: torch.fx.GraphModule) -> int:
+    """Observer / fake-quant submodules inserted by prepare (0 means prepare silently did nothing)."""
+    return sum(1 for _, m in g.named_modules()
+               if any(t in type(m).__name__ for t in ("Observer", "FakeQuantize")))
+
+
+def n_qdq_nodes(g: torch.fx.GraphModule) -> int:
+    return sum(1 for n in g.graph.nodes if n.op == "call_function" and "quantize_per" in str(n.target))
+
+
+def env_versions() -> dict:
+    from . import pt2e_compat as PC
+    return PC.versions()
+
+
+def _assert_prepared(g: torch.fx.GraphModule, what: str) -> None:
+    # Guards against the silent no-op seen on Kaggle (torch 2.11 + newer torchao): prepare_pt2e
+    # imported fine but annotated nothing, so convert returned the FP32 graph unchanged.
+    n = n_quant_modules(g)
+    assert n > 0, (f"{what}: prepare inserted no observers/fake-quants - quantization would be a "
+                   f"silent no-op ({env_versions()}). Try PCG_PT2E_BACKEND=torch.ao or a torch/"
+                   f"torchao pair that match (scripts/pt2e_selftest.py checks this cheaply).")
+
+
+def _assert_converted(g: torch.fx.GraphModule, what: str) -> None:
+    n = n_qdq_nodes(g)
+    assert n > 0, (f"{what}: converted graph has no quantize/dequantize nodes - the model is NOT "
+                   f"quantized ({env_versions()}).")
+
+
 def ptq_static(backbone: nn.Module, calib: list[torch.Tensor], per_channel: bool = True
                ) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
     """Returns (prepared_fake_quant, converted_int8). Both take backbone inputs."""
     from .pt2e_compat import convert_pt2e, prepare_pt2e
     ex = export_backbone(backbone, calib[0])
     prepared = prepare_pt2e(ex, _quantizer(per_channel))
+    _assert_prepared(prepared, "ptq_static")
     with torch.no_grad():
         for b in calib:
             prepared(b)
@@ -159,6 +190,7 @@ def ptq_static(backbone: nn.Module, calib: list[torch.Tensor], per_channel: bool
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)  # frozen observers, fake-quant forward with autograd
     converted = convert_pt2e(prepared)
+    _assert_converted(converted, "ptq_static")
     return reference, converted
 
 
@@ -170,6 +202,7 @@ def prepare_qat(backbone: nn.Module, example: torch.Tensor, per_channel: bool = 
     ex = _export(backbone, example)
     from .pt2e_compat import move_exported_model_to_train
     prepared = prepare_qat_pt2e(ex, _quantizer(per_channel, is_qat=True))
+    _assert_prepared(prepared, "prepare_qat")
     move_exported_model_to_train(prepared)
     return prepared
 
@@ -179,7 +212,9 @@ def convert_qat(prepared: torch.fx.GraphModule) -> tuple[torch.fx.GraphModule, t
     from .pt2e_compat import convert_pt2e
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)
-    return reference, convert_pt2e(prepared)
+    converted = convert_pt2e(prepared)
+    _assert_converted(converted, "convert_qat")
+    return reference, converted
 
 
 def ste_graph(converted: torch.fx.GraphModule) -> torch.fx.GraphModule:
@@ -220,20 +255,39 @@ def ste_graph(converted: torch.fx.GraphModule) -> torch.fx.GraphModule:
 
 
 def rebuild_from_state(backbone: nn.Module, example: torch.Tensor, state_path: Path, is_qat: bool,
-                       per_channel: bool = True) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
+                       per_channel: bool = True, calib: list[torch.Tensor] | None = None
+                       ) -> tuple[torch.fx.GraphModule, torch.fx.GraphModule]:
     """Recreate (reference_fake_quant, converted_int8) from a saved prepared-graph state_dict.
-    PT2E graphs cannot be pickled, but prepare + load_state_dict reproduces them exactly (verified)."""
+    PT2E graphs cannot be pickled, but prepare + load_state_dict reproduces them exactly (verified).
+
+    If the file lacks the observer state (saved under a torch whose state_dict contract differs),
+    PTQ graphs are recovered by re-running calibration on `calib` - the run's saved calibration
+    windows as backbone-input batches - which is deterministic and reproduces the original scales.
+    QAT scales are trained, not calibrated, so a QAT file without fake-quant state cannot be rebuilt."""
     from .pt2e_compat import move_exported_model_to_eval
     from .pt2e_compat import convert_pt2e, prepare_pt2e
     if is_qat:
         prepared = prepare_qat(backbone, example, per_channel)
     else:
         prepared = prepare_pt2e(export_backbone(backbone, example), _quantizer(per_channel))
+        _assert_prepared(prepared, "rebuild_from_state")
     res = prepared.load_state_dict(torch.load(state_path, map_location="cpu"), strict=False)
-    assert not res.missing_keys and not res.unexpected_keys, (res.missing_keys, res.unexpected_keys)
+    assert not res.unexpected_keys, res.unexpected_keys
+    if res.missing_keys:
+        bad = [k for k in res.missing_keys
+               if not any(t in k.lower() for t in ("activation_post_process", "fake_quant", "observer", "scale", "zero_point"))]
+        assert not bad, f"missing non-observer keys (architecture mismatch?): {bad[:6]}"
+        assert not is_qat, (f"{state_path}: QAT file has no fake-quant state; its trained scales "
+                            f"cannot be recovered - redo p2 int8_qat for this run")
+        assert calib is not None, f"{state_path}: missing observer state and no calib batches to recalibrate with"
+        with torch.no_grad():
+            for b in calib:
+                prepared(b)
     move_exported_model_to_eval(prepared)
     reference = copy.deepcopy(prepared)
-    return reference, convert_pt2e(prepared)
+    converted = convert_pt2e(prepared)
+    _assert_converted(converted, "rebuild_from_state")
+    return reference, converted
 
 
 # --------------------------------------------------------------------------- dynamic INT8 and INT4 simulation

@@ -49,7 +49,10 @@ def load_conditions(run_dir: Path, want: tuple[str, ...] | None = None, ort_thre
     qdir = run_dir / "quant"
     _, fe, bb, cfg = load_fp32(run_dir)
     calib = torch.load(qdir / "calib_windows.pt")
-    ex = Q.backbone_inputs(fe, [calib[:8]])[0]
+    # same batching as p2_quantize ran calibration with, so a recalibrating rebuild (state file
+    # without observer stats, see Q.rebuild_from_state) reproduces the original observer state
+    calib_in = Q.backbone_inputs(fe, [calib[i : i + 64] for i in range(0, len(calib), 64)])
+    ex = calib_in[0][:8]
     conds: dict[str, nn.Module] = {"fp32": Q.fold_bn(bb)}
     refs: dict[str, nn.Module] = {}
     spec = {"int8_ptq_pc": (False, True), "int8_ptq_pt": (False, False), "int8_qat": (True, True)}
@@ -58,7 +61,7 @@ def load_conditions(run_dir: Path, want: tuple[str, ...] | None = None, ort_thre
             continue
         sd = qdir / cond / "prepared_sd.pt"
         if sd.exists():
-            refs[cond], conds[cond] = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=pc)
+            refs[cond], conds[cond] = Q.rebuild_from_state(bb, ex, sd, is_qat=is_qat, per_channel=pc, calib=calib_in)
     if not want or "int4_wo_sim" in want:
         conds["int4_wo_sim"] = Q.int4_weight_only_sim(Q.fold_bn(bb))
     if not want or "int8_dynamic" in want:
