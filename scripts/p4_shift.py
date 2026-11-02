@@ -85,12 +85,21 @@ def build_evaluators(fe, conds: dict, dev: torch.device, te, waves, tol: float =
 
 def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args, dev: torch.device) -> dict:
     sdir = run_dir / "shift"
+    only = set(args.only_cond or [])
+    if only:
+        only.add("fp32")  # always recomputed: the paired reference for every delta
     if (sdir / "summary.json").exists() and not args.force:
-        print(f"[skip] {sdir}")
-        return json.loads((sdir / "summary.json").read_text())
+        old = json.loads((sdir / "summary.json").read_text())
+        if not only:
+            print(f"[skip] {sdir}")
+            return old
+        if "env" in old:  # already redone under a verified PT2E environment (resume across sessions)
+            print(f"[skip] {sdir} already redone under {old['env']}")
+            return old
     sdir.mkdir(exist_ok=True)
-    fe, conds, refs, cfg = load_conditions(run_dir, want=CONDS)
-    conds = {k: conds[k] for k in CONDS if k in conds}
+    want = tuple(c for c in CONDS if c in only) if only else CONDS
+    fe, conds, refs, cfg = load_conditions(run_dir, want=want)
+    conds = {k: conds[k] for k in want if k in conds}
     folds = load_folds(Path(cfg["split_file"]))
     te = rdf[rdf["patient_id"].map(folds) == cfg["test_fold"]]
     print(f"[{cfg['model']} fold{cfg['fold']} seed{cfg['seed']}] conditions={list(conds)}")
@@ -180,10 +189,24 @@ def run_one(run_dir: Path, pdf, rdf, waves, p16_df, p16_waves, args, dev: torch.
                   f"span99={clip[tag]['mean_range_span_99']:.3f} at_zero={clip[tag]['mean_frac_at_zero_level']:.3f}", flush=True)
         pd.DataFrame({t: {k: v for k, v in d.items() if k != "per_node"} for t, d in clip.items()}).T.to_csv(sdir / "clipping.csv")
 
-    summ = {"model": cfg["model"], "fold": cfg["fold"], "seed": cfg["seed"],
+    summ = {"model": cfg["model"], "fold": cfg["fold"], "seed": cfg["seed"], "env": Q.env_versions(),
             "eval_device": {c: devs[c].type for c in conds}, "device_check_max_abs_dp": dev_check,
             "noise": noise.to_dict(orient="records"), "campaign": camp.to_dict(orient="records"),
             "physionet2016": rows_p, "clipping": clip}
+    if only and (sdir / "summary.json").exists():
+        # surgical redo: keep the rows of every condition this invocation did not recompute
+        # (valid because the noise/window draws are seeded per run, so reruns are paired)
+        prev = json.loads((sdir / "summary.json").read_text())
+        for key in ("noise", "campaign", "physionet2016"):
+            summ[key] = [r for r in prev.get(key, []) if r.get("cond") not in conds] + summ[key]
+        if not clip:
+            summ["clipping"] = prev.get("clipping", {})
+        summ["eval_device"] = (prev.get("eval_device") or {}) | summ["eval_device"]
+        summ["device_check_max_abs_dp"] = (prev.get("device_check_max_abs_dp") or {}) | dev_check
+        pd.DataFrame(summ["noise"]).to_csv(sdir / "noise.csv", index=False)
+        pd.DataFrame(summ["campaign"]).to_csv(sdir / "campaign.csv", index=False)
+        if summ["physionet2016"]:
+            pd.DataFrame(summ["physionet2016"]).to_csv(sdir / "physionet2016.csv", index=False)
     (sdir / "summary.json").write_text(json.dumps(summ, indent=1, default=float))
     return summ
 
@@ -198,6 +221,9 @@ def main() -> None:
     ap.add_argument("--p16-subsets", default="a,b,c,d,e,f", help="PhysioNet 2016 training subsets; '' to skip")
     ap.add_argument("--p16-max", type=int, default=0, help="cap on PhysioNet 2016 recordings (0 = all)")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--only-cond", nargs="+", default=None, choices=list(CONDS),
+                    help="recompute only these conditions (fp32 is always added as the paired reference) and "
+                         "merge into the existing shift outputs; the other conditions' rows are kept")
     ap.add_argument("--device", default="cpu", help="cpu (default) | cuda | auto: accelerator for the PyTorch conditions; "
                     "ONNX Runtime INT8 and the clipping probe always run on CPU; every accelerated condition is checked "
                     "against CPU and falls back if they disagree")

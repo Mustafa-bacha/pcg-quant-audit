@@ -90,9 +90,16 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
     cfg = json.loads((run_dir / "config.json").read_text())
     name, fold, seed = cfg["model"], cfg["fold"], cfg["seed"]
     qdir = run_dir / "quant"
+    only = set(args.only_cond or [])
     if (qdir / "summary.json").exists() and not args.force:
-        print(f"[skip] {qdir} done")
-        return json.loads((qdir / "summary.json").read_text())
+        old = json.loads((qdir / "summary.json").read_text())
+        if not only:
+            print(f"[skip] {qdir} done")
+            return old
+        if "env" in old:  # the env stamp marks a summary (re)computed under a verified PT2E environment
+            print(f"[skip] {qdir} already redone under {old['env']}")
+            return old
+    wanted = lambda c: not only or c in only
     qdir.mkdir(exist_ok=True)
     device = torch.device("cpu")  # quantized kernels are CPU kernels; everything here runs on CPU
     torch.manual_seed(seed)
@@ -109,31 +116,45 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
     fe, bb = Q.split(model)
     fe.eval()
 
-    calib = calib_windows(tr, waves, args.n_calib, seed, args.calib_snr if args.calib == "noise" else None)
+    if only and (qdir / "calib_windows.pt").exists():
+        calib = torch.load(qdir / "calib_windows.pt")  # the exact windows every other arm was calibrated with
+    else:
+        calib = calib_windows(tr, waves, args.n_calib, seed, args.calib_snr if args.calib == "noise" else None)
     calib_in = Q.backbone_inputs(fe, [calib[i : i + 64] for i in range(0, len(calib), 64)])
     x1 = calib_in[0][:1]
-    print(f"[{name} fold{fold} seed{seed}] calib={args.calib} n={len(calib)} backbone_in={tuple(calib_in[0].shape)}")
+    print(f"[{name} fold{fold} seed{seed}] calib={args.calib} n={len(calib)} backbone_in={tuple(calib_in[0].shape)}"
+          + (f" only={sorted(only)}" if only else ""))
 
-    conditions: dict[str, nn.Module] = {"fp32": bb}
+    conditions: dict[str, nn.Module] = {}
     refs: dict[str, nn.Module] = {}
+    if wanted("fp32"):
+        conditions["fp32"] = bb
     t0 = time.time()
-    ref, conv = Q.ptq_static(bb, calib_in, per_channel=True)
-    conditions["int8_ptq_pc"], refs["int8_ptq_pc"] = conv, ref
-    ref, conv = Q.ptq_static(bb, calib_in, per_channel=False)
-    conditions["int8_ptq_pt"], refs["int8_ptq_pt"] = conv, ref
-    conditions["int4_wo_sim"] = Q.int4_weight_only_sim(bb)
-    conditions["int8_dynamic"] = Q.dynamic_int8(bb)
-    onnx_fp = Q.export_onnx(bb, calib_in[0][:8], qdir / "backbone_fp32.onnx")
-    onnx_q = Q.ort_quantize_static(onnx_fp, calib_in, qdir / "backbone_int8.onnx")
-    conditions["ort_int8"] = Q.OrtBackbone(onnx_q, threads=args.threads)
-    if args.ort_mitigations:  # P5 arms: better range calibration for the deployment path
-        for tag, cm, sym in (("ort_int8_pct", "percentile", False), ("ort_int8_ent", "entropy", False),
-                             ("ort_int8_pct_sym", "percentile", True)):
-            p = Q.ort_quantize_static(onnx_fp, calib_in, qdir / f"backbone_{tag}.onnx", calibrate_method=cm,
-                                      symmetric_activations=sym)
+    if wanted("int8_ptq_pc"):
+        ref, conv = Q.ptq_static(bb, calib_in, per_channel=True)
+        conditions["int8_ptq_pc"], refs["int8_ptq_pc"] = conv, ref
+    if wanted("int8_ptq_pt"):
+        ref, conv = Q.ptq_static(bb, calib_in, per_channel=False)
+        conditions["int8_ptq_pt"], refs["int8_ptq_pt"] = conv, ref
+    if wanted("int4_wo_sim"):
+        conditions["int4_wo_sim"] = Q.int4_weight_only_sim(bb)
+    if wanted("int8_dynamic"):
+        conditions["int8_dynamic"] = Q.dynamic_int8(bb)
+    ort_tags = [("ort_int8", "minmax", False)]
+    if args.ort_mitigations or (only and only & {"ort_int8_pct", "ort_int8_ent", "ort_int8_pct_sym"}):
+        # P5 arms: better range calibration for the deployment path
+        ort_tags += [("ort_int8_pct", "percentile", False), ("ort_int8_ent", "entropy", False),
+                     ("ort_int8_pct_sym", "percentile", True)]
+    ort_tags = [t for t in ort_tags if wanted(t[0])]
+    onnx_fp = None
+    if ort_tags:
+        onnx_fp = Q.export_onnx(bb, calib_in[0][:8], qdir / "backbone_fp32.onnx")
+        for tag, cm, sym in ort_tags:
+            out = qdir / ("backbone_int8.onnx" if tag == "ort_int8" else f"backbone_{tag}.onnx")
+            p = Q.ort_quantize_static(onnx_fp, calib_in, out, calibrate_method=cm, symmetric_activations=sym)
             conditions[tag] = Q.OrtBackbone(p, threads=args.threads)
     print(f"  ptq/int4/dynamic/ort built in {time.time() - t0:.0f}s", flush=True)
-    if args.qat_epochs > 0:
+    if args.qat_epochs > 0 and wanted("int8_qat"):
         t0 = time.time()
         prepared = Q.prepare_qat(bb, calib_in[0][:8], per_channel=True)
         qat_finetune(prepared, fe, tr, waves, args.qat_epochs, args.qat_lr, seed, device)
@@ -148,8 +169,11 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
     torch.save(calib, qdir / "calib_windows.pt")
 
     summary = {"model": name, "fold": fold, "seed": seed, "calib": args.calib, "n_calib": len(calib),
-               "calib_snr": args.calib_snr if args.calib == "noise" else None, "conditions": {}}
+               "calib_snr": args.calib_snr if args.calib == "noise" else None, "env": Q.env_versions(),
+               "conditions": {}}
     fp32_rec = None
+    if "fp32" not in conditions and (qdir / "fp32" / "rec_probs_test.csv").exists():
+        fp32_rec = pd.read_csv(qdir / "fp32" / "rec_probs_test.csv")  # reference for vs_fp32 agreement
     for cond, backbone in conditions.items():
         cdir = qdir / cond
         cdir.mkdir(exist_ok=True)
@@ -165,7 +189,7 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
         if cond == "fp32":
             fp32_rec = rec
             entry["size_bytes"] = Q.state_dict_bytes(bb)
-        else:
+        elif fp32_rec is not None:
             d = (rec[["p_present", "p_unknown", "p_absent"]].values - fp32_rec[["p_present", "p_unknown", "p_absent"]].values)
             entry["vs_fp32"] = {
                 "rec_top1_agreement": float((rec[["p_present", "p_unknown", "p_absent"]].values.argmax(1)
@@ -183,8 +207,19 @@ def run_one(run_dir: Path, pdf, rdf, waves, args) -> dict:
             entry["latency_b1"] = Q.latency_ms(backbone, x1, n_iter=args.lat_iter, threads=args.threads)
         summary["conditions"][cond] = entry
         print(f"  {cond:12s} WA={pm['weighted_accuracy']:.3f} AUROC={pm['auroc']:.3f} presRec={pm['present_recall']:.2f}"
-              + (f"  agree={entry['vs_fp32']['rec_top1_agreement']:.3f}" if cond != "fp32" else ""), flush=True)
+              + (f"  agree={entry['vs_fp32']['rec_top1_agreement']:.3f}" if "vs_fp32" in entry else ""), flush=True)
+    if only and (qdir / "summary.json").exists():
+        # surgical redo: keep every condition this invocation did not recompute
+        old = json.loads((qdir / "summary.json").read_text())
+        merged = old.get("conditions", {})
+        merged.update(summary["conditions"])
+        summary["conditions"] = merged
     (qdir / "summary.json").write_text(json.dumps(summary, indent=1))
+    # new quantized graphs invalidate the audit; drop p3's skip-gate files so it recomputes this run
+    for gate in ("subgroup_deltas.csv", "explanations.csv"):
+        g = run_dir / "audit" / gate
+        if g.exists():
+            g.unlink()
     return summary
 
 
@@ -202,6 +237,11 @@ def main() -> None:
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--lat-iter", type=int, default=30)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--only-cond", nargs="+", default=None,
+                    choices=["fp32", "int8_ptq_pc", "int8_ptq_pt", "int8_qat", "int4_wo_sim", "int8_dynamic",
+                             "ort_int8", "ort_int8_pct", "ort_int8_ent", "ort_int8_pct_sym"],
+                    help="recompute only these conditions and merge them into the existing quant/summary.json "
+                         "(the others' outputs are kept); implies redoing runs whose summary already exists")
     ap.add_argument("--predict-val", action="store_true", help="also save validation-fold probabilities per condition (for temperature scaling)")
     ap.add_argument("--ort-mitigations", action="store_true", help="add ORT percentile/entropy/symmetric calibration conditions (P5)")
     args = ap.parse_args()
@@ -223,7 +263,13 @@ def main() -> None:
         df = pd.DataFrame(rows)
         print("\n=== Mean over folds/seeds per model x condition")
         print(df.groupby(["model", "cond"])[["weighted_accuracy", "auroc", "present_recall", "cost"]].mean().round(3))
-        df.to_csv(Path(args.runs_dir) / "p2_summary.csv", index=False)
+        out = Path(args.runs_dir) / "p2_summary.csv"
+        if out.exists():  # keep rows of runs this invocation did not touch (other models/folds/seeds)
+            prev = pd.read_csv(out)
+            done = set(zip(df["model"], df["fold"], df["seed"]))
+            prev = prev[[(m, f, s) not in done for m, f, s in zip(prev["model"], prev["fold"], prev["seed"])]]
+            df = pd.concat([prev, df], ignore_index=True)
+        df.to_csv(out, index=False)
 
 
 if __name__ == "__main__":
