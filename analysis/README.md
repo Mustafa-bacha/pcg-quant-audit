@@ -10,6 +10,8 @@ checkpoints under `runs/` (regenerate those with `scripts/p1_train.py`).
 | `weight_quant_error.py` | per-layer SQNR / relative Frobenius error, per-tensor vs per-channel INT8/INT4 | `weight_quant_error.csv` |
 | `granularity_ablation.py` | per-tensor scales in depthwise-only vs everywhere-else; Grade-I sensitivity | `granularity_ablation/` |
 | `operating_point.py` | threshold-free AUROC/AUPRC vs sensitivity@fixed-specificity for the MinMax operating-point shift | `operating_point.csv` |
+| `clinical_metrics.py` | AUPRC per model x condition, PPV at screening prevalence, decision-curve / net-benefit analysis | `auprc_by_condition.csv`, `ppv_screening.csv`, `../results/figures/fig8_dca.*` |
+| `multiplicity.py` | Benjamini-Hochberg FDR across the full subgroup x condition grid of sensitivity contrasts | `multiplicity_bh.csv` |
 
 **Headline numbers (fold0/seed0 for weight stats; pooled for the ablation):**
 

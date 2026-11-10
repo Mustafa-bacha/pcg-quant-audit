@@ -232,8 +232,9 @@ The GPU-heavy stages (p1/p2/p3/p4) also run from `notebooks/kaggle_p1_train.ipyn
 | `results/figures/fig5_shift` | `scripts/figures.py` | T6 |
 | `results/figures/fig6_latency` | `scripts/figures.py` | T7b |
 | `results/figures/fig7_range` | `scripts/figures.py` | T6 (clipping) |
+| `results/figures/fig8_dca` | `analysis/clinical_metrics.py` | `runs/` probabilities |
 | `results/RESULTS.md` (T1–T8) | `scripts/report.py`, `scripts/p5_pooled.py` | `runs/` |
-| mechanism tables | `analysis/*.py` | checkpoints |
+| mechanism + clinical tables | `analysis/*.py` | checkpoints / probabilities |
 
 ## Acknowledgements
 
