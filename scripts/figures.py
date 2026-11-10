@@ -42,7 +42,7 @@ CONDS = {
     "ort_int8": ("ORT INT8 (MinMax)", "#eb6834"),
     "ort_int8_pct": ("ORT INT8 (percentile)", "#e87ba4"),
 }
-MAIN = ["int8_ptq_pc", "int8_qat", "int4_wo_sim", "ort_int8", "ort_int8_pct"]
+MAIN = ["int8_ptq_pc", "int8_ptq_pt", "int8_qat", "int4_wo_sim", "ort_int8", "ort_int8_pct"]
 MODELS = ["tiny_cnn", "m5", "logmel_cnn", "effnet_b0"]
 MODEL_LABEL = {"tiny_cnn": "TinyCNN (27k)", "m5": "M5 (357k)", "logmel_cnn": "LogMel-CNN (308k)", "effnet_b0": "EfficientNet-B0 (4.0M)"}
 
@@ -85,7 +85,12 @@ def fig_compression(res: Path, out: Path) -> None:
     df = df[df["cond"].isin(MAIN)]
     models = models_in(df)
     metrics = [("d_weighted_accuracy", "Weighted accuracy − FP32"), ("d_auroc", "AUROC − FP32")]
-    fig, axes = plt.subplots(len(metrics), len(models), figsize=(2.6 * len(models) + 0.6, 2.2 * len(metrics)), sharey="row", squeeze=False)
+    # Full-text-width layout (7.16 in), consistent with figs 3/5/7: bold model titles on the
+    # top row only, metric as the left-edge y-label, compact condition codes on the x-axis,
+    # one figure-level legend decoding the codes.
+    short = {"int8_ptq_pc": "PC", "int8_ptq_pt": "PT", "int8_qat": "QAT",
+             "int4_wo_sim": "W4", "ort_int8": "ORT", "ort_int8_pct": "PCT"}
+    fig, axes = plt.subplots(len(metrics), len(models), figsize=(7.16, 4.1), sharey="row", squeeze=False)
     rng = np.random.default_rng(0)
     for j, m in enumerate(models):
         d = df[df["model"] == m]
@@ -96,17 +101,21 @@ def fig_compression(res: Path, out: Path) -> None:
                 v = d.loc[d["cond"] == c, met].dropna().values
                 if len(v) == 0:
                     continue
-                ax.scatter(k + rng.uniform(-0.18, 0.18, len(v)), v, s=7, color=color(c), alpha=0.45, lw=0, zorder=2)
-                ax.errorbar(k, v.mean(), yerr=v.std(ddof=1) if len(v) > 1 else 0, fmt="o", color=color(c), ms=4.5,
-                            capsize=2.5, lw=1.2, zorder=3, markeredgecolor="white", markeredgewidth=0.6)
+                ax.scatter(k + rng.uniform(-0.18, 0.18, len(v)), v, s=9, color=color(c), alpha=0.45, lw=0, zorder=2)
+                ax.errorbar(k, v.mean(), yerr=v.std(ddof=1) if len(v) > 1 else 0, fmt="o", color=color(c), ms=5,
+                            capsize=2.8, lw=1.4, zorder=3, markeredgecolor="white", markeredgewidth=0.6)
             ax.set_xticks(range(len(MAIN)))
-            ax.set_xticklabels([label(c).replace(" (", "\n(").replace("weight-only", "w-only") for c in MAIN], rotation=25, ha="right", fontsize=6)
+            ax.set_xticklabels([short.get(c, label(c)) for c in MAIN], fontsize=7.5)
             if i == 0:
-                ax.set_title(f"{MODEL_LABEL.get(m, m)}  (n={int(n_runs.get(m, 0))} runs)")
+                ax.set_title(MODEL_LABEL.get(m, m), fontweight="bold")
             if j == 0:
-                ax.set_ylabel(ttl)
+                ax.set_ylabel(ttl, fontweight="bold")
             ax.grid(axis="x", visible=False)
-    fig.suptitle("Compression cost per condition (dots = runs, bar = mean ± sd over folds × seeds)", fontsize=9)
+    handles = [plt.Line2D([], [], color=color(c), marker="o", lw=0, ms=5, markeredgecolor="white",
+                          label=f"{short[c]} = {label(c)}") for c in MAIN]
+    fig.legend(handles=handles, loc="outside lower center", ncol=3, frameon=False, fontsize=7)
+    fig.suptitle("Compression cost per condition (dots = runs, bar = mean ± sd over folds × seeds)",
+                 fontsize=10, fontweight="bold")
     save(fig, out, "fig1_compression")
 
 
@@ -122,11 +131,14 @@ def fig_grade(res: Path, out: Path) -> None:
     df = df[df["seed"] == "all"] if use_all else df
     models = models_in(df)
     levels = [("grade I (soft)", "Grade I/VI (soft)", "o"), ("grade II-III", "Grade II–III", "s")]
-    fig, axes = plt.subplots(1, len(models), figsize=(2.3 * len(models) + 0.6, 0.42 * len(MAIN) * 2 + 0.9), sharex=True, squeeze=False)
+    # Full-text-width layout (7.16 in), consistent with figs 3/5/7: bold model titles,
+    # row labels once on the left (shared y), one shared x-label.
+    fig, axes = plt.subplots(1, len(models), figsize=(7.16, 0.46 * len(MAIN) * 2 + 1.0),
+                             sharex=True, sharey=True, squeeze=False, gridspec_kw={"wspace": 0.06})
     for j, m in enumerate(models):
         ax = axes[0, j]
         d = df[df["model"] == m]
-        ax.axvline(0, color="#9a9995", lw=0.8)
+        ax.axvline(0, color="#9a9995", lw=0.9)
         yt, yl = [], []
         for k, c in enumerate(MAIN):
             for li, (lev, lname, mk) in enumerate(levels):
@@ -138,20 +150,25 @@ def fig_grade(res: Path, out: Path) -> None:
                     continue
                 if use_all:
                     r = r.iloc[0]
-                    ax.plot([r["ci_lo"], r["ci_hi"]], [y, y], color=color(c), lw=1.6, alpha=0.55 if li else 1.0)
-                    ax.plot(r["delta"], y, marker=mk, color=color(c), ms=5, markeredgecolor="white", markeredgewidth=0.6)
+                    ax.plot([r["ci_lo"], r["ci_hi"]], [y, y], color=color(c), lw=2.4, alpha=0.55 if li else 1.0,
+                            solid_capstyle="round")
+                    ax.plot(r["delta"], y, marker=mk, color=color(c), ms=6.5, markeredgecolor="white", markeredgewidth=0.8)
                 else:  # one row per seed: draw each seed thin, mean as the marker
                     for _, rr in r.iterrows():
-                        ax.plot([rr["ci_lo"], rr["ci_hi"]], [y, y], color=color(c), lw=0.8, alpha=0.4)
-                    ax.plot(r["delta"].mean(), y, marker=mk, color=color(c), ms=5, markeredgecolor="white", markeredgewidth=0.6)
+                        ax.plot([rr["ci_lo"], rr["ci_hi"]], [y, y], color=color(c), lw=1.0, alpha=0.4)
+                    ax.plot(r["delta"].mean(), y, marker=mk, color=color(c), ms=6.5, markeredgecolor="white", markeredgewidth=0.8)
         ax.set_yticks(yt)
-        ax.set_yticklabels(yl, fontsize=6)
-        ax.invert_yaxis()
-        ax.set_title(MODEL_LABEL.get(m, m))
-        ax.set_xlabel("Sensitivity − FP32 (pooled test folds)")
+        if j == 0:
+            ax.set_yticklabels(yl, fontsize=7)
+        else:
+            ax.tick_params(axis="y", length=0)
+        ax.set_title(MODEL_LABEL.get(m, m), fontweight="bold", fontsize=8.5)
         ax.grid(axis="y", visible=False)
+    axes[0, 0].invert_yaxis()  # once: the y axis is shared
+    fig.supxlabel("Sensitivity − FP32 (pooled test folds)", fontsize=8)
     src = "patient-cluster bootstrap over seeds" if use_all else "per-seed pooled bootstrap"
-    fig.suptitle(f"H1: does quantization lose the soft murmurs?  (95% paired-bootstrap CI, {src})", fontsize=9)
+    fig.suptitle(f"H1: does quantization lose the soft murmurs?  (95% paired-bootstrap CI, {src})",
+                 fontsize=10, fontweight="bold")
     save(fig, out, "fig2_grade")
 
 
@@ -176,7 +193,10 @@ def fig_reliability(runs: Path, out: Path) -> None:
     if not run_dirs:
         return print("  [skip] fig3: no audit/reliability_*.json")
     models = models_in(pd.DataFrame({"model": [rd.parts[-4] for rd in run_dirs]}))
-    fig, axes = plt.subplots(2, len(models), figsize=(2.2 * len(models) + 0.6, 4.4), squeeze=False, sharex=True, sharey=True)
+    # Drawn at the IEEE full text width (7.16 in) so fonts print at true size; use figure* in LaTeX.
+    legend_short = {"fp32": "FP32", "int8_ptq_pc": "INT8 PTQ-PC", "int8_qat": "INT8 QAT",
+                    "ort_int8": "ORT MinMax", "ort_int8_pct": "ORT pct"}
+    fig, axes = plt.subplots(2, len(models), figsize=(7.16, 4.3), squeeze=False, sharex=True, sharey=True)
     for j, m in enumerate(models):
         dirs = [rd for rd in run_dirs if rd.parts[-4] == m]
         for i, suffix in enumerate(("", "_ts")):
@@ -190,18 +210,21 @@ def fig_reliability(runs: Path, out: Path) -> None:
                 b = pooled_bins(files)
                 b = b[b["n"] > 0]
                 ece = float(np.sum(b["n"] * np.abs(b["acc"] - b["conf"])) / b["n"].sum())
-                ax.plot(b["conf"], b["acc"], marker="o", color=color(c), label=f"{label(c)}  ECE {ece:.3f}", ms=3.2, lw=1.3,
-                        markeredgecolor="white", markeredgewidth=0.5)
+                ax.plot(b["conf"], b["acc"], marker="o", color=color(c),
+                        label=f"{legend_short.get(c, label(c))} {ece:.3f}", ms=4, lw=1.7,
+                        markeredgecolor="white", markeredgewidth=0.6)
             ax.set_xlim(0, 1); ax.set_ylim(0, 1)
-            ax.set_aspect("equal")
+            ax.set_box_aspect(1.0)
+            ax.set_xticks([0, 0.5, 1]); ax.set_yticks([0, 0.5, 1])
             if i == 0:
-                ax.set_title(MODEL_LABEL.get(m, m))
+                ax.set_title(MODEL_LABEL.get(m, m), fontweight="bold")
             if i == 1:
                 ax.set_xlabel("Mean P(Present) in bin")
             if j == 0:
-                ax.set_ylabel("Observed Present rate" + ("\n(temperature-scaled on val fold)" if suffix else "\n(raw)"))
-            ax.legend(loc="upper left", frameon=False, handlelength=1.2, fontsize=5.5)
-    fig.suptitle("Reliability of P(Present), test patients pooled over folds × seeds", fontsize=9)
+                ax.set_ylabel("Observed Present rate" + ("\n(temp.-scaled on val fold)" if suffix else "\n(raw)"))
+            ax.legend(loc="upper left", frameon=False, handlelength=1.1, fontsize=6.5,
+                      borderaxespad=0.1, labelspacing=0.25, title="ECE", title_fontsize=6.5)
+    fig.suptitle("Reliability of P(Present), test patients pooled over folds × seeds", fontsize=10, fontweight="bold")
     save(fig, out, "fig3_reliability")
 
 
@@ -281,8 +304,12 @@ def fig_shift(res: Path, out: Path) -> None:
     noise = noise[noise["cond"].isin(["fp32"] + MAIN)]
     models = models_in(noise)
     ncol = 2 + (fp.exists() or fz.exists())
-    fig, axes = plt.subplots(len(models), ncol, figsize=(3.2 * ncol + 0.4, 2.6 * len(models)), squeeze=False)
+    # Full-text-width layout (7.16 in): models as rows with bold row labels, column titles
+    # only on the top row, shared y per column for honest comparison, one figure-level legend.
+    fig, axes = plt.subplots(len(models), ncol, figsize=(7.16, 1.9 * len(models) + 0.5),
+                             squeeze=False, sharex="col", sharey="col")
     order = ["clean", "20.0", "10.0", "5.0", "0.0"]
+    col_titles = ["Noise sweep (WA)", "Quantization × noise (ΔWA)", "External sets, zero-shot (AUROC)"]
     for i, m in enumerate(models):
         d = noise[noise["model"] == m].copy()
         d["snr_db"] = d["snr_db"].astype(str)
@@ -294,13 +321,14 @@ def fig_shift(res: Path, out: Path) -> None:
             g = d[d["cond"] == c].groupby("snr_db")["wa"].agg(["mean", "std"]).reindex(xs)
             if g["mean"].isna().all():
                 continue
-            ax.errorbar(range(len(xs)), g["mean"], yerr=g["std"].fillna(0), color=color(c), label=label(c), marker="o", capsize=1.5, lw=1.2, ms=3,
-                        markeredgecolor="white", markeredgewidth=0.5)
-        ax.set_xticks(range(len(xs))); ax.set_xticklabels([x.replace(".0", " dB") if x != "clean" else "clean" for x in xs])
-        ax.set_ylabel("Weighted accuracy"); ax.set_xlabel("Additive white noise SNR")
-        ax.set_title(f"{MODEL_LABEL.get(m, m)}: noise sweep")
+            ax.errorbar(range(len(xs)), g["mean"], yerr=g["std"].fillna(0), color=color(c), label=label(c),
+                        marker="o", capsize=1.8, lw=1.5, ms=3.6, markeredgecolor="white", markeredgewidth=0.5)
+        ax.set_xticks(range(len(xs))); ax.set_xticklabels([x.replace(".0", "") for x in xs])
+        ax.set_ylabel(f"{MODEL_LABEL.get(m, m)}\nWA", fontweight="bold")
         if i == 0:
-            ax.legend(frameon=False, fontsize=5.5, ncol=2, loc="lower left")
+            ax.set_title(col_titles[0], fontweight="bold")
+        if i == len(models) - 1:
+            ax.set_xlabel("Additive white noise SNR (dB)")
         # (b) interaction: WA − FP32 at the same SNR
         ax = axes[i, 1]
         ax.axhline(0, color="#9a9995", lw=0.8)
@@ -308,11 +336,14 @@ def fig_shift(res: Path, out: Path) -> None:
             g = d[d["cond"] == c].groupby("snr_db")["delta_wa"].agg(["mean", "std"]).reindex(xs)
             if g["mean"].isna().all():
                 continue
-            ax.errorbar(range(len(xs)), g["mean"], yerr=g["std"].fillna(0), color=color(c), marker="o", capsize=1.5, lw=1.2, ms=3,
-                        markeredgecolor="white", markeredgewidth=0.5)
-        ax.set_xticks(range(len(xs))); ax.set_xticklabels([x.replace(".0", " dB") if x != "clean" else "clean" for x in xs])
-        ax.set_ylabel("WA − FP32, same SNR"); ax.set_xlabel("Additive white noise SNR")
-        ax.set_title("Quantization × noise interaction")
+            ax.errorbar(range(len(xs)), g["mean"], yerr=g["std"].fillna(0), color=color(c),
+                        marker="o", capsize=1.8, lw=1.5, ms=3.6, markeredgecolor="white", markeredgewidth=0.5)
+        ax.set_xticks(range(len(xs))); ax.set_xticklabels([x.replace(".0", "") for x in xs])
+        if i == 0:
+            ax.set_title(col_titles[1], fontweight="bold")
+        ax.set_ylabel("WA − FP32")
+        if i == len(models) - 1:
+            ax.set_xlabel("Additive white noise SNR (dB)")
         # (c) zero-shot external sets: AUROC per condition
         if ncol == 3:
             ax = axes[i, 2]
@@ -329,14 +360,21 @@ def fig_shift(res: Path, out: Path) -> None:
             for k, c in enumerate(conds):
                 means = [s[1].loc[s[1]["cond"] == c, s[2]].mean() for s in sets]
                 sds = [s[1].loc[s[1]["cond"] == c, s[2]].std(ddof=1) for s in sets]
-                ax.bar(np.arange(len(sets)) + (k - (len(conds) - 1) / 2) * w, means, w * 0.92, yerr=np.nan_to_num(sds), color=color(c), lw=0,
-                       error_kw={"lw": 0.8, "capsize": 1.2}, label=label(c))
+                ax.bar(np.arange(len(sets)) + (k - (len(conds) - 1) / 2) * w, means, w * 0.92,
+                       yerr=np.nan_to_num(sds), color=color(c), lw=0,
+                       error_kw={"lw": 0.8, "capsize": 1.2})
             ax.axhline(0.5, color="#9a9995", lw=0.8, ls="--")
-            ax.set_xticks(range(len(sets))); ax.set_xticklabels([s[0] for s in sets], fontsize=6)
+            ax.set_xticks(range(len(sets)))
+            ax.set_xticklabels([s[0] for s in sets], fontsize=6.5)
             ax.set_ylim(0.3, 1.0)
-            ax.set_ylabel("Zero-shot AUROC")
-            ax.set_title("External sets (no fine-tuning)")
+            ax.set_ylabel("AUROC")
+            if i == 0:
+                ax.set_title(col_titles[2], fontweight="bold")
             ax.grid(axis="x", visible=False)
+    fig.align_ylabels(axes[:, 0])
+    handles = [plt.Line2D([], [], color=color(c), marker="o", lw=1.6, ms=4,
+                          markeredgecolor="white", label=label(c)) for c in ["fp32"] + MAIN]
+    fig.legend(handles=handles, loc="outside lower center", ncol=4, frameon=False, fontsize=7)
     save(fig, out, "fig5_shift")
 
 
@@ -388,23 +426,29 @@ def fig_range(res: Path, out: Path) -> None:
         return print("  [skip] fig7: no range columns")
     models = models_in(d)
     names = {"mean_range_span_99": "99th-pct span / INT8 range", "mean_frac_at_zero_level": "Fraction at the zero level", "mean_clip_rate": "Clipping rate"}
-    fig, axes = plt.subplots(1, len(cols), figsize=(3.2 * len(cols) + 0.4, 2.8), squeeze=False)
+    # Full-text-width layout (7.16 in): one panel per statistic with a bold title,
+    # shared compact x labels, and a single figure-level model legend.
+    fig, axes = plt.subplots(1, len(cols), figsize=(7.16, 2.6), squeeze=False)
     sets = [s for s in ("circor_clean", "circor_snr20", "circor_snr10", "circor_snr5", "circor_snr0", "physionet2016", "zchsound") if s in set(d["input_set"])]
     sets += [s for s in d["input_set"].unique() if s not in sets]
+    tick = {"circor_clean": "clean", "circor_snr20": "SNR 20", "circor_snr10": "SNR 10",
+            "circor_snr5": "SNR 5", "circor_snr0": "SNR 0", "physionet2016": "P16", "zchsound": "ZCH"}
     w = 0.8 / max(len(models), 1)
     mc = dict(zip(MODELS, ["#2a78d6", "#eb6834", "#1baf7a", "#6250d6"]))
     for j, c in enumerate(cols):
         ax = axes[0, j]
         for k, m in enumerate(models):
             g = d[d["model"] == m].groupby("input_set")[c].agg(["mean", "std"]).reindex(sets)
-            ax.bar(np.arange(len(sets)) + (k - (len(models) - 1) / 2) * w, g["mean"], w * 0.92, yerr=g["std"].fillna(0), color=mc.get(m, "#999"), lw=0,
+            ax.bar(np.arange(len(sets)) + (k - (len(models) - 1) / 2) * w, g["mean"], w * 0.92,
+                   yerr=g["std"].fillna(0), color=mc.get(m, "#999"), lw=0,
                    error_kw={"lw": 0.8, "capsize": 1.2}, label=MODEL_LABEL.get(m, m))
-        ax.set_xticks(range(len(sets))); ax.set_xticklabels([s.replace("circor_", "CirCor ").replace("snr", "SNR ") for s in sets], rotation=30, ha="right", fontsize=6)
-        ax.set_ylabel(names[c])
+        ax.set_xticks(range(len(sets)))
+        ax.set_xticklabels([tick.get(s, s) for s in sets], rotation=30, ha="right", fontsize=7)
+        ax.set_title(names[c], fontweight="bold", fontsize=8.5)
         ax.grid(axis="x", visible=False)
-        if j == 0:
-            ax.legend(frameon=False, fontsize=6)
-    fig.suptitle("H2 probe: in-domain-calibrated INT8 PTQ graph on shifted inputs", fontsize=9)
+    handles, labels_ = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels_, loc="outside lower center", ncol=len(models), frameon=False, fontsize=7)
+    fig.suptitle("H2 probe: in-domain-calibrated INT8 PTQ graph on shifted inputs", fontsize=10, fontweight="bold")
     save(fig, out, "fig7_range")
 
 
